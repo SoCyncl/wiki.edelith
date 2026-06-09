@@ -1,1 +1,412 @@
-template
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nathaniel Gainsby — Lustrous Expanse Wiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/wiki.css">
+<style>
+  /* Ability scores grid — character-page specific */
+  .ability-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 6px;
+    margin: 14px 0;
+  }
+  .ability-cell {
+    background: var(--bg-sec);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 4px;
+    text-align: center;
+    transition: background var(--dur-slow) ease;
+  }
+  .ability-cell__label {
+    font-family: var(--font-ui);
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .ability-cell__score {
+    font-family: var(--font-display);
+    font-size: 22px;
+    color: var(--text);
+    display: block;
+    line-height: 1;
+  }
+  .ability-cell__mod {
+    font-family: var(--font-ui);
+    font-size: 11px;
+    color: var(--accent);
+    display: block;
+    margin-top: 3px;
+    font-weight: 600;
+  }
+  /* Relationship list */
+  .relation-list { list-style: none; display: flex; flex-direction: column; gap: 6px; margin: 0 0 18px; }
+  .relation-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    background: var(--bg-sec);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    font-size: var(--text-sm);
+    transition: background var(--dur-slow) ease;
+  }
+  .relation-item__label {
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    color: var(--text-muted);
+    white-space: nowrap;
+    min-width: 70px;
+    padding-top: 1px;
+  }
+  @media (max-width: 560px) {
+    .ability-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div id="page-transition-overlay" style="opacity:1;pointer-events:all;background:var(--bg);position:fixed;inset:0;z-index:9999;transition:opacity 200ms ease;"></div>
+<div id="lightbox"><button id="lightbox-close" aria-label="Close">×</button><img src="" alt=""><div id="lightbox-caption"></div></div>
+
+<!-- ── Header ───────────────────────────────────────────────────── -->
+<header class="wiki-header">
+  <a href="../index.html" class="wiki-header__logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+    Lustrous Expanse
+  </a>
+  <div class="wiki-header__search">
+    <input type="search" id="wiki-search" placeholder="Search the wiki…" autocomplete="off">
+    <span class="wiki-header__search-icon">🔍</span>
+    <div id="search-results"></div>
+  </div>
+  <div class="wiki-header__actions">
+    <button class="mode-toggle" id="mode-toggle" title="Toggle dark mode">🌙</button>
+  </div>
+</header>
+
+<!-- ── Sidebar ──────────────────────────────────────────────────── -->
+<aside class="wiki-sidebar" id="wiki-sidebar">
+  <div class="sidebar-section" data-key="nav-main">
+    <div class="sidebar-section__header"><span class="sidebar-section__title">Navigation</span><span class="sidebar-section__arrow">▼</span></div>
+    <div class="sidebar-section__body">
+      <a href="../index.html" class="sidebar-nav-link">Main Page</a>
+      <a href="#" class="sidebar-nav-link">All Pages</a>
+    </div>
+  </div>
+  <div class="sidebar-section" data-key="nav-characters">
+    <div class="sidebar-section__header"><span class="sidebar-section__title">Characters</span><span class="sidebar-section__arrow">▼</span></div>
+    <div class="sidebar-section__body">
+      <a href="character.html" class="sidebar-nav-link active">Nathaniel Gainsby</a>
+      <a href="character.html" class="sidebar-nav-link">Enoch Solamen</a>
+      <a href="character.html" class="sidebar-nav-link">Luna Icewind</a>
+      <a href="character.html" class="sidebar-nav-link">Kara Miharian</a>
+      <a href="character.html" class="sidebar-nav-link">Pierce Bloodstride</a>
+    </div>
+  </div>
+  <div class="sidebar-section" data-key="nav-sessions">
+    <div class="sidebar-section__header"><span class="sidebar-section__title">Session Summaries</span><span class="sidebar-section__arrow">▼</span></div>
+    <div class="sidebar-section__body">
+      <a href="session.html" class="sidebar-nav-link">Session 1: Let the Hunt Begin</a>
+      <a href="session.html" class="sidebar-nav-link">Session 2: What Do You Bring?</a>
+      <a href="session.html" class="sidebar-nav-link">Session 3: A Cold Brew</a>
+    </div>
+  </div>
+  <div class="sidebar-section" data-key="nav-world">
+    <div class="sidebar-section__header"><span class="sidebar-section__title">World</span><span class="sidebar-section__arrow">▼</span></div>
+    <div class="sidebar-section__body">
+      <a href="location.html" class="sidebar-nav-link">Edelith</a>
+      <a href="location.html" class="sidebar-nav-link">Lustrous Expanse</a>
+      <a href="location.html" class="sidebar-nav-link">Kingdom of Belkinus</a>
+      <a href="faction.html" class="sidebar-nav-link">Factions</a>
+      <a href="lore.html" class="sidebar-nav-link">Lore</a>
+      <a href="item.html" class="sidebar-nav-link">Items</a>
+    </div>
+  </div>
+</aside>
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open navigation">☰</button>
+
+<!-- ── Layout ───────────────────────────────────────────────────── -->
+<div class="wiki-layout">
+
+  <div class="page-banner">
+    <div class="page-banner__text">
+      <div class="page-banner__breadcrumb">
+        <a href="../index.html">Wiki</a><span class="sep">›</span>
+        <a href="#">Characters</a><span class="sep">›</span>
+        Nathaniel Gainsby
+      </div>
+      <h1 class="page-banner__title">Nathaniel Gainsby</h1>
+      <div class="page-banner__meta">
+        <span class="page-banner__tag page-banner__tag--gold">Player Character</span>
+        <span class="page-banner__tag">Human</span>
+        <span class="page-banner__tag">Fighter</span>
+      </div>
+    </div>
+    <div class="page-banner__actions">
+      <a href="#" class="banner-btn banner-btn--ghost">← Previous</a>
+      <a href="#" class="banner-btn banner-btn--ghost">Next →</a>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <main class="page-main">
+      <div class="article-body clearfix">
+
+        <!-- Infobox -->
+        <figure class="infobox">
+          <img class="infobox__image" src="https://placehold.co/560x560/3a0030/f7edda?text=Character+Art" alt="Nathaniel Gainsby">
+          <div class="infobox__title">Nathaniel Gainsby</div>
+          <div class="infobox__subtitle">Fighter · Level [X]</div>
+
+          <div class="infobox__section-header">Identity <span class="arrow">▼</span></div>
+          <div class="infobox__section-body">
+            <table class="infobox-table">
+              <tr><td>Race</td><td>Human</td></tr>
+              <tr><td>Class</td><td>Fighter</td></tr>
+              <tr><td>Subclass</td><td>[Subclass]</td></tr>
+              <tr><td>Alignment</td><td>[Alignment]</td></tr>
+              <tr><td>Age</td><td>[Age]</td></tr>
+              <tr><td>Pronouns</td><td>[Pronouns]</td></tr>
+              <tr><td>Homeland</td><td>[Homeland]</td></tr>
+            </table>
+          </div>
+
+          <div class="infobox__section-header">Status <span class="arrow">▼</span></div>
+          <div class="infobox__section-body">
+            <table class="infobox-table">
+              <tr><td>Status</td><td>Alive</td></tr>
+              <tr><td>HP</td><td>[Current] / [Max]</td></tr>
+              <tr><td>AC</td><td>[Armor Class]</td></tr>
+              <tr><td>Speed</td><td>30 ft.</td></tr>
+              <tr><td>Player</td><td>[Player Name]</td></tr>
+              <tr><td>First seen</td><td>Session 1</td></tr>
+            </table>
+          </div>
+        </figure>
+
+        <p>
+          <strong>Nathaniel Gainsby</strong> is a player character in the Lustrous Expanse campaign.
+          [Write a 2–3 sentence overview of who this character is, where they come from, and what
+          drives them. Replace this placeholder text.]
+        </p>
+
+        <!-- TOC -->
+        <nav class="toc" aria-label="Page contents">
+          <div class="toc-header">
+            <span>Contents</span>
+            <button class="toc-toggle">[hide]</button>
+          </div>
+          <div class="toc-body">
+            <ol class="toc-list">
+              <li><a href="#overview"><span class="toc-num">1</span>Overview</a></li>
+              <li><a href="#stats"><span class="toc-num">2</span>Stats &amp; Abilities</a></li>
+              <li><a href="#personality"><span class="toc-num">3</span>Personality</a></li>
+              <li><a href="#backstory"><span class="toc-num">4</span>Backstory</a></li>
+              <li><a href="#relationships"><span class="toc-num">5</span>Relationships</a></li>
+              <li><a href="#arc"><span class="toc-num">6</span>Character Arc</a></li>
+              <li><a href="#gallery"><span class="toc-num">7</span>Gallery</a></li>
+            </ol>
+          </div>
+        </nav>
+
+        <h2 id="overview">Overview <a href="#" class="edit-section">[edit]</a></h2>
+        <p>
+          [Expanded overview — 1–2 paragraphs describing the character's role in the party,
+          their general personality, and notable traits visible to other characters.]
+        </p>
+
+        <h2 id="stats">Stats &amp; Abilities <a href="#" class="edit-section">[edit]</a></h2>
+        <div class="ability-grid">
+          <div class="ability-cell">
+            <span class="ability-cell__label">STR</span>
+            <span class="ability-cell__score">16</span>
+            <span class="ability-cell__mod">+3</span>
+          </div>
+          <div class="ability-cell">
+            <span class="ability-cell__label">DEX</span>
+            <span class="ability-cell__score">14</span>
+            <span class="ability-cell__mod">+2</span>
+          </div>
+          <div class="ability-cell">
+            <span class="ability-cell__label">CON</span>
+            <span class="ability-cell__score">15</span>
+            <span class="ability-cell__mod">+2</span>
+          </div>
+          <div class="ability-cell">
+            <span class="ability-cell__label">INT</span>
+            <span class="ability-cell__score">10</span>
+            <span class="ability-cell__mod">+0</span>
+          </div>
+          <div class="ability-cell">
+            <span class="ability-cell__label">WIS</span>
+            <span class="ability-cell__score">12</span>
+            <span class="ability-cell__mod">+1</span>
+          </div>
+          <div class="ability-cell">
+            <span class="ability-cell__label">CHA</span>
+            <span class="ability-cell__score">8</span>
+            <span class="ability-cell__mod">−1</span>
+          </div>
+        </div>
+        <p>
+          [Notes on notable feats, fighting style, equipment, and signature abilities.]
+        </p>
+
+        <h2 id="personality">Personality <a href="#" class="edit-section">[edit]</a></h2>
+        <blockquote>"[A memorable quote from or about this character.]"</blockquote>
+        <p>
+          [Personality traits, ideals, bonds, and flaws. What does this character value?
+          What are they afraid of? How do they behave under pressure?]
+        </p>
+
+        <h2 id="backstory">Backstory <a href="#" class="edit-section">[edit]</a></h2>
+        <p>
+          [Where did this character come from? What formative events shaped them before
+          the campaign began? Fill in details as they are revealed in-game.]
+        </p>
+
+        <details class="collapsible-section">
+          <summary class="section-toggle">
+            <span class="toggle-arrow">▶</span>
+            <strong>Spoiler: Full Backstory (player knowledge only)</strong>
+          </summary>
+          <div class="section-body">
+            <p>[Detailed backstory with spoilers — hidden by default until expanded.]</p>
+          </div>
+        </details>
+
+        <h2 id="relationships">Relationships <a href="#" class="edit-section">[edit]</a></h2>
+        <ul class="relation-list">
+          <li class="relation-item">
+            <span class="relation-item__label">Party</span>
+            <span><a href="character.html">Enoch Solamen</a> — [Describe the relationship between these characters.]</span>
+          </li>
+          <li class="relation-item">
+            <span class="relation-item__label">Party</span>
+            <span><a href="character.html">Luna Icewind</a> — [Describe the relationship.]</span>
+          </li>
+          <li class="relation-item">
+            <span class="relation-item__label">NPC</span>
+            <span><a href="character.html">Kara Miharian</a> — [Describe the relationship.]</span>
+          </li>
+        </ul>
+
+        <h2 id="arc">Character Arc <a href="#" class="edit-section">[edit]</a></h2>
+        <p>
+          [Track how this character has grown or changed over the course of the campaign.
+          Update this section after each significant story beat.]
+        </p>
+        <h3>Sessions 1–5</h3>
+        <p>[Summary of arc progress in early sessions.]</p>
+
+        <h2 id="gallery">Gallery <a href="#" class="edit-section">[edit]</a></h2>
+        <div class="gallery-grid">
+          <figure class="gallery-item" data-src="https://placehold.co/600x600/3a0030/f7edda?text=Character+Art+1" data-caption="[Caption for image 1]">
+            <img src="https://placehold.co/300x300/3a0030/f7edda?text=Art+1" alt="Character art 1">
+            <figcaption>[Caption 1]</figcaption>
+          </figure>
+          <figure class="gallery-item" data-src="https://placehold.co/600x600/520044/f7edda?text=Character+Art+2" data-caption="[Caption for image 2]">
+            <img src="https://placehold.co/300x300/520044/f7edda?text=Art+2" alt="Character art 2">
+            <figcaption>[Caption 2]</figcaption>
+          </figure>
+          <figure class="gallery-item" data-src="https://placehold.co/600x600/1c1208/f7edda?text=Character+Art+3" data-caption="[Caption for image 3]">
+            <img src="https://placehold.co/300x300/1c1208/f7edda?text=Art+3" alt="Character art 3">
+            <figcaption>[Caption 3]</figcaption>
+          </figure>
+        </div>
+
+      </div><!-- .article-body -->
+
+      <footer class="page-footer">
+        <div class="categories-bar">
+          <strong>Categories:</strong>
+          <a href="#" class="cat-tag">Characters</a>
+          <a href="#" class="cat-tag">Player Characters</a>
+          <a href="#" class="cat-tag">Human</a>
+          <a href="#" class="cat-tag">Fighter</a>
+        </div>
+      </footer>
+    </main>
+
+    <aside class="right-rail">
+      <div class="rail-module">
+        <h2>Other Characters</h2>
+        <ul class="rail-list">
+          <li><a href="character.html">Enoch Solamen</a><span class="sub-label">Player character</span></li>
+          <li><a href="character.html">Luna Icewind</a><span class="sub-label">Player character</span></li>
+          <li><a href="character.html">Kara Miharian</a><span class="sub-label">NPC</span></li>
+          <li><a href="character.html">Pierce Bloodstride</a><span class="sub-label">NPC</span></li>
+        </ul>
+      </div>
+      <div class="rail-module">
+        <h2>Appearances</h2>
+        <ul class="rail-list">
+          <li><a href="session.html">Session 1: Let the Hunt Begin</a></li>
+          <li><a href="session.html">Session 2: What Do You Bring?</a></li>
+          <li><a href="session.html">Session 3: A Cold Brew</a></li>
+        </ul>
+      </div>
+      <div class="rail-module">
+        <h2>Related</h2>
+        <ul class="rail-list">
+          <li><a href="location.html">Edelith</a></li>
+          <li><a href="faction.html">[Faction Name]</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div>
+      <div class="site-footer__logo">Lustrous Expanse Wiki</div>
+      <p class="site-footer__desc">Player-maintained campaign record. All content belongs to the table.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Browse</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">Main Page</a></li>
+        <li><a href="character.html">Characters</a></li>
+        <li><a href="session.html">Sessions</a></li>
+        <li><a href="location.html">Locations</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">More</div>
+      <ul class="footer-links">
+        <li><a href="faction.html">Factions</a></li>
+        <li><a href="lore.html">Lore</a></li>
+        <li><a href="item.html">Items</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">Lustrous Expanse Wiki — community content, all rights belong to the players at the table.</div>
+</footer>
+
+<script src="../js/wiki.js"></script>
+<script>
+var WIKI_PAGES = [
+  { name: "Nathaniel Gainsby", type: "Character", href: "character.html", excerpt: "Player character fighter." },
+  { name: "Enoch Solamen",     type: "Character", href: "character.html", excerpt: "Player character." },
+  { name: "Luna Icewind",      type: "Character", href: "character.html", excerpt: "Player character." },
+  { name: "Lustrous Expanse",  type: "Place",     href: "../index.html",  excerpt: "Campaign setting." },
+];
+</script>
+</body>
+</html>
