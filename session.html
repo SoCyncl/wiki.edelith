@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Session 1: Let the Hunt Begin — Lustrous Expanse Wiki</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/wiki.css">
+<script src="/scripts/wiki.js" type="text/javascript" defer></script>
+
+
+<style>
+  /* Session timeline */
+  .session-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    background: var(--bg-sec);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 22px;
+    font-family: var(--font-ui);
+    font-size: var(--text-sm);
+    transition: background var(--dur-slow) ease, border-color var(--dur-slow) ease;
+  }
+  .session-nav a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 10px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-weight: 600;
+    transition: border-color var(--dur) ease, color var(--dur) ease;
+  }
+  .session-nav a:hover { border-color: var(--accent); text-decoration: none; }
+  .session-nav .current {
+    font-style: italic;
+    font-family: var(--font-display);
+    color: var(--text-sec);
+    font-size: var(--text-sm);
+  }
+
+  /* Notable moments list */
+  .notable-moments { list-style: none; margin: 0 0 18px; }
+  .notable-moments li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 12px;
+    border-left: 2px solid var(--border);
+    margin-bottom: 6px;
+    transition: border-color var(--dur) ease;
+  }
+  .notable-moments li:hover { border-left-color: var(--gold-accent); }
+  .notable-moments .moment-icon { font-size: 16px; flex-shrink: 0; }
+  .notable-moments .moment-text { font-size: var(--text-sm); }
+  .notable-moments .moment-text strong { color: var(--text); }
+
+  /* XP / loot table */
+  .session-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+    margin-bottom: 18px;
+  }
+  .session-table th {
+    background: var(--bg-ter);
+    font-family: var(--font-ui);
+    font-size: var(--text-xs);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--text-muted);
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    text-align: left;
+    transition: background var(--dur-slow) ease;
+  }
+  .session-table td {
+    padding: 7px 12px;
+    border: 1px solid var(--border);
+    color: var(--text);
+    vertical-align: top;
+  }
+  .session-table tr:nth-child(even) td { background: rgba(0,0,0,.02); }
+  html.dark .session-table tr:nth-child(even) td { background: rgba(255,255,255,.02); }
+</style>
+</head>
+<body>
+
+<div id="page-transition-overlay" style="opacity:1;pointer-events:all;background:var(--bg);position:fixed;inset:0;z-index:9999;transition:opacity 200ms ease;"></div>
+<div id="lightbox"><button id="lightbox-close" aria-label="Close">×</button><img src="" alt=""><div id="lightbox-caption"></div></div>
+
+<header class="wiki-header">
+  <a href="../index.html" class="wiki-header__logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="var(--gold-accent)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="24" height="24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+    Lustrous Expanse
+  </a>
+  <div class="wiki-header__search">
+    <input type="search" id="wiki-search" placeholder="Search the wiki…" autocomplete="off">
+    <span class="wiki-header__search-icon">🔍</span>
+    <div id="search-results"></div>
+  </div>
+  <div class="wiki-header__actions">
+    <button class="mode-toggle" id="mode-toggle" title="Toggle dark mode">🌙</button>
+  </div>
+</header>
+
+<aside class="wiki-sidebar" id="wiki-sidebar">
+  <div class="sidebar-section" data-key="nav-main">
+    <div class="sidebar-section__header"><span class="sidebar-section__title">Navigation</span><span class="sidebar-section__arrow">▼</span></div>
+    <div class="sidebar-section__body">
+      <a href="../index.html" class="sidebar-nav-link">Main Page</a>
+    </div>
+  </div>
+  <div class="sidebar-section" data-key="nav-sessions">
+    <div class="sidebar-section__header"><span class="sidebar-section__title">Session Summaries</span><span class="sidebar-section__arrow">▼</span></div>
+    <div class="sidebar-section__body">
+      <a href="session.html" class="sidebar-nav-link active">Session 1: Let the Hunt Begin</a>
+      <a href="session.html" class="sidebar-nav-link">Session 2: What Do You Bring?</a>
+      <a href="session.html" class="sidebar-nav-link">Session 3: A Cold Brew</a>
+      <a href="session.html" class="sidebar-nav-link">Session 4: Loved Ones</a>
+      <a href="session.html" class="sidebar-nav-link">Session 5: Lost Ones</a>
+    </div>
+  </div>
+  <div class="sidebar-section" data-key="nav-chars">
+    <div class="sidebar-section__header"><span class="sidebar-section__title">Characters</span><span class="sidebar-section__arrow">▼</span></div>
+    <div class="sidebar-section__body">
+      <a href="character.html" class="sidebar-nav-link">Nathaniel Gainsby</a>
+      <a href="character.html" class="sidebar-nav-link">Enoch Solamen</a>
+      <a href="character.html" class="sidebar-nav-link">Luna Icewind</a>
+    </div>
+  </div>
+  <div class="sidebar-section" data-key="nav-world">
+    <div class="sidebar-section__header"><span class="sidebar-section__title">World</span><span class="sidebar-section__arrow">▼</span></div>
+    <div class="sidebar-section__body">
+      <a href="location.html" class="sidebar-nav-link">Locations</a>
+      <a href="faction.html" class="sidebar-nav-link">Factions</a>
+      <a href="lore.html" class="sidebar-nav-link">Lore</a>
+      <a href="item.html" class="sidebar-nav-link">Items</a>
+    </div>
+  </div>
+</aside>
+<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open navigation">☰</button>
+
+<div class="wiki-layout">
+
+  <div class="page-banner">
+    <div class="page-banner__text">
+      <div class="page-banner__breadcrumb">
+        <a href="../index.html">Wiki</a><span class="sep">›</span>
+        <a href="#">Session Summaries</a><span class="sep">›</span>
+        Session 1
+      </div>
+      <h1 class="page-banner__title">Session 1: Let the Hunt Begin</h1>
+      <div class="page-banner__meta">
+        <span class="page-banner__tag page-banner__tag--gold">Session Summary</span>
+        <span class="page-banner__tag">[Date Played]</span>
+      </div>
+    </div>
+    <div class="page-banner__actions">
+      <span class="banner-btn banner-btn--ghost" style="opacity:.4;cursor:not-allowed;">← Session 0</span>
+      <a href="session.html" class="banner-btn banner-btn--primary">Session 2 →</a>
+    </div>
+  </div>
+
+  <div class="content-wrap">
+    <main class="page-main">
+      <div class="article-body">
+
+        <!-- Session navigation bar -->
+        <div class="session-nav">
+          <span style="opacity:.4;font-size:13px;">← No previous session</span>
+          <span class="current">Session 1 of [Total]</span>
+          <a href="session.html">Session 2: What Do You Bring? →</a>
+        </div>
+
+        <!-- Infobox -->
+        <figure class="infobox">
+          <img class="infobox__image" src="https://placehold.co/560x360/1c1208/f7edda?text=Session+Scene" alt="Session 1 scene">
+          <div class="infobox__title">Session 1</div>
+          <div class="infobox__subtitle">Let the Hunt Begin</div>
+          <div class="infobox__section-header">Details <span class="arrow">▼</span></div>
+          <div class="infobox__section-body">
+            <table class="infobox-table">
+              <tr><td>Date Played</td><td>[DD/MM/YYYY]</td></tr>
+              <tr><td>Duration</td><td>[X hours]</td></tr>
+              <tr><td>DM</td><td>[DM Name]</td></tr>
+              <tr><td>Players</td><td>[N] players</td></tr>
+              <tr><td>Location</td><td><a href="location.html">Edelith</a></td></tr>
+              <tr><td>In-world date</td><td>Year [X], [Month]</td></tr>
+              <tr><td>Next session</td><td><a href="session.html">Session 2</a></td></tr>
+            </table>
+          </div>
+        </figure>
+
+        <p>
+          <strong>Session 1: Let the Hunt Begin</strong> was the first session of the campaign.
+          [Write a 2–3 sentence overview of what happened this session and its significance.]
+        </p>
+
+        <nav class="toc" aria-label="Page contents">
+          <div class="toc-header">
+            <span>Contents</span>
+            <button class="toc-toggle">[hide]</button>
+          </div>
+          <div class="toc-body">
+            <ol class="toc-list">
+              <li><a href="#synopsis"><span class="toc-num">1</span>Synopsis</a></li>
+              <li><a href="#notable"><span class="toc-num">2</span>Notable Moments</a></li>
+              <li><a href="#npcs"><span class="toc-num">3</span>NPCs Encountered</a></li>
+              <li><a href="#rewards"><span class="toc-num">4</span>Rewards &amp; Loot</a></li>
+              <li><a href="#threads"><span class="toc-num">5</span>Open Plot Threads</a></li>
+            </ol>
+          </div>
+        </nav>
+
+        <h2 id="synopsis">Synopsis <a href="#" class="edit-section">[edit]</a></h2>
+        <h3>Opening</h3>
+        <p>
+          [Describe how the session opened. Where were the characters? What was the inciting
+          situation that got things moving?]
+        </p>
+        <h3>Middle</h3>
+        <p>
+          [The main meat of the session — encounters, roleplay, discoveries, decisions made.]
+        </p>
+        <h3>Ending</h3>
+        <p>
+          [How the session ended. What cliffhanger or resolution did the players leave on?]
+        </p>
+
+        <h2 id="notable">Notable Moments <a href="#" class="edit-section">[edit]</a></h2>
+        <ul class="notable-moments">
+          <li>
+            <span class="moment-icon">⚔️</span>
+            <span class="moment-text"><strong>[Character Name]</strong> [did something memorable in combat or exploration].</span>
+          </li>
+          <li>
+            <span class="moment-icon">🎭</span>
+            <span class="moment-text"><strong>[Character Name]</strong> [had a notable roleplay moment or revelation].</span>
+          </li>
+          <li>
+            <span class="moment-icon">🎲</span>
+            <span class="moment-text">A critical roll by <strong>[Character Name]</strong> [resulted in something dramatic — success or failure].</span>
+          </li>
+          <li>
+            <span class="moment-icon">📜</span>
+            <span class="moment-text">The party discovered [an important piece of lore or information].</span>
+          </li>
+        </ul>
+
+        <h2 id="npcs">NPCs Encountered <a href="#" class="edit-section">[edit]</a></h2>
+        <ul>
+          <li><a href="character.html">Kara Miharian</a> — [Brief note on this NPC's role in the session.]</li>
+          <li><a href="character.html">Pierce Bloodstride</a> — [Brief note.]</li>
+          <li>[New NPC Name] — [Brief note. Link once a page is created.]</li>
+        </ul>
+
+        <h2 id="rewards">Rewards &amp; Loot <a href="#" class="edit-section">[edit]</a></h2>
+        <table class="session-table">
+          <thead>
+            <tr>
+              <th>Item / Reward</th>
+              <th>Amount</th>
+              <th>Who received it</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Experience Points</td>
+              <td>[XP]</td>
+              <td>All players</td>
+              <td>[Combat / milestone]</td>
+            </tr>
+            <tr>
+              <td>Gold pieces</td>
+              <td>[Amount] gp</td>
+              <td>Party shared</td>
+              <td>[Source]</td>
+            </tr>
+            <tr>
+              <td><a href="item.html">[Item Name]</a></td>
+              <td>×1</td>
+              <td><a href="character.html">[Character]</a></td>
+              <td>[Brief description]</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2 id="threads">Open Plot Threads <a href="#" class="edit-section">[edit]</a></h2>
+        <ul>
+          <li>[Unresolved question or hook left from this session]</li>
+          <li>[Another open thread — NPC mystery, location to revisit, etc.]</li>
+          <li>[A character-specific thread that emerged]</li>
+        </ul>
+
+      </div>
+
+      <footer class="page-footer">
+        <div class="categories-bar">
+          <strong>Categories:</strong>
+          <a href="#" class="cat-tag">Session Summaries</a>
+          <a href="#" class="cat-tag">Season 1</a>
+        </div>
+      </footer>
+    </main>
+
+    <aside class="right-rail">
+      <div class="rail-module">
+        <h2>All Sessions</h2>
+        <ul class="rail-list">
+          <li><a href="session.html">Session 1: Let the Hunt Begin</a></li>
+          <li><a href="session.html">Session 2: What Do You Bring?</a></li>
+          <li><a href="session.html">Session 3: A Cold Brew</a></li>
+          <li><a href="session.html">Session 4: Loved Ones</a></li>
+          <li><a href="session.html">Session 5: Lost Ones</a></li>
+        </ul>
+      </div>
+      <div class="rail-module">
+        <h2>Characters Present</h2>
+        <ul class="rail-list">
+          <li><a href="character.html">Nathaniel Gainsby</a></li>
+          <li><a href="character.html">Enoch Solamen</a></li>
+          <li><a href="character.html">Luna Icewind</a></li>
+        </ul>
+      </div>
+      <div class="rail-module">
+        <h2>Locations Visited</h2>
+        <ul class="rail-list">
+          <li><a href="location.html">Edelith</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div>
+      <div class="site-footer__logo">Lustrous Expanse Wiki</div>
+      <p class="site-footer__desc">Player-maintained campaign record.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Browse</div>
+      <ul class="footer-links">
+        <li><a href="../index.html">Main Page</a></li>
+        <li><a href="character.html">Characters</a></li>
+        <li><a href="session.html">Sessions</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">More</div>
+      <ul class="footer-links">
+        <li><a href="faction.html">Factions</a></li>
+        <li><a href="lore.html">Lore</a></li>
+        <li><a href="item.html">Items</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="site-footer__bottom">Lustrous Expanse Wiki — community content, all rights belong to the players at the table.</div>
+</footer>
+
+<script src="../js/wiki.js"></script>
+<script>
+var WIKI_PAGES = [
+  { name: "Session 1: Let the Hunt Begin", type: "Session",   href: "session.html",    excerpt: "The first session of the campaign." },
+  { name: "Nathaniel Gainsby",             type: "Character", href: "character.html",  excerpt: "Player character." },
+  { name: "Lustrous Expanse",              type: "Place",     href: "../index.html",   excerpt: "Campaign setting." },
+];
+</script>
+</body>
+</html>
