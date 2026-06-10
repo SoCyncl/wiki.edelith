@@ -3,369 +3,428 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lustrous Expanse — Wiki Home</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/wiki.css">
-<script src="scripts/wiki.js" type="text/javascript" defer></script>
+<title>Banana — Astoria Wiki</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://solar-icons.gitlab.io/i/icons.css" rel="stylesheet" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitty/2.3.6/fitty.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
+<link rel="stylesheet" href="/Awiki/style.css">
+<script src="/Awiki/navbar.js" type="text/javascript" defer></script>
+
+
 </head>
 <body>
 
 
 
-<!-- Lightbox -->
-<div id="lightbox">
-  <button id="lightbox-close" aria-label="Close">×</button>
-  <img src="" alt="">
-  <div id="lightbox-caption"></div>
-</div>
+<div class="outer">
+  <div class="all-content">
+    <div class="aug">
+    
+      <div class="aug-nav">
+        <div class="aug-nav-left">
+          <div class="aug-nav-but"></div>
+          <a href="#">astoria wiki</a>
+          <a href="#">botany</a>
+          <a href="#">fruits</a>
+          banana
+        </div>
+      </div>
 
-<!-- ── Top Header ───────────────────────────────────────────────── -->
-<header class="wiki-header">
-  <a href="index.html" class="wiki-header__logo">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="fill:none;stroke:var(--gold-accent);" width="24" height="24">
-      <polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/>
-    </svg>
-    Lustrous Expanse
-  </a>
-  <div class="wiki-header__search">
-    <input type="search" id="wiki-search" placeholder="Search the wiki…" autocomplete="off">
-    <span class="wiki-header__search-icon">🔍</span>
-    <div id="search-results"></div>
-  </div>
-  <div class="wiki-header__actions">
-    <button class="mode-toggle" id="mode-toggle" title="Toggle dark mode">🌙</button>
-  </div>
-</header>
+  <div style="max-width:1200px; margin:0 auto; padding: clamp(20px,3vw,60px);">
 
-<!-- ── Left Sidebar ─────────────────────────────────────────────── -->
-<aside class="wiki-sidebar" id="wiki-sidebar">
-
-  <div class="sidebar-section" data-key="nav-main">
-    <div class="sidebar-section__header">
-      <span class="sidebar-section__title">Navigation</span>
-      <span class="sidebar-section__arrow">▼</span>
-    </div>
-    <div class="sidebar-section__body">
-      <a href="index.html" class="sidebar-nav-link active">
-        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-        Main Page
-      </a>
-      <a href="#" class="sidebar-nav-link">
-        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm16-4H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
-        All Pages
-      </a>
-      <a href="#" class="sidebar-nav-link">
-        <svg class="nav-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-        Recent Changes
-      </a>
-    </div>
-  </div>
-
-  <div class="sidebar-section" data-key="nav-characters">
-    <div class="sidebar-section__header">
-      <span class="sidebar-section__title">Characters</span>
-      <span class="sidebar-section__arrow">▼</span>
-    </div>
-    <div class="sidebar-section__body">
-      <a href="templates/character.html" class="sidebar-nav-link">Nathaniel Gainsby</a>
-      <a href="templates/character.html" class="sidebar-nav-link">Enoch Solamen</a>
-      <a href="templates/character.html" class="sidebar-nav-link">Luna Icewind</a>
-      <a href="templates/character.html" class="sidebar-nav-link">Kara Miharian</a>
-      <a href="templates/character.html" class="sidebar-nav-link">Pierce Bloodstride</a>
-    </div>
-  </div>
-
-  <div class="sidebar-section" data-key="nav-sessions">
-    <div class="sidebar-section__header">
-      <span class="sidebar-section__title">Session Summaries</span>
-      <span class="sidebar-section__arrow">▼</span>
-    </div>
-    <div class="sidebar-section__body">
-      <a href="templates/session.html" class="sidebar-nav-link">Session 1: Let the Hunt Begin</a>
-      <a href="templates/session.html" class="sidebar-nav-link">Session 2: What Do You Bring?</a>
-      <a href="templates/session.html" class="sidebar-nav-link">Session 3: A Cold Brew</a>
-      <a href="templates/session.html" class="sidebar-nav-link">Session 4: Loved Ones</a>
-      <a href="templates/session.html" class="sidebar-nav-link">Session 5: Lost Ones</a>
-    </div>
-  </div>
-
-  <div class="sidebar-section" data-key="nav-world">
-    <div class="sidebar-section__header">
-      <span class="sidebar-section__title">World</span>
-      <span class="sidebar-section__arrow">▼</span>
-    </div>
-    <div class="sidebar-section__body">
-      <a href="templates/location.html" class="sidebar-nav-link">Lustrous Expanse</a>
-      <a href="templates/location.html" class="sidebar-nav-link">Edelith</a>
-      <a href="templates/location.html" class="sidebar-nav-link">Kingdom of Belkinus</a>
-      <a href="templates/location.html" class="sidebar-nav-link">Kingdom of Elynthi</a>
-      <a href="templates/location.html" class="sidebar-nav-link">Solstitheo</a>
-    </div>
-  </div>
-
-  <div class="sidebar-section" data-key="nav-factions">
-    <div class="sidebar-section__header">
-      <span class="sidebar-section__title">Factions</span>
-      <span class="sidebar-section__arrow">▼</span>
-    </div>
-    <div class="sidebar-section__body">
-      <a href="templates/faction.html" class="sidebar-nav-link">Yuan-ti World Dominion</a>
-      <a href="templates/faction.html" class="sidebar-nav-link">The Alliance</a>
-    </div>
-  </div>
-
-  <div class="sidebar-section" data-key="nav-lore">
-    <div class="sidebar-section__header">
-      <span class="sidebar-section__title">Lore</span>
-      <span class="sidebar-section__arrow">▼</span>
-    </div>
-    <div class="sidebar-section__body">
-      <a href="templates/lore.html" class="sidebar-nav-link">Magic System</a>
-      <a href="templates/lore.html" class="sidebar-nav-link">Pantheon</a>
-      <a href="templates/lore.html" class="sidebar-nav-link">History</a>
-    </div>
-  </div>
-
-  <div class="sidebar-section" data-key="nav-items">
-    <div class="sidebar-section__header">
-      <span class="sidebar-section__title">Items & Artifacts</span>
-      <span class="sidebar-section__arrow">▼</span>
-    </div>
-    <div class="sidebar-section__body">
-      <a href="templates/item.html" class="sidebar-nav-link">Golden Cay Relics</a>
-    </div>
-  </div>
-
-</aside>
-
-<!-- Mobile toggle -->
-<button class="sidebar-toggle" id="sidebar-toggle" aria-label="Open navigation">☰</button>
-
-<!-- ── Main Layout ───────────────────────────────────────────────── -->
-<div class="wiki-layout">
-
-  <!-- Page Banner -->
-  <div class="page-banner">
-    <div class="page-banner__text">
-      <div class="page-banner__breadcrumb">Wiki Home</div>
-      <h1 class="page-banner__title">Lustrous Expanse Wiki</h1>
-      <div class="page-banner__meta">
-        <span class="page-banner__tag page-banner__tag--gold">DnD Campaign</span>
-        <span class="page-banner__tag">5th Edition</span>
+    <!-- PAGE TITLE -->
+    <div class="wiki-title-block">
+      <div class="wiki-title-eyebrow">botany · musaceae · fruit</div>
+      <div class="wiki-title-main" id="page-title">Banana</div>
+      <div class="wiki-title-sub"><i>Musa</i> × <i>paradisiaca</i> and related cultivars</div>
+      <div class="wiki-title-tabs">
+        <a href="#">article</a>
+        <a href="#">talk</a>
+        <a href="#">edit</a>
+        <a href="#">history</a>
       </div>
     </div>
-    <div class="page-banner__actions">
-      <a href="templates/character.html" class="banner-btn banner-btn--ghost">Browse Characters</a>
-      <a href="templates/session.html"   class="banner-btn banner-btn--primary">Latest Session</a>
-    </div>
-  </div>
 
-  <!-- Content Area -->
-  <div class="content-wrap">
-    <main class="page-main">
+    <div class="wiki-body">
 
-      <div class="article-body clearfix">
+      <!-- MAIN CONTENT -->
+      <div class="wiki-content">
 
-        <figure class="infobox">
-          <img class="infobox__image" src="https://placehold.co/560x420/3a0030/f7edda?text=The+Lustrous+Expanse" alt="The Lustrous Expanse map">
-          <div class="infobox__title">The Lustrous Expanse</div>
-          <div class="infobox__subtitle">Campaign Setting</div>
-          <div class="infobox__section-header">
-            Details <span class="arrow">▼</span>
-          </div>
-          <div class="infobox__section-body">
-            <table class="infobox-table">
-              <tr><td>System</td><td>D&amp;D 5th Edition</td></tr>
-              <tr><td>Nations</td><td>14+</td></tr>
-              <tr><td>Setting</td><td>Edelith, Solstitheo</td></tr>
-              <tr><td>Calendar</td><td>Year-numbered</td></tr>
-              <tr><td>Magic</td><td>Modified 5e rules</td></tr>
-              <tr><td>Resurrection</td><td>Near-impossible</td></tr>
+        <!-- LEAD -->
+        <div class="wiki-lead">
+          <p>A <b>banana</b> is an elongated, edible fruit — botanically a berry — produced by several kinds of large herbaceous flowering plants in the genus <a href="#"><i>Musa</i></a>. In some countries, bananas used for cooking may be called <b>plantains</b>, distinguishing them from dessert bananas. The fruit is variable in size, colour, and firmness, but is usually elongated and curved, with soft flesh rich in starch covered with a rind, which may be green, yellow, red, purple, or brown when ripe.</p>
+          <p>The fruits grow upward in clusters known as hands, on a tree-like plant usually called a <b>banana tree</b>. A bunch of bananas is called a hand (or a bunch), and a single banana is called a finger. Each plant bears one bunch of bananas, after which the main stalk dies back. New stalks grow from the root mass to produce the next crop of bananas.</p>
+          <p>Worldwide, there is no sharp distinction between "bananas" and "plantains." Especially in the Americas and Europe, "banana" usually refers to soft, sweet, dessert bananas, particularly those of the <b>Cavendish</b> group, which are the main exports from banana-growing countries. By contrast, <i>Musa</i> cultivars with firmer, starchier fruit are called "plantains."</p>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        <div class="wiki-toc">
+          <div class="wiki-toc-title">contents</div>
+          <ol>
+            <li><a href="#etymology">Etymology</a></li>
+            <li><a href="#history">History</a>
+              <ol>
+                <li><a href="#origin">Origin and early cultivation</a></li>
+                <li><a href="#spread">Spread across the world</a></li>
+                <li><a href="#commercial">Commercial history</a></li>
+              </ol>
+            </li>
+            <li><a href="#botany">Botany</a></li>
+            <li><a href="#cultivars">Cultivars</a></li>
+            <li><a href="#production">Production</a></li>
+            <li><a href="#nutrition">Nutrition</a></li>
+            <li><a href="#trade">Trade</a></li>
+            <li><a href="#diseases">Diseases</a></li>
+            <li><a href="#culture">Cultural significance</a></li>
+          </ol>
+        </div>
+
+        <!-- ETYMOLOGY -->
+        <div class="wiki-section" id="etymology">
+          <div class="wiki-h2">Etymology</div>
+          <p class="wiki-p">The word <i>banana</i> is thought to be of West African origin, possibly from the <a href="#">Wolof</a> word <i>banaana</i>, and passed into English via Spanish or Portuguese. It was introduced to the Americas by Portuguese sailors who brought the fruits from West Africa in the 16th century.</p>
+          <p class="wiki-p">The scientific names <i>Musa acuminata</i> and <i>Musa balbisiana</i> are named after Italian botanist <a href="#">Antonio Musa</a>, physician to the first Roman Emperor Augustus, and naturalist Luigi Balbis respectively. The genus name may alternatively come from the Arabic word <i>mauz</i>, a term for the fruit.</p>
+        </div>
+
+        <!-- HISTORY -->
+        <div class="wiki-section" id="history">
+          <div class="wiki-h2">History</div>
+
+          <div class="wiki-h3" id="origin">Origin and early cultivation</div>
+          <p class="wiki-p">Musa species are native to tropical Indomalaya and Australia. The earliest domestication of bananas was carried out by Papuan people around 8000 BCE in New Guinea, based on evidence of cultivation in the Kuk Swamp archaeological site in the Western Highlands of Papua New Guinea. From there, cultivation spread westward to India, where references to the banana fruit date to around 600 BCE in Buddhist scriptures.</p>
+          <p class="wiki-p">The earliest direct evidence of banana cultivation comes from Kuk Swamp, where archaeobotanical evidence suggests domestication of bananas in Papua New Guinea dating to between 8000 and 6000 BCE — making it among the earliest agricultural sites in the world.</p>
+          <p class="wiki-p">Two wild species — <i>Musa acuminata</i> and <i>Musa balbisiana</i> — were domesticated thousands of years ago to produce the banana plants we know today. These two species were crossed, and modern dessert bananas (such as the Cavendish) are sterile triploid hybrids derived from <i>M. acuminata</i> with the genetic designation AAA.</p>
+
+          <div class="wiki-h3" id="spread">Spread across the world</div>
+          <p class="wiki-p">By the 3rd century CE, banana cultivation had spread to China, and by the 6th century CE to Japan. During the Arab expansion of the 7th to 8th centuries CE, bananas were spread westward to the Middle East, the Levant, and North Africa. By the 10th century, descriptions of banana cultivation appear in texts from Palestine.</p>
+          <p class="wiki-p">Portuguese sailors brought bananas from West Africa to the Americas in the early 16th century. The fruit was brought to the Caribbean Islands by Portuguese explorers in the 1500s, and cultivation in the Americas began in earnest. The first major commercial development occurred in the Caribbean in the 1870s and 1880s.</p>
+          <div class="wiki-note">Alexander the Great is said to have tasted bananas during his Indian campaign of 327 BCE — though later scholarship has questioned whether the accounts describe bananas or another fruit entirely.</div>
+
+          <div class="wiki-h3" id="commercial">Commercial history</div>
+          <p class="wiki-p">In the 1880s, <a href="#">Carl Franzius</a> began bringing bananas to the United States from Jamaica, eventually founding what became the <b>United Fruit Company</b> in 1899. The United Fruit Company became one of the most powerful corporations in the Americas, wielding enormous political and economic influence over governments throughout Central America — a phenomenon that gave rise to the term <b>banana republic</b>.</p>
+          <p class="wiki-p">The original popular dessert banana, the <b>Gros Michel</b> cultivar, was commercially dominant throughout the early 20th century until the 1950s, when a fungal disease called <a href="#">Panama disease</a> (caused by <i>Fusarium oxysporum</i> f. sp. <i>cubense</i>) devastated plantations worldwide. The Gros Michel is considered by many who tasted it to have had a richer, creamier flavour than the Cavendish banana that replaced it.</p>
+          <p class="wiki-p">The <b>Cavendish</b>, resistant to the then-prevalent strain of Panama disease, was adopted as the commercial replacement in the 1950s and 1960s, and has since become the ubiquitous banana found in supermarkets worldwide. However, a new strain of Panama disease — <a href="#">Tropical Race 4 (TR4)</a> — now threatens Cavendish plantations globally, raising fears of a repeat scenario.</p>
+        </div>
+
+        <!-- BOTANY -->
+        <div class="wiki-section" id="botany">
+          <div class="wiki-h2">Botany</div>
+          <p class="wiki-p">Despite their tree-like appearance, banana plants are not trees. The "trunk" is actually a <b>pseudostem</b> formed by tightly packed leaf bases. The true stem is underground, called a <b>corm</b>, from which the pseudostem and leaves emerge. Each plant typically reaches 3–10 metres (10–33 ft) in height.</p>
+          <p class="wiki-p">Banana plants are monocots. The leaves are large, up to 2.7 metres (8.9 ft) long and 60 centimetres (24 in) wide, and grow spirally from the corm. Each leaf unfurls from a cylindrical sheath that adds to the pseudostem. When the plant is mature, a large purple-red bract (the flower spike) emerges from the top of the pseudostem. This is called the <b>banana heart</b> or banana blossom.</p>
+          <p class="wiki-p">The fruit itself is classified botanically as a <b>berry</b>, with the flesh derived from the ovary wall and the pulp from the placenta. Commercial banana varieties are <b>parthenocarpic</b> — they develop without fertilisation — which is why the common supermarket banana contains no seeds (or only vestigial, undeveloped ones).</p>
+
+          <div class="wiki-table-wrap">
+            <table class="wiki-table">
+              <caption>Scientific classification of the cultivated banana</caption>
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Name</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Kingdom</td><td><i>Plantae</i></td></tr>
+                <tr><td>Order</td><td>Zingiberales</td></tr>
+                <tr><td>Family</td><td>Musaceae</td></tr>
+                <tr><td>Genus</td><td><i>Musa</i> L.</td></tr>
+                <tr><td>Type species</td><td><i>Musa paradisiaca</i> L.</td></tr>
+                <tr><td>Hybrid parentage</td><td><i>M. acuminata</i> × <i>M. balbisiana</i></td></tr>
+              </tbody>
             </table>
           </div>
-        </figure>
-
-        <p>
-          The <strong>Lustrous Expanse</strong> is the campaign setting for this wiki's ongoing
-          Dungeons &amp; Dragons campaign. This wiki documents the world, its inhabitants, history,
-          and the events of each session.
-        </p>
-
-        <p>
-          The campaign is primarily set in <a href="templates/location.html">Edelith</a>, a city
-          within the nation of <strong>Solstitheo</strong>. The Expanse is a vast continent of at
-          least 14 nations, defined by rivers, archipelagos, and fragmented mountain ranges.
-        </p>
-
-        <!-- Table of Contents -->
-        <nav class="toc" aria-label="Page contents">
-          <div class="toc-header">
-            <span>Contents</span>
-            <button class="toc-toggle">[hide]</button>
-          </div>
-          <div class="toc-body">
-            <ol class="toc-list">
-              <li><a href="#about"><span class="toc-num">1</span>About This Wiki</a></li>
-              <li><a href="#geography"><span class="toc-num">2</span>Geography</a></li>
-              <li><a href="#peoples"><span class="toc-num">3</span>Peoples</a></li>
-              <li><a href="#magic"><span class="toc-num">4</span>Magic</a></li>
-              <li><a href="#templates"><span class="toc-num">5</span>Template Pages</a></li>
-            </ol>
-          </div>
-        </nav>
-
-        <h2 id="about">About This Wiki <a href="#" class="edit-section">[edit]</a></h2>
-        <p>
-          This wiki is a living document maintained by the players. It records session summaries,
-          tracks characters (player and non-player alike), documents factions and locations, and
-          preserves lore. All template pages in this wiki can be duplicated and filled in for new
-          entries.
-        </p>
-
-        <h2 id="geography">Geography <a href="#" class="edit-section">[edit]</a></h2>
-        <p>
-          The Expanse contains at least 14 nations, including the
-          <a href="templates/location.html">Kingdom of Belkinus</a>,
-          the <a href="templates/location.html">Kingdom of Elynthi</a>,
-          the <a href="templates/faction.html">Yuan-ti World Dominion</a>,
-          Old Diosia, and <strong>Solstitheo</strong> — home to the city of
-          <a href="templates/location.html">Edelith</a>, where the campaign takes place.
-        </p>
-        <p>
-          The Lustrous Expanse appears largely flat, its geography defined by rivers, great lakes,
-          and scattered archipelagos. A broken mountain range runs from the southeastern coast to
-          Belkinus. Forests concentrate in Elynthi and the northern reaches.
-        </p>
-
-        <h2 id="peoples">Peoples and Cultures <a href="#" class="edit-section">[edit]</a></h2>
-        <p>
-          The Expanse is home to the full range of races found in D&amp;D 5th Edition, as well as
-          <strong>plantkin</strong> — a race unique to this setting. Nations vary widely in their
-          openness: Belkinus is cosmopolitan and inclusive, while the Yuan-ti World Dominion is
-          deeply xenophobic.
-        </p>
-
-        <h2 id="magic">Magic <a href="#" class="edit-section">[edit]</a></h2>
-        <p>
-          Magic follows D&amp;D 5th Edition rules with one critical exception:
-          <strong>resurrection is near-impossible</strong>. It requires extraordinary cost or
-          circumstance, and the 9th-level spell <em>true resurrection</em> has not been discovered
-          in the Expanse. Divine magic — as wielded by clerics and paladins — manifests from the
-          caster's personal conviction rather than pure faith in a deity.
-        </p>
-
-        <h2 id="templates">Template Pages <a href="#" class="edit-section">[edit]</a></h2>
-        <p>The following template pages are available to copy and fill in for new wiki entries:</p>
-        <ul>
-          <li><a href="templates/character.html">Character Page</a> — Player characters and NPCs</li>
-          <li><a href="templates/session.html">Session Summary Page</a> — Per-session records</li>
-          <li><a href="templates/faction.html">Faction / Organization Page</a> — Groups and guilds</li>
-          <li><a href="templates/lore.html">Lore / World-building Page</a> — History, cosmology, rules</li>
-          <li><a href="templates/location.html">Location / Place Page</a> — Cities, regions, landmarks</li>
-          <li><a href="templates/item.html">Item / Artifact Page</a> — Weapons, relics, curiosities</li>
-        </ul>
-
-      </div><!-- .article-body -->
-
-      <footer class="page-footer">
-        <div class="categories-bar">
-          <strong>Categories:</strong>
-          <a href="#" class="cat-tag">Wiki Home</a>
-          <a href="#" class="cat-tag">Places</a>
-          <a href="#" class="cat-tag">Campaign Setting</a>
         </div>
-      </footer>
 
-    </main><!-- .page-main -->
+        <!-- CULTIVARS -->
+        <div class="wiki-section" id="cultivars">
+          <div class="wiki-h2">Cultivars</div>
+          <p class="wiki-p">Bananas are classified by genome group — reflecting the proportion of <i>M. acuminata</i> (A) and <i>M. balbisiana</i> (B) chromosomes — as well as by ploidy level (diploid AA/BB, triploid AAA/ABB, tetraploid AAAA, etc.).</p>
 
-    <!-- ── Right Rail ──────────────────────────────────────────── -->
-    <aside class="right-rail">
-      <div class="rail-module">
-        <h2>Recently Changed</h2>
-        <ul class="rail-list">
-          <li><a href="templates/character.html">Nathaniel Gainsby</a></li>
-          <li><a href="templates/character.html">Luna Icewind</a></li>
-          <li><a href="templates/faction.html">Yuan-ti World Dominion</a></li>
-          <li><a href="templates/location.html">Edelith</a></li>
-        </ul>
+          <div class="wiki-table-wrap">
+            <table class="wiki-table">
+              <caption>Notable banana cultivar groups</caption>
+              <thead>
+                <tr>
+                  <th>Cultivar group</th>
+                  <th>Genome</th>
+                  <th>Uses</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><b>Cavendish</b></td>
+                  <td>AAA</td>
+                  <td>Dessert</td>
+                  <td>~47% of global production; dominant export banana</td>
+                </tr>
+                <tr>
+                  <td><b>Gros Michel</b></td>
+                  <td>AAA</td>
+                  <td>Dessert</td>
+                  <td>Once dominant; devastated by Panama disease (Race 1)</td>
+                </tr>
+                <tr>
+                  <td><b>Plantain</b> (French)</td>
+                  <td>AAB</td>
+                  <td>Cooking</td>
+                  <td>Starchy; major staple in West/Central Africa and Caribbean</td>
+                </tr>
+                <tr>
+                  <td><b>Red Dacca</b></td>
+                  <td>AAA</td>
+                  <td>Dessert</td>
+                  <td>Red-purple skin; sweeter, creamier flesh</td>
+                </tr>
+                <tr>
+                  <td><b>Lady Finger</b></td>
+                  <td>AA</td>
+                  <td>Dessert</td>
+                  <td>Small, sweet; popular in Southeast Asia and Australia</td>
+                </tr>
+                <tr>
+                  <td><b>Blue Java</b></td>
+                  <td>ABB</td>
+                  <td>Dessert</td>
+                  <td>Blue-green skin; ice cream-like vanilla flavour</td>
+                </tr>
+                <tr>
+                  <td><b>Pisang Raja</b></td>
+                  <td>AAB</td>
+                  <td>Dessert / cooking</td>
+                  <td>Popular in Indonesia; used for goreng (fried banana)</td>
+                </tr>
+                <tr>
+                  <td><b>Dwarf Cavendish</b></td>
+                  <td>AAA</td>
+                  <td>Dessert</td>
+                  <td>Smaller plant; widely grown in home gardens</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- PRODUCTION -->
+        <div class="wiki-section" id="production">
+          <div class="wiki-h2">Production</div>
+          <p class="wiki-p">Bananas are among the most widely cultivated crops in the world. They are grown in more than 135 countries, primarily for local consumption, with only around 15–20% of production entering international trade. Bananas are a major staple food in tropical regions of Africa, Latin America, the Caribbean, and Southeast Asia.</p>
+
+          <div class="wiki-table-wrap">
+            <table class="wiki-table">
+              <caption>Top banana-producing countries (approximate figures, recent years)</caption>
+              <thead>
+                <tr>
+                  <th>Country</th>
+                  <th>Production (million tonnes)</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>India</td><td>~31.5</td><td>Largest producer; mostly domestic consumption</td></tr>
+                <tr><td>China</td><td>~12.0</td><td>Second largest; growth via Guangdong, Yunnan</td></tr>
+                <tr><td>Indonesia</td><td>~8.6</td><td>Diverse cultivar use</td></tr>
+                <tr><td>Brazil</td><td>~6.8</td><td>Important for domestic market</td></tr>
+                <tr><td>Ecuador</td><td>~6.5</td><td>Major exporter, especially Cavendish</td></tr>
+                <tr><td>Philippines</td><td>~9.2</td><td>Major exporter to Japan, Korea, China</td></tr>
+                <tr><td>Guatemala</td><td>~4.3</td><td>Key Central American exporter</td></tr>
+                <tr><td>Colombia</td><td>~4.0</td><td>Significant export sector</td></tr>
+                <tr><td>Costa Rica</td><td>~2.6</td><td>High per-hectare yields</td></tr>
+                <tr><td>Honduras</td><td>~0.8</td><td>Historical centre of United Fruit operations</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="wiki-p">Commercial banana production is labour-intensive and relies heavily on plantation agriculture. Plantations are typically operated by large multinational corporations — most prominently <a href="#">Chiquita</a> (formerly United Fruit), <a href="#">Dole</a>, and <a href="#">Del Monte</a> — though significant production is also carried out by smallholder farmers, particularly in Southeast Asia and parts of Africa.</p>
+        </div>
+
+        <!-- NUTRITION -->
+        <div class="wiki-section" id="nutrition">
+          <div class="wiki-h2">Nutrition</div>
+          <p class="wiki-p">Raw bananas (not including the peel) are 75% water, 23% carbohydrates, 1% protein, and contain negligible fat. In a 100-gram reference amount supplying 89 Calories, a raw banana is a rich source of vitamin B6 (31% of the Daily Value), and contains moderate amounts of vitamin C, manganese, dietary fibre, and potassium.</p>
+
+          <div class="wiki-table-wrap">
+            <table class="wiki-table">
+              <caption>Nutritional value per 100 g raw banana (ripe, peeled)</caption>
+              <thead>
+                <tr>
+                  <th>Nutrient</th>
+                  <th>Amount</th>
+                  <th>% Daily Value</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>Energy</td><td>89 kcal (372 kJ)</td><td>—</td></tr>
+                <tr><td>Carbohydrates</td><td>22.84 g</td><td>—</td></tr>
+                <tr><td>Sugars</td><td>12.23 g</td><td>—</td></tr>
+                <tr><td>Dietary fibre</td><td>2.6 g</td><td>10%</td></tr>
+                <tr><td>Fat</td><td>0.33 g</td><td>—</td></tr>
+                <tr><td>Protein</td><td>1.09 g</td><td>—</td></tr>
+                <tr><td>Vitamin B6</td><td>0.367 mg</td><td>31%</td></tr>
+                <tr><td>Vitamin C</td><td>8.7 mg</td><td>10%</td></tr>
+                <tr><td>Potassium</td><td>358 mg</td><td>8%</td></tr>
+                <tr><td>Magnesium</td><td>27 mg</td><td>8%</td></tr>
+                <tr><td>Manganese</td><td>0.27 mg</td><td>13%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p class="wiki-p">The ripening of bananas causes a conversion of starches to sugars, making ripe bananas sweeter and more easily digestible than unripe ones. Unripe bananas are high in resistant starch, which behaves like dietary fibre and may have prebiotic effects. The glycaemic index of bananas ranges from around 51 (underripe) to 57 (overripe).</p>
+        </div>
+
+        <!-- TRADE -->
+        <div class="wiki-section" id="trade">
+          <div class="wiki-h2">Trade</div>
+          <p class="wiki-p">Bananas are the world's most exported fresh fruit and the most traded fruit commodity overall. Global export trade is estimated at around 18–20 million tonnes per year, with a value of approximately USD $10–12 billion. The top importing regions are the European Union, the United States, Russia, and Japan.</p>
+          <p class="wiki-p">The structure of the banana trade has historically been dominated by a small number of transnational corporations that control production, logistics, and distribution. This concentration of power has been a source of considerable controversy, particularly regarding labour rights, environmental practices, and political interference in producing countries.</p>
+          <p class="wiki-p">Fair trade certification has grown as a response to concerns about the conditions in which bananas are grown and traded. The Fairtrade banana market represents a small but growing percentage of overall banana trade, with certified production concentrated in Latin America, the Caribbean, and parts of Africa.</p>
+        </div>
+
+        <!-- DISEASES -->
+        <div class="wiki-section" id="diseases">
+          <div class="wiki-h2">Diseases</div>
+          <p class="wiki-p">Banana plants are susceptible to a range of diseases, some of which pose serious threats to commercial production.</p>
+
+          <div class="wiki-h3">Panama disease (Fusarium wilt)</div>
+          <p class="wiki-p"><b>Panama disease</b> is caused by the soil-borne fungus <i>Fusarium oxysporum</i> f. sp. <i>cubense</i> (Foc). Race 1 of this pathogen devastated Gros Michel production in the mid-20th century, effectively eliminating commercial cultivation of the cultivar. <b>Tropical Race 4 (TR4)</b>, a more aggressive strain first identified in Taiwan in the 1990s, now threatens the Cavendish banana and has spread to South and Southeast Asia, the Middle East, Africa, and Latin America.</p>
+
+          <div class="wiki-table-wrap">
+            <table class="wiki-table">
+              <caption>Major diseases affecting banana cultivation</caption>
+              <thead>
+                <tr>
+                  <th>Disease</th>
+                  <th>Pathogen</th>
+                  <th>Affected cultivars</th>
+                  <th>Impact</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Panama disease (Race 1)</td>
+                  <td><i>Fusarium oxysporum</i> Foc R1</td>
+                  <td>Gros Michel, others</td>
+                  <td>Wiped out commercial Gros Michel production in 1950s–60s</td>
+                </tr>
+                <tr>
+                  <td>Panama disease TR4</td>
+                  <td><i>Fusarium oxysporum</i> Foc TR4</td>
+                  <td>Cavendish, many others</td>
+                  <td>Spreading globally; existential threat to Cavendish</td>
+                </tr>
+                <tr>
+                  <td>Black Sigatoka</td>
+                  <td><i>Mycosphaerella fijiensis</i></td>
+                  <td>Most cultivars</td>
+                  <td>Reduces yield; requires extensive fungicide application</td>
+                </tr>
+                <tr>
+                  <td>Banana bunchy top virus (BBTV)</td>
+                  <td>Nanoviridae family</td>
+                  <td>All cultivars</td>
+                  <td>Highly destructive; no cure; spread by aphids</td>
+                </tr>
+                <tr>
+                  <td>Banana Xanthomonas wilt (BXW)</td>
+                  <td><i>Xanthomonas vasicola</i> pv. <i>musacearum</i></td>
+                  <td>All cultivars</td>
+                  <td>Major threat in East/Central Africa; no chemical treatment</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- CULTURAL SIGNIFICANCE -->
+        <div class="wiki-section" id="culture">
+          <div class="wiki-h2">Cultural significance</div>
+          <p class="wiki-p">Bananas hold deep cultural importance in many tropical societies. In Hindu tradition, the banana plant is sacred — its leaves are used as plates in religious ceremonies and offerings. In Buddhist mythology, the banana is one of the "trees of paradise." Banana leaves are used across South and Southeast Asian cultures for food preparation, religious offerings, and as biodegradable serving ware.</p>
+          <p class="wiki-p">In popular culture of the Western world, the banana became an icon of physical comedy — particularly the banana peel as a slapstick prop — from the early 20th century onward. The image of someone slipping on a banana peel is one of the most enduring visual gags in comedy history, appearing in silent film, vaudeville, and countless cartoons.</p>
+          <p class="wiki-p">The banana also became a symbol of American corporate imperialism following the United Fruit Company's influence on Central American politics. The term <b>banana republic</b>, coined by author <a href="#">O. Henry</a> in his 1904 collection <i>Cabbages and Kings</i>, has entered the English language to describe a small, politically unstable nation dependent on a single export and dominated by foreign corporate interests.</p>
+          <p class="wiki-p">In art, the banana gained an unexpected contemporary significance through <a href="#">Maurizio Cattelan</a>'s 2019 work <i>Comedian</i> — a fresh banana affixed to a wall with a strip of duct tape — which sold for $120,000 at Art Basel Miami Beach, generating widespread public debate about the nature and value of conceptual art.</p>
+        </div>
+
       </div>
-      <div class="rail-module">
-        <h2>Templates</h2>
-        <ul class="rail-list">
-          <li><a href="templates/character.html">Character</a></li>
-          <li><a href="templates/session.html">Session Summary</a></li>
-          <li><a href="templates/faction.html">Faction</a></li>
-          <li><a href="templates/lore.html">Lore</a></li>
-          <li><a href="templates/location.html">Location</a></li>
-          <li><a href="templates/item.html">Item / Artifact</a></li>
-        </ul>
-      </div>
-      <div class="rail-module">
-        <h2>Nations</h2>
-        <ul class="rail-list">
-          <li><a href="templates/location.html">Kingdom of Belkinus</a></li>
-          <li><a href="templates/location.html">Kingdom of Elynthi</a></li>
-          <li><a href="templates/faction.html">Yuan-ti World Dominion</a></li>
-          <li><a href="templates/location.html">Solstitheo</a></li>
-        </ul>
-      </div>
-    </aside>
 
-  </div><!-- .content-wrap -->
-</div><!-- .wiki-layout -->
+      <!-- SIDEBAR -->
+      <div class="wiki-sidebar">
+        <div class="wiki-infobox">
+          <div class="wiki-infobox-title">banana</div>
+          <div class="wiki-infobox-img">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Bananas_white_background_DS.jpg/1200px-Bananas_white_background_DS.jpg" alt="A bunch of ripe yellow Cavendish bananas against a white background">
+            <div class="wiki-infobox-img-cap">Cavendish bananas, the most common commercial variety worldwide</div>
+          </div>
+          <div class="wiki-infobox-body">
+            <div class="wiki-infobox-section">classification</div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Kingdom</div>
+              <div class="wiki-infobox-val"><i>Plantae</i></div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Family</div>
+              <div class="wiki-infobox-val"><i>Musaceae</i></div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Genus</div>
+              <div class="wiki-infobox-val"><i>Musa</i> L.</div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Species</div>
+              <div class="wiki-infobox-val"><i>M. acuminata, M. balbisiana</i>, and hybrids</div>
+            </div>
+            <div class="wiki-infobox-section">overview</div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Origin</div>
+              <div class="wiki-infobox-val">Papua New Guinea (~8000 BCE)</div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Plant type</div>
+              <div class="wiki-infobox-val">Herbaceous monocot; pseudostem</div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Fruit type</div>
+              <div class="wiki-infobox-val">Berry (botanical)</div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Height</div>
+              <div class="wiki-infobox-val">3–10 m (10–33 ft)</div>
+            </div>
+            <div class="wiki-infobox-section">production</div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Top producer</div>
+              <div class="wiki-infobox-val">India (~31.5M tonnes/yr)</div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Countries</div>
+              <div class="wiki-infobox-val">135+ producing nations</div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Global rank</div>
+              <div class="wiki-infobox-val">Most exported fresh fruit worldwide</div>
+            </div>
+            <div class="wiki-infobox-section">fast facts</div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Calories</div>
+              <div class="wiki-infobox-val">89 kcal / 100 g</div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Cultivars</div>
+              <div class="wiki-infobox-val">Over 1,000 known cultivars</div>
+            </div>
+            <div class="wiki-infobox-row">
+              <div class="wiki-infobox-label">Threat</div>
+              <div class="wiki-infobox-val">TR4 Panama disease (ongoing)</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
-<!-- ── Site Footer ──────────────────────────────────────────────── -->
-<footer class="site-footer">
-  <div class="site-footer__grid">
-    <div>
-      <div class="site-footer__logo">Lustrous Expanse Wiki</div>
-      <p class="site-footer__desc">
-        A player-maintained record of the ongoing campaign set in Edelith, Solstitheo.
-        All content belongs to the table.
-      </p>
-    </div>
-    <div>
-      <div class="footer-col-title">Browse</div>
-      <ul class="footer-links">
-        <li><a href="index.html">Main Page</a></li>
-        <li><a href="templates/character.html">Characters</a></li>
-        <li><a href="templates/session.html">Sessions</a></li>
-        <li><a href="templates/location.html">Locations</a></li>
-      </ul>
-    </div>
-    <div>
-      <div class="footer-col-title">More</div>
-      <ul class="footer-links">
-        <li><a href="templates/faction.html">Factions</a></li>
-        <li><a href="templates/lore.html">Lore</a></li>
-        <li><a href="templates/item.html">Items</a></li>
-      </ul>
     </div>
   </div>
-  <div class="site-footer__bottom">
-    Lustrous Expanse Wiki — community content, all rights belong to the players at the table.
+   </div>
   </div>
-</footer>
+</div>
 
-<script src="js/wiki.js"></script>
-<script>
-var WIKI_PAGES = [
-  { name: "Lustrous Expanse",       type: "Place",       href: "index.html",               excerpt: "The main campaign setting." },
-  { name: "Edelith",                type: "Location",    href: "templates/location.html",   excerpt: "City in the nation of Solstitheo." },
-  { name: "Nathaniel Gainsby",      type: "Character",   href: "templates/character.html",  excerpt: "Player character." },
-  { name: "Enoch Solamen",          type: "Character",   href: "templates/character.html",  excerpt: "Player character." },
-  { name: "Luna Icewind",           type: "Character",   href: "templates/character.html",  excerpt: "Player character." },
-  { name: "Kara Miharian",          type: "NPC",         href: "templates/character.html",  excerpt: "Non-player character." },
-  { name: "Pierce Bloodstride",     type: "NPC",         href: "templates/character.html",  excerpt: "Non-player character." },
-  { name: "Kingdom of Belkinus",    type: "Nation",      href: "templates/location.html",   excerpt: "A cosmopolitan kingdom." },
-  { name: "Kingdom of Elynthi",     type: "Nation",      href: "templates/location.html",   excerpt: "Forest-heavy nation." },
-  { name: "Yuan-ti World Dominion", type: "Faction",     href: "templates/faction.html",    excerpt: "Xenophobic serpent empire." },
-  { name: "Session 1: Let the Hunt Begin", type: "Session", href: "templates/session.html", excerpt: "The campaign begins." },
-  { name: "Golden Cay Relics",      type: "Item",        href: "templates/item.html",       excerpt: "Artifacts from the Golden Cay." },
-  { name: "Magic",                  type: "Lore",        href: "templates/lore.html",       excerpt: "How magic works in the Expanse." },
-];
-</script>
 </body>
 </html>
