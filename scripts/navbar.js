@@ -27,6 +27,7 @@
   loadLink('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap', 'ed-font-serif');
   loadLink('https://solar-icons.gitlab.io/i/icons.css', 'ed-font-solar');
   loadLink('/style/wiki.css', 'ed-header-styles');
+
   /* ============================================================
      2. HTML
      ============================================================ */
@@ -47,10 +48,10 @@
           </div>
           <div class="ed-tog-recent">
             <span>recently viewed:</span>
-            <a href="#">The Sunken Quarter</a>
-            <a href="#">House Vel'Aryn</a>
-            <a href="#">The Undying Compact</a>
-            <a href="#">Arcanist's Row</a>
+            <a href="#">under review</a>
+            <a href="#">under review</a>
+            <a href="#">under review</a>
+            <a href="#">under review</a>
           </div>
         </div>
 
@@ -61,10 +62,9 @@
             <h1><b>the city</b></h1>
             <div>
               <a href="#">history of edelith</a>
-              <a href="#">districts &amp; quarters</a>
-              <a href="#">the immortal compact</a>
-              <a href="#">laws &amp; governance</a>
-              <a href="#">the undying courts</a>
+              <a href="#">The Schism</a>
+              <a href="#">The Wake of steel</a>
+              <a href="#">Districts of Edelith</a>
             </div>
           </div>
 
@@ -72,10 +72,8 @@
             <h1><b>factions</b></h1>
             <div>
               <a href="#">noble houses</a>
-              <a href="#">the grey syndicate</a>
-              <a href="#">the sunken faith</a>
-              <a href="#">arcanist lodges</a>
-              <a href="#">street guilds</a>
+              <a href="#">organizations</a>
+              <a href="#">institutions</a>
             </div>
           </div>
 
@@ -84,7 +82,7 @@
             <div>
               <a href="#">player characters</a>
               <a href="#">notable npcs</a>
-              <a href="#">the immortals</a>
+              <a href="#">the Aurumics</a>
               <a href="#">deceased &amp; fallen</a>
             </div>
           </div>
@@ -93,9 +91,9 @@
             <h1><b>the world</b></h1>
             <div>
               <a href="#">solstitheo (nation)</a>
-              <a href="#">geography &amp; maps</a>
+              <a href="#">geography &amp; locations</a>
               <a href="#">religion &amp; gods</a>
-              <a href="#">magic &amp; arcanology</a>
+              <a href="#">myths &amp; stories</a>
               <a href="#">beyond edelith</a>
             </div>
           </div>
@@ -103,20 +101,17 @@
           <div class="ed-tog-links2">
             <h1><b>chronicle</b></h1>
             <div>
-              <a href="#">session logs</a>
-              <a href="#">current arc</a>
+              <a href="#">sessions</a>
               <a href="#">timeline of events</a>
-              <a href="#">rumour board</a>
+              <a href="#">summaries</a>
             </div>
           </div>
 
           <div class="ed-tog-links2">
             <h1><b>reference</b></h1>
             <div>
-              <a href="#">rules &amp; homebrew</a>
-              <a href="#">languages</a>
+              <a href="#">Quill &amp; Terms</a>
               <a href="#">glossary</a>
-              <a href="#">contributor guide</a>
               <a href="https://edelith.org" target="_blank">main site</a>
             </div>
           </div>
@@ -156,8 +151,8 @@
       </div>
       <div class="ed-arc-block">
         <div class="ed-arc-eyebrow">current arc</div>
-        <div class="ed-arc-name">the sunken bells</div>
-        <div class="ed-arc-session">session 24</div>
+        <div class="ed-arc-name">Conquest</div>
+        <div class="ed-arc-session">session ??</div>
       </div>
     </div>
   </div>
