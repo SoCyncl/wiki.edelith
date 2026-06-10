@@ -26,7 +26,7 @@
 
   loadLink('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&display=swap', 'ed-font-serif');
   loadLink('https://solar-icons.gitlab.io/i/icons.css', 'ed-font-solar');
-  loadLink('../style/wiki.css', 'ed-header-styles');
+  loadLink('/style/wiki.css', 'ed-header-styles');
 
   /* ============================================================
      2. HTML
