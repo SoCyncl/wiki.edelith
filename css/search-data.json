@@ -1,0 +1,16 @@
+[
+  {
+    "title": "The Corrosion",
+    "url": "/city/sunken-quarter",
+    "category": "city",
+    "excerpt": "The vile, hideous thing which infects the world, heralded by the Arvegum Beast and Demon kind.",
+    "tags": ["corrosion"]
+  },
+  {
+    "title": "The Refraction",
+    "url": "/factions/vel-aryn",
+    "category": "city",
+    "excerpt": "The divine light which combats the Corrosion, from those above.",
+    "tags": ["refraction"]
+  }
+]
