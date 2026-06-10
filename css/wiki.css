@@ -56,6 +56,7 @@
   --textureSoft:   url(https://i.ibb.co/7NJv3P3S/subtle-grunge-Soft.png);
   --spill:         url(https://i.ibb.co/rRCvvmcx/Im-So-Hecking-Cool5.webp);
   --bannerImg:     url(https://i.ibb.co/W4td2S60/Vivi-Transparent.png);
+  --butterfly: url(https://i.ibb.co/zkJJbJx/Bwuterfli.png);
 
   /* Blend modes */
   --lightBlend: multiply;
@@ -656,6 +657,71 @@ body {
    WIKI PAGE CONTENT
    ============================================================ */
 
+
+/* NAV */
+.aug-nav {
+    height: 20px;
+    overflow: hidden;
+    background-color: var(--stone1);
+    background-image: var(--texture);
+    background-blend-mode: var(--lightBlend);
+    background-attachment: fixed;
+    background-position: center;
+    position: sticky;
+    z-index: 1;
+    top: -10px;
+    padding: 10px;
+    border-bottom: solid 2px var(--ink2);
+    font: italic 400 11px / 0px var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--ink2);
+    display: flex;
+    gap: 15px;
+    white-space: nowrap;
+    justify-content: space-between;
+    margin-top: -14px;
+}
+
+.aug-nav-left { display: flex; gap: 15px; }
+.aug-nav-left a {
+  color: var(--ink2);
+  font: 800 12px / 20px var(--body);
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  transition: var(--transition);
+}
+.aug-nav-left a:hover { color: var(--accent); }
+.aug-nav-left a::before {
+  content: "";
+  display: block;
+  border-top: dotted 3px var(--ink2);
+  width: 24px;
+  margin-top: 1px;
+}
+.aug-nav-but {
+  mask-image: var(--butterfly);
+  mask-size: auto 100%;
+  mask-repeat: no-repeat;
+  mask-position: center;
+  -webkit-mask-image: var(--butterfly);
+  -webkit-mask-size: auto 100%;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  height: 17px;
+  width: 14px;
+  position: relative;
+  margin: 0px -4px 0px 4px;
+}
+.aug-nav-but::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 100%;
+  background-color: var(--bgInverse);
+}
+
 /* Sticky nav bar */
 .ed-nav {
   position: sticky;
@@ -979,8 +1045,57 @@ body {
 }
 
 /* ============================================================
+  SEARCH AREA
+   ============================================================ */
+   
+ 
+.ed-search-result {
+  display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 12px;
+  padding: 10px 14px; border: solid 1px var(--ink4); color: var(--ink2);
+  transition: var(--t);
+}
+.ed-search-result:hover { background-color: var(--stone2); color: var(--accent); }
+.ed-search-cat {
+  font: 600 10px/1 var(--body); letter-spacing: 2px; text-transform: uppercase;
+  color: var(--accent); flex-shrink: 0;
+}
+.ed-search-title { font: 700 var(--fontSize)/1 var(--display); text-transform: uppercase; letter-spacing: 1px; }
+.ed-search-excerpt { font: italic 400 13px/1 var(--body); color: var(--stoneMid); width: 100%; }
+.ed-search-empty { font: italic 400 13px/var(--lineHeight) var(--body); color: var(--stoneMid); padding: 8px 0; }
+   
+   
+  .ed-tog-search {
+  position: relative;   /* add this */
+  mix-blend-mode: multiply;
+}
+
+.ed-tog-results {
+  position: absolute;
+  top: 100%;          /* anchors just below the search bar */
+  left: 0; right: 0;
+  z-index: 10;
+  background-color: var(--stone1);
+  background-image: var(--texture);
+  background-blend-mode: var(--lightBlend);
+  border: solid 2px var(--ink);
+  border-top: none;
+  
+  /* slide-down effect */
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+}
+
+.ed-tog-results.is-open {
+  max-height: 480px;   /* tall enough for 8 results */
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink) transparent;
+}   
+   /* ============================================================
    DARK MODE
    ============================================================ */
+   
 .darkmode {
   --texture: var(--textureSoft);
   --bg:      #141210;
