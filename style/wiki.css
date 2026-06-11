@@ -12,6 +12,14 @@
 .fade-block { opacity: 0; transform: translateY(-18px); transition: opacity 0.65s ease-out, transform 0.65s ease-out; }
 .fade-block.visible { opacity: 1; transform: translateY(0); }
 
+/* ═══════════════════════════════════════════════════════
+   SCROLLBAR
+═══════════════════════════════════════════════════════ */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--stone); }
+::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+* { scrollbar-width: thin; scrollbar-color: var(--gold-dim) var(--stone); }
 /* ============================================================
    EDELITH WIKI — style.css
    The Immortal City of Edelith · Campaign Wiki for Solstitheo
