@@ -67,7 +67,7 @@
   crow.className = "crow-widget";
 
   crow.innerHTML = `
-    <div class="crow-tooltip fade-block">
+    <div class="crow-tooltip">
       Click me to go to the top
     </div>
 
