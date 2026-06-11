@@ -13,18 +13,24 @@
 <link rel="stylesheet" href="style/wiki.css">
 <script src="https://edelith.org/scripts/home-footer.js" type="text/javascript" defer></script>
 <script src="scripts/navbar.js" type="text/javascript" defer></script>
-
+    <script>
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".fade-block").forEach((el, i) => {
+        setTimeout(() => el.classList.add("visible"), i * 70);
+      });
+    });
+    </script>
 
 </head>
 <body>
 
 <!-- edelith-header.js injects the fixed nav + banner here -->
 
-<div class="outer">
+<div class="outer fade-block">
   <div class="all-content" style="padding:0;">
 
     <!-- ══ LEDE ══════════════════════════════════════════════ -->
-    <div class="land-lede">
+    <div class="land-lede fade-block">
 
       <div class="land-lede-left">
         <div class="land-lede-eyebrow">campaign wiki · solstitheo</div>
@@ -52,7 +58,7 @@
         </div>
       </div>
 
-      <div class="land-lede-right">
+      <div class="land-lede-right fade-block">
         <div class="land-arc">
           <div class="land-arc-eye">current arc</div>
           <div class="land-arc-name">Conquest</div>
@@ -73,13 +79,13 @@
 
 
     <!-- ══ BROWSE ════════════════════════════════════════════ -->
-    <div class="land-divider">
+    <div class="land-divide r fade-block">
       <div class="land-divider-glyph">◆</div>
       <div class="land-divider-title">browse the archives</div>
       <div class="land-divider-rule"></div>
     </div>
 
-    <div class="land-browse">
+    <div class="land-browse fade-block">
 
       <a href="/edelith/index.html" class="land-browse-item">
         <div class="land-browse-icon">
@@ -139,13 +145,13 @@
 
 
     <!-- ══ FEATURED ARTICLE ══════════════════════════════════ -->
-    <div class="land-divider">
+    <div class="land-divider fade-block">
       <div class="land-divider-glyph">◆</div>
       <div class="land-divider-title">featured article</div>
       <div class="land-divider-rule"></div>
     </div>
 
-    <div class="land-feat">
+    <div class="land-feat fade-block">
 
       <div class="land-feat-body">
         <div class="land-feat-eyebrow">locations · Under construction</div>
@@ -170,13 +176,13 @@
 
 
     <!-- ══ RECENT + RUMOURS ══════════════════════════════════ -->
-    <div class="land-divider">
+    <div class="land-divider fade-block">
       <div class="land-divider-glyph">◆</div>
       <div class="land-divider-title">recent additions</div>
       <div class="land-divider-rule"></div>
     </div>
 
-    <div class="land-lower">
+    <div class="land-lower fade-block">
 
       <div class="land-recent">
 
@@ -223,7 +229,7 @@
 
       </div>
 
-      <div class="land-lower-side">
+      <div class="land-lower-side fade-block">
         <div class="land-rumour-head">Trivia</div>
         <div class="land-rumour-item">
           The first origami models looked similar to things. They were often given to people for good luck.
@@ -247,7 +253,7 @@
 
 
     <!-- ══ TIMELINE ══════════════════════════════════════════ -->
-    <div class="land-divider">
+    <div class="land-divider fade-block">
       <div class="land-divider-glyph">◆</div>
       <div class="land-divider-title">key events</div>
       <div class="land-divider-rule"></div>
