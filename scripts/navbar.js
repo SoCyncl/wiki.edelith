@@ -159,16 +159,16 @@
 </div>
 
 <!-- FIXED TOP BAR -->
-<div class="ed-menu">
-  <div class="ed-menu2">
-    <div class="ed-menu-left">
+<div class="ed-menu fade-block">
+  <div class="ed-menu2 fade-block">
+    <div class="ed-menu-left fade-block">
       <a href="/" class="ed-menu-wordmark">
         <span class="ed-menu-glyph">&#9670;</span>
         <span>edelith</span>
       </a>
       <div class="ed-menu-breadcrumb">campaign wiki</div>
     </div>
-    <div class="ed-menu-right">
+    <div class="ed-menu-right fade-block">
       <a href="#" class="ed-menu-link">
         <i class="solar-icons" stroke="2" icon-name="clock-circle"></i>recent changes
       </a>
@@ -186,7 +186,7 @@
 </div>
 
 <!-- BANNER / MASTHEAD -->
-<div class="ed-ban">
+<div class="ed-ban fade-block">
   <div class="ed-ban-inner">
     <div class="ed-ban-bg"></div>
     <div class="ed-ban-content">
