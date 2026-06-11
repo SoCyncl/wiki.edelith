@@ -300,6 +300,12 @@
    ============================================================ */
 
 /* ---- INTRO LEDE ------------------------------------------- */
+/* ============================================================
+   LANDING — home.css
+   Drop this alongside style.css for the wiki front page only.
+   ============================================================ */
+
+/* ---- INTRO LEDE ------------------------------------------- */
 .land-lede {
   border-bottom: solid 2px var(--ink);
   display: grid;
@@ -322,7 +328,7 @@
   display: flex;
   align-items: center;
   gap: 14px;
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--accent);
@@ -344,7 +350,7 @@
 .land-lede-title::first-letter { color: var(--accent); }
 
 .land-lede-body {
-  font: italic 400 clamp(15px, 1.5vw, 19px) / 1.65 var(--body);
+  font: italic 400 var(--fontSize) / var(--lineHeight) var(--body);
   color: var(--ink3);
   max-width: 580px;
   margin: 0;
@@ -363,13 +369,13 @@
   gap: 4px;
 }
 .land-lede-stat-n {
-  font: 300 22px / 1 var(--mono);
+  font: 300 calc(var(--fontSize) + 7px) / 1 var(--mono);
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--ink);
 }
 .land-lede-stat-l {
-  font: italic 400 11px / 1 var(--body);
+  font: italic 400 calc(var(--fontSize) - 4px) / 1 var(--body);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--stoneMid);
@@ -402,7 +408,7 @@
   opacity: 0.06;
 }
 .land-arc-eye {
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--accent);
@@ -410,7 +416,7 @@
   position: relative;
 }
 .land-arc-name {
-  font: 700 20px / 1.1 var(--display);
+  font: 700 calc(var(--fontSize) + 5px) / 1.1 var(--display);
   text-transform: uppercase;
   letter-spacing: 2px;
   color: var(--stone1);
@@ -418,13 +424,13 @@
   margin-bottom: 6px;
 }
 .land-arc-sess {
-  font: italic 400 13px / 1 var(--body);
+  font: italic 400 calc(var(--fontSize) - 2px) / 1 var(--body);
   color: var(--stoneMid);
   position: relative;
   margin-bottom: 14px;
 }
 .land-arc-body {
-  font: italic 400 13px / 1.6 var(--body);
+  font: italic 400 calc(var(--fontSize) - 2px) / 1.6 var(--body);
   color: var(--stone3);
   position: relative;
   border-top: dotted 1px var(--ink4);
@@ -433,14 +439,14 @@
 
 /* "Did you know" in lede right */
 .land-dyk-label {
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--stoneMid);
   margin-bottom: 10px;
 }
 .land-dyk-item {
-  font: italic 400 13px / 1.6 var(--body);
+  font: italic 400 calc(var(--fontSize) - 2px) / 1.6 var(--body);
   color: var(--stone3);
   padding: 10px 0 10px 16px;
   border-left: dotted 3px var(--goldDim);
@@ -462,7 +468,7 @@
   background-attachment: fixed;
 }
 .land-divider-title {
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--ink);
@@ -474,7 +480,7 @@
 }
 .land-divider-glyph {
   color: var(--accent);
-  font-size: 10px;
+  font-size: calc(var(--fontSize) - 5px);
   flex-shrink: 0;
 }
 
@@ -520,7 +526,7 @@
   border-radius: 50%;
   border: solid 1px var(--accent);
   color: var(--accent);
-  font-size: 15px;
+  font-size: calc(var(--fontSize));
   margin-bottom: 4px;
   flex-shrink: 0;
   transition: background var(--t), color var(--t);
@@ -536,11 +542,11 @@
   color: var(--ink);
 }
 .land-browse-desc {
-  font: italic 400 12px / 1.5 var(--body);
+  font: italic 400 calc(var(--fontSize) - 3px) / 1.5 var(--body);
   color: var(--stoneMid);
 }
 .land-browse-count {
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--accent);
@@ -568,7 +574,7 @@
   gap: 16px;
 }
 .land-feat-eyebrow {
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--accent);
@@ -582,13 +588,13 @@
 }
 .land-feat-title::first-letter { color: var(--accent); }
 .land-feat-sub {
-  font: italic 400 13px / 1 var(--body);
+  font: italic 400 calc(var(--fontSize) - 2px) / 1 var(--body);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--stoneMid);
 }
 .land-feat-lead {
-  font: 400 var(--fontSize) / 1.65 var(--body);
+  font: 400 var(--fontSize) / var(--lineHeight) var(--body);
   color: var(--ink3);
   flex: 1;
 }
@@ -598,7 +604,7 @@
   gap: 10px;
   border: solid 2px var(--ink);
   padding: 10px 22px;
-  font: 600 11px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 4px) / 1 var(--body);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--ink);
@@ -644,7 +650,7 @@
   z-index: 2;
   background-color: var(--ink2);
   padding: 10px 16px;
-  font: italic 400 12px / 1.4 var(--body);
+  font: italic 400 calc(var(--fontSize) - 3px) / 1.4 var(--body);
   color: var(--stone3);
   border-top: dotted 1px var(--ink4);
 }
@@ -680,7 +686,7 @@
 }
 .land-recent-row:last-child { border-bottom: none; }
 .land-recent-cat {
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--stoneMid);
@@ -693,7 +699,7 @@
 }
 .land-recent-title:hover { color: var(--accent); }
 .land-recent-date {
-  font: italic 400 12px / 1 var(--body);
+  font: italic 400 calc(var(--fontSize) - 3px) / 1 var(--body);
   color: var(--stone3);
   white-space: nowrap;
 }
@@ -711,7 +717,7 @@
 .land-rumour-head {
   border-bottom: solid 2px var(--ink4);
   padding: 14px 22px;
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 4px;
   text-transform: uppercase;
   color: var(--accent);
@@ -727,7 +733,7 @@
 .land-rumour-item {
   padding: 16px 22px;
   border-bottom: dotted 1px var(--ink4);
-  font: italic 400 13px / 1.6 var(--body);
+  font: italic 400 calc(var(--fontSize) - 2px) / 1.6 var(--body);
   color: var(--stone3);
   position: relative;
   padding-left: 36px;
@@ -737,7 +743,7 @@
   position: absolute;
   left: 22px;
   top: 19px;
-  font-size: 7px;
+  font-size: calc(var(--fontSize) - 8px);
   color: var(--accent);
   font-style: normal;
   line-height: 1;
@@ -745,7 +751,7 @@
 .land-rumour-item:last-child { border-bottom: none; }
 .land-rumour-source {
   display: block;
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--goldDim);
@@ -778,7 +784,7 @@
   opacity: 0.5;
 }
 .land-tl-era {
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 3px;
   text-transform: uppercase;
   color: var(--accent);
@@ -792,7 +798,7 @@
   margin-bottom: 8px;
 }
 .land-tl-body {
-  font: italic 400 12px / 1.55 var(--body);
+  font: italic 400 calc(var(--fontSize) - 3px) / 1.55 var(--body);
   color: var(--stoneMid);
 }
 
@@ -812,7 +818,7 @@
   background-attachment: fixed;
 }
 .land-footer-wordmark {
-  font: 700 18px / 1 var(--display);
+  font: 700 calc(var(--fontSize) + 3px) / 1 var(--display);
   text-transform: uppercase;
   letter-spacing: 4px;
   color: var(--ink);
@@ -824,7 +830,7 @@
   flex-wrap: wrap;
 }
 .land-footer-links a {
-  font: 600 10px / 1 var(--body);
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--stoneMid);
@@ -832,7 +838,7 @@
 }
 .land-footer-links a:hover { color: var(--accent); }
 .land-footer-copy {
-  font: italic 400 12px / 1 var(--body);
+  font: italic 400 calc(var(--fontSize) - 3px) / 1 var(--body);
   color: var(--stone3);
   width: 100%;
   text-align: right;
