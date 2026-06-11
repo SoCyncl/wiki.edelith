@@ -16,10 +16,10 @@
    SCROLLBAR
 ═══════════════════════════════════════════════════════ */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--stone); }
-::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+::-webkit-scrollbar-track { background: var(--stone1); }
+::-webkit-scrollbar-thumb { background: var(--goldDim); border-radius: 3px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-* { scrollbar-width: thin; scrollbar-color: var(--gold-dim) var(--stone); }
+* { scrollbar-width: thin; scrollbar-color: var(--goldDim) var(--stone1); }
 /* ============================================================
    EDELITH WIKI — style.css
    The Immortal City of Edelith · Campaign Wiki for Solstitheo
