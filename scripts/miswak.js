@@ -12,8 +12,13 @@
     surprised: "https://files.catbox.moe/d9mqhg.png",
     shocked:   "https://files.catbox.moe/d9mqhg.png",
     angry:     "https://files.catbox.moe/d9mqhg.png",
+    // ↓ Add a unique blink sprite for scroll-up state if you have one,
+    //   otherwise it falls back to the regular blink sprite.
+    scroll_blink: "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/blink-miswak.png",
   };
 
+  // NOTE: fill these in with your actual mask image URLs.
+  // They were left as placeholder strings in the original, causing broken images when minimized.
   const MASK_NORMAL  = "TEMPLATE_MASK_NORMAL";
   const MASK_HOVER   = "TEMPLATE_MASK_HOVER";
 
@@ -37,21 +42,21 @@
   // ==========================================
   // STORAGE KEY
   // ==========================================
-  const STORAGE_KEY = "crow_widget_state";
+  const STORAGE_KEY = "miswak_widget_state";
 
   // ==========================================
   // STATE
   // ==========================================
-  let flavorPool    = [];
-  let flavorIndex   = 0;
-  let bubbleOpen    = false;
-  let typingTimer   = null;
-  let isDragging    = false;
-  let hasDragged    = false;   // NEW: tracks if a drag actually moved
-  let dragOffX      = 0;
-  let dragOffY      = 0;
-  let isMinimized   = false;
-  let isFastFinish  = false;
+  let flavorPool     = [];
+  let flavorIndex    = 0;
+  let bubbleOpen     = false;
+  let typingTimer    = null;
+  let isDragging     = false;
+  let hasDragged     = false;
+  let dragOffX       = 0;
+  let dragOffY       = 0;
+  let isMinimized    = false;
+  let isFastFinish   = false;
   let currentEmotion = "normal";
   let hoverEmotion   = null;
   let isBlinking     = false;
@@ -76,7 +81,7 @@
   // ==========================================
   const style = document.createElement("style");
   style.textContent = `
-    .crow-widget {
+    .miswak-widget {
       position: fixed;
       bottom: 10px;
       left: 5%;
@@ -84,28 +89,28 @@
       user-select: none;
       touch-action: none;
     }
-    .crow-widget img.crow-icon {
+    .miswak-widget img.miswak-icon {
       width: 150px;
       height: 150px;
       display: block;
       cursor: grab;
       transition: filter 0.4s ease;
     }
-    .crow-widget img.crow-icon:active {
+    .miswak-widget img.miswak-icon:active {
       cursor: grabbing;
     }
-    .crow-widget.crow-glow img.crow-icon {
+    .miswak-widget.miswak-glow img.miswak-icon {
       filter: drop-shadow(0 0 6px rgba(255,220,80,0.35))
               drop-shadow(0 0 12px rgba(255,180,0,0.2));
-      animation: crow-pulse 2s ease-in-out infinite;
+      animation: miswak-pulse 2s ease-in-out infinite;
     }
-    @keyframes crow-pulse {
+    @keyframes miswak-pulse {
       0%,100% { filter: drop-shadow(0 0 6px rgba(255,220,80,0.45)) drop-shadow(0 0 12px rgba(255,180,0,0.2)); }
       50%      { filter: drop-shadow(0 0 10px rgba(255,220,80,0.75)) drop-shadow(0 0 20px rgba(255,180,0,0.35)); }
     }
 
     /* Speech bubble */
-    .crow-bubble {
+    .miswak-bubble {
       position: absolute;
       bottom: calc(100% + 8px);
       left: 50%;
@@ -127,11 +132,11 @@
       white-space: normal;
       word-break: break-word;
     }
-    .crow-bubble.visible {
+    .miswak-bubble.visible {
       opacity: 1;
       pointer-events: auto;
     }
-    .crow-bubble::after {
+    .miswak-bubble::after {
       content: '';
       position: absolute;
       bottom: -7px;
@@ -141,22 +146,22 @@
       border-right: 6px solid transparent;
       border-top: 7px solid #1a1a1a;
     }
-    .crow-bubble-cursor {
+    .miswak-bubble-cursor {
       display: inline-block;
       width: 2px;
       height: 1em;
       background: #e8e0cc;
       vertical-align: text-bottom;
       margin-left: 2px;
-      animation: crow-blink-cursor 0.7s step-end infinite;
+      animation: miswak-blink-cursor 0.7s step-end infinite;
     }
-    @keyframes crow-blink-cursor {
+    @keyframes miswak-blink-cursor {
       0%,100% { opacity: 1; }
       50%      { opacity: 0; }
     }
 
     /* Mask (minimized) */
-    .crow-mask {
+    .miswak-mask {
       position: fixed;
       bottom: 10px;
       left: 5%;
@@ -165,18 +170,18 @@
       user-select: none;
       display: none;
     }
-    .crow-mask img {
+    .miswak-mask img {
       width: 52px;
       height: 52px;
       image-rendering: pixelated;
       transition: transform 0.15s ease;
     }
-    .crow-mask img:hover {
+    .miswak-mask img:hover {
       transform: scale(1.2);
     }
 
     /* Restore tab */
-    .crow-restore-tab {
+    .miswak-restore-tab {
       position: fixed;
       bottom: 60px;
       left: 0;
@@ -189,7 +194,7 @@
       transition: width 0.2s ease, background 0.2s ease;
       display: none;
     }
-    .crow-restore-tab:hover {
+    .miswak-restore-tab:hover {
       width: 12px;
       background: rgba(200,180,120,0.75);
     }
@@ -199,34 +204,34 @@
   // ==========================================
   // BUILD DOM
   // ==========================================
-  const crow = document.createElement("div");
-  crow.className = "crow-widget";
-  crow.innerHTML = `
-    <div class="crow-bubble"></div>
-    <img class="crow-icon" src="${SPRITES.normal}" alt="crow">
+  const miswak = document.createElement("div");
+  miswak.className = "miswak-widget";
+  miswak.innerHTML = `
+    <div class="miswak-bubble"></div>
+    <img class="miswak-icon" src="${SPRITES.normal}" alt="miswak">
   `;
-  document.body.appendChild(crow);
+  document.body.appendChild(miswak);
 
-  const crowImg   = crow.querySelector(".crow-icon");
-  const bubble    = crow.querySelector(".crow-bubble");
+  const miswakImg = miswak.querySelector(".miswak-icon");
+  const bubble    = miswak.querySelector(".miswak-bubble");
 
   const mask = document.createElement("div");
-  mask.className = "crow-mask";
-  mask.innerHTML = `<img src="${MASK_NORMAL}" alt="crow mask">`;
+  mask.className = "miswak-mask";
+  mask.innerHTML = `<img src="${MASK_NORMAL}" alt="miswak mask">`;
   document.body.appendChild(mask);
   const maskImg = mask.querySelector("img");
 
   const restoreTab = document.createElement("div");
-  restoreTab.className = "crow-restore-tab";
-  restoreTab.title = "Bring crow back";
+  restoreTab.className = "miswak-restore-tab";
+  restoreTab.title = "Bring miswak back";
   document.body.appendChild(restoreTab);
 
   // ==========================================
   // FLAVOR TEXT INIT
   // ==========================================
   function initFlavor() {
-    if (window.CROW_PAGE_FLAVOR && Array.isArray(window.CROW_PAGE_FLAVOR) && window.CROW_PAGE_FLAVOR.length) {
-      flavorPool = [...window.CROW_PAGE_FLAVOR];
+    if (window.MISWAK_PAGE_FLAVOR && Array.isArray(window.MISWAK_PAGE_FLAVOR) && window.MISWAK_PAGE_FLAVOR.length) {
+      flavorPool = [...window.MISWAK_PAGE_FLAVOR];
     } else {
       flavorPool = [...DEFAULT_FLAVOR];
     }
@@ -238,14 +243,17 @@
   // ==========================================
   function setSprite(name) {
     const src = SPRITES[name] || SPRITES.normal;
-    if (crowImg.src !== src) crowImg.src = src;
+    if (miswakImg.src !== src) miswakImg.src = src;
     currentEmotion = name;
   }
 
+  // Priority order:
+  // dragging > scroll_up > data-miswak hover emotion > widget hover > normal
   function resolveSprite() {
-    if (isDragging)          return "drag";
-    if (hoverEmotion)        return hoverEmotion;
-    if (crow.matches(":hover") && !isDragging) return "happy";
+    if (isDragging)  return "drag";
+    if (canScrollUp()) return "scroll_up";
+    if (hoverEmotion) return hoverEmotion;
+    if (miswak.matches(":hover")) return "happy";
     return "normal";
   }
 
@@ -257,12 +265,12 @@
   // POSITION
   // ==========================================
   function applyPosition(x, y) {
-    crow.style.left   = x + "px";
-    crow.style.bottom = "auto";
-    crow.style.top    = y + "px";
-    mask.style.left   = x + "px";
-    mask.style.top    = y + "px";
-    mask.style.bottom = "auto";
+    miswak.style.left   = x + "px";
+    miswak.style.bottom = "auto";
+    miswak.style.top    = y + "px";
+    mask.style.left     = x + "px";
+    mask.style.top      = y + "px";
+    mask.style.bottom   = "auto";
   }
 
   function initPosition() {
@@ -270,7 +278,7 @@
     if (s.x !== undefined && s.y !== undefined) {
       applyPosition(s.x, s.y);
     } else {
-      applyPosition(Math.round(crow.offsetLeft), Math.round(window.innerHeight - 160));
+      applyPosition(Math.round(miswak.offsetLeft), Math.round(window.innerHeight - 160));
     }
     if (s.minimized) {
       setMinimized(true, false);
@@ -286,9 +294,9 @@
     bubble.classList.add("visible");
     bubble.innerHTML = "";
 
-    const span = document.createElement("span");
+    const span   = document.createElement("span");
     const cursor = document.createElement("span");
-    cursor.className = "crow-bubble-cursor";
+    cursor.className = "miswak-bubble-cursor";
     bubble.appendChild(span);
     bubble.appendChild(cursor);
 
@@ -311,8 +319,8 @@
   function closeBubble() {
     if (typingTimer) { clearTimeout(typingTimer); typingTimer = null; }
     bubble.classList.remove("visible");
-    bubbleOpen = false;
-    isFastFinish = false;
+    bubbleOpen    = false;
+    isFastFinish  = false;
     bubble.innerHTML = "";
   }
 
@@ -336,14 +344,15 @@
 
   function updateGlow() {
     if (canScrollUp()) {
-      crow.classList.add("crow-glow");
+      miswak.classList.add("miswak-glow");
     } else {
-      crow.classList.remove("crow-glow");
+      miswak.classList.remove("miswak-glow");
     }
   }
 
   window.addEventListener("scroll", () => {
     updateGlow();
+    refreshSprite(); // re-evaluate scroll_up sprite on every scroll event
     if (canScrollUp() && bubbleOpen) {
       fastFinishBubble();
     }
@@ -352,8 +361,8 @@
   // ==========================================
   // CLICK BEHAVIOR
   // ==========================================
-  crowImg.addEventListener("click", (e) => {
-    if (isDragging || hasDragged) return;   // CHANGED: ignore clicks after dragging
+  miswakImg.addEventListener("click", (e) => {
+    if (isDragging || hasDragged) return;
 
     if (canScrollUp()) {
       closeBubble();
@@ -374,7 +383,7 @@
   });
 
   document.addEventListener("click", (e) => {
-    if (!crow.contains(e.target) && bubbleOpen) {
+    if (!miswak.contains(e.target) && bubbleOpen) {
       closeBubble();
     }
   });
@@ -382,7 +391,7 @@
   // ==========================================
   // DOUBLE-CLICK → MINIMIZE
   // ==========================================
-  crowImg.addEventListener("dblclick", (e) => {
+  miswakImg.addEventListener("dblclick", (e) => {
     e.preventDefault();
     setMinimized(true);
   });
@@ -408,13 +417,13 @@
   function setMinimized(val, persist = true) {
     isMinimized = val;
     if (val) {
-      crow.style.display  = "none";
-      mask.style.display  = "block";
-      restoreTab.style.display = "block";
+      miswak.style.display      = "none";
+      mask.style.display        = "block";
+      restoreTab.style.display  = "block";
     } else {
-      crow.style.display  = "";
-      mask.style.display  = "none";
-      restoreTab.style.display = "none";
+      miswak.style.display      = "";
+      mask.style.display        = "none";
+      restoreTab.style.display  = "none";
     }
     if (persist) saveState({ minimized: val });
   }
@@ -424,37 +433,37 @@
   // ==========================================
   function startDrag(clientX, clientY) {
     isDragging = true;
-    hasDragged = false;   // CHANGED: reset at drag start
-    const rect = crow.getBoundingClientRect();
+    hasDragged = false;
+    const rect = miswak.getBoundingClientRect();
     dragOffX = clientX - rect.left;
     dragOffY = clientY - rect.top;
-    crow.style.bottom = "auto";
-    crow.style.top    = rect.top + "px";
+    miswak.style.bottom = "auto";
+    miswak.style.top    = rect.top + "px";
     setSprite("drag");
   }
 
   function moveDrag(clientX, clientY) {
     if (!isDragging) return;
-    hasDragged = true;   // CHANGED: mark that we actually moved
+    hasDragged = true;
     const x = clientX - dragOffX;
     const y = clientY - dragOffY;
-    crow.style.left = x + "px";
-    crow.style.top  = y + "px";
-    mask.style.left = x + "px";
-    mask.style.top  = y + "px";
+    miswak.style.left = x + "px";
+    miswak.style.top  = y + "px";
+    mask.style.left   = x + "px";
+    mask.style.top    = y + "px";
   }
 
   function endDrag() {
     if (!isDragging) return;
     isDragging = false;
     refreshSprite();
-    const x = parseInt(crow.style.left);
-    const y = parseInt(crow.style.top);
+    const x = parseInt(miswak.style.left);
+    const y = parseInt(miswak.style.top);
     saveState({ x, y });
-    setTimeout(() => { hasDragged = false; }, 0);   // CHANGED: reset after click event fires
+    setTimeout(() => { hasDragged = false; }, 0);
   }
 
-  crowImg.addEventListener("mousedown", (e) => {
+  miswakImg.addEventListener("mousedown", (e) => {
     if (e.button !== 0) return;
     e.preventDefault();
     startDrag(e.clientX, e.clientY);
@@ -464,7 +473,7 @@
   document.addEventListener("mouseup",   endDrag);
 
   // Touch drag
-  crowImg.addEventListener("touchstart", (e) => {
+  miswakImg.addEventListener("touchstart", (e) => {
     const t = e.touches[0];
     startDrag(t.clientX, t.clientY);
   }, { passive: true });
@@ -476,11 +485,12 @@
   document.addEventListener("touchend", endDrag);
 
   // ==========================================
-  // DATA-CROW EMOTION HOVER
+  // DATA-MISWAK EMOTION HOVER
   // ==========================================
   function attachEmotionListeners() {
-    document.querySelectorAll("[data-crow]").forEach(el => {
-      const emotion = el.getAttribute("data-crow");
+    // supports both old data-crow and new data-miswak attributes
+    document.querySelectorAll("[data-miswak], [data-crow]").forEach(el => {
+      const emotion = el.getAttribute("data-miswak") || el.getAttribute("data-crow");
       el.addEventListener("mouseenter", () => {
         hoverEmotion = emotion;
         refreshSprite();
@@ -497,46 +507,67 @@
   attachEmotionListeners();
 
   // ==========================================
-  // CROW HOVER → HAPPY
+  // MISWAK HOVER → HAPPY
   // ==========================================
-  crowImg.addEventListener("mouseenter", () => {
-    if (!isDragging && !hoverEmotion) setSprite("happy");
+  miswakImg.addEventListener("mouseenter", () => {
+    if (!isDragging && !hoverEmotion && !canScrollUp()) setSprite("happy");
   });
-  crowImg.addEventListener("mouseleave", () => {
+  miswakImg.addEventListener("mouseleave", () => {
     if (!isDragging) refreshSprite();
   });
 
   // ==========================================
   // FLOATING ANIMATION (GSAP)
+  // Paused during drag to prevent fighting with left/top positioning.
   // ==========================================
+  let floatTween = null;
   function startFloatAnimation() {
     if (typeof gsap === "undefined") return;
     const tl = gsap.timeline({ repeat: -1, yoyo: true, repeatRefresh: true });
-    tl.to(crow, { duration: 0.6, x: 0, y: 0, ease: "elastic.out(1,0.3)" });
+    tl.to(miswak, { duration: 0.6, x: 0, y: 0, ease: "elastic.out(1,0.3)" });
     for (let i = 0; i < 4; i++) {
-      tl.to(crow, {
+      tl.to(miswak, {
         duration: () => gsap.utils.random(0.8, 4),
         ease: "sine.inOut",
         x: () => gsap.utils.random(-12, 12),
         y: () => gsap.utils.random(-8, 4),
       });
     }
+    floatTween = tl;
   }
+
+  // Pause/resume float during drag so GSAP doesn't fight left/top
+  miswakImg.addEventListener("mousedown", () => { if (floatTween) floatTween.pause(); });
+  document.addEventListener("mouseup",   () => { if (floatTween && !isDragging) floatTween.resume(); });
 
   // ==========================================
   // BLINKING
+  // Two modes: normal blink and scroll-up blink (uses scroll_blink sprite).
+  // While past the scroll threshold, the blink interval is faster and uses
+  // the scroll_blink sprite so it feels distinct.
   // ==========================================
   function startBlinking() {
     function blink() {
-      if (!crow.matches(":hover") && !isDragging && !hoverEmotion) {
+      const scrolling = canScrollUp();
+      const interval  = scrolling
+        ? Math.random() * 2000 + 800   // faster, eager blink when scroll_up active
+        : Math.random() * 6000 + 2000; // normal relaxed blink
+
+      // Skip blinking if hovering or dragging (scroll_up state ignores hover check
+      // intentionally — it should still blink even when hovered, to look excited).
+      const shouldSkip = isDragging || (!scrolling && miswak.matches(":hover"));
+
+      if (!shouldSkip) {
         isBlinking = true;
-        setSprite("blink");
+        const blinkSprite = scrolling ? "scroll_blink" : "blink";
+        setSprite(blinkSprite);
         setTimeout(() => {
           isBlinking = false;
           refreshSprite();
         }, 120);
       }
-      setTimeout(blink, Math.random() * 6000 + 2000);
+
+      setTimeout(blink, interval);
     }
     setTimeout(blink, 3000);
   }
