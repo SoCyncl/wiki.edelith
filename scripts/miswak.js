@@ -4,7 +4,7 @@
   // ==========================================
   const SPRITES = {
     normal:    "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/neutral-miswak.png",
-    happy:     "https://files.catbox.moe/7c7s1m.png",
+    happy:     "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/neutral-miswak.png",
     blink:     "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/blink-miswak.png",
     drag:      "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/drag-miswak.png",
     scroll_up: "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/up-miswak.png",
@@ -22,11 +22,11 @@
   // ==========================================
   const DEFAULT_FLAVOR = [
     "Double click to rid of me.",
-    "Welcome to the wiki.",
-    "Don't believe everything you read here.",
-    "Someone had to write all of this down.",
-    "These records are as accurate as memory allows.",
-    "The archivist is watching.",
+    "My stories, read read read!",
+    "Through aggregation of lies, a truth will form!",
+    "Do not take me for fact, i am also a liar like you.",
+    "Thank you, gracious Herb for your wonderful memories!",
+    "parouse through my studies, studies!",
   ];
 
   // ==========================================
