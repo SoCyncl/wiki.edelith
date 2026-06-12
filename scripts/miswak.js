@@ -117,7 +117,7 @@
       border-radius: 10px 10px 10px 2px;
       padding: 10px 14px;
       min-width: 60px;
-      max-width: 240px;
+      max-width: 540px;
       font-size: 13px;
       line-height: 1.5;
       font-family: inherit;
