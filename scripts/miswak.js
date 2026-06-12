@@ -87,7 +87,6 @@
     .crow-widget img.crow-icon {
       width: 150px;
       height: 150px;
-      image-rendering: pixelated;
       display: block;
       cursor: grab;
       transition: filter 0.4s ease;
@@ -96,13 +95,13 @@
       cursor: grabbing;
     }
     .crow-widget.crow-glow img.crow-icon {
-      filter: drop-shadow(0 0 6px rgba(255,220,80,0.55))
-              drop-shadow(0 0 12px rgba(255,180,0,0.3));
+      filter: drop-shadow(0 0 6px rgba(255,220,80,0.35))
+              drop-shadow(0 0 12px rgba(255,180,0,0.2));
       animation: crow-pulse 2s ease-in-out infinite;
     }
     @keyframes crow-pulse {
       0%,100% { filter: drop-shadow(0 0 6px rgba(255,220,80,0.45)) drop-shadow(0 0 12px rgba(255,180,0,0.2)); }
-      50%      { filter: drop-shadow(0 0 10px rgba(255,220,80,0.75)) drop-shadow(0 0 20px rgba(255,180,0,0.45)); }
+      50%      { filter: drop-shadow(0 0 10px rgba(255,220,80,0.75)) drop-shadow(0 0 20px rgba(255,180,0,0.35)); }
     }
 
     /* Speech bubble */
