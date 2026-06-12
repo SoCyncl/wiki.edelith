@@ -7,12 +7,11 @@
     happy:     "https://files.catbox.moe/7c7s1m.png",
     blink:     "https://files.catbox.moe/d9mqhg.png",
     drag:      "https://files.catbox.moe/d9mqhg.png",
-    scroll_up: "https://files.catbox.moe/d9mqhg.png",   // shown when glowing / hinting scroll up
+    scroll_up: "https://files.catbox.moe/d9mqhg.png",
     sad:       "https://files.catbox.moe/d9mqhg.png",
     surprised: "https://files.catbox.moe/d9mqhg.png",
     shocked:   "https://files.catbox.moe/d9mqhg.png",
     angry:     "https://files.catbox.moe/d9mqhg.png",
-    // add more emotions here as needed: key matches data-crow="key"
   };
 
   const MASK_NORMAL  = "TEMPLATE_MASK_NORMAL";
@@ -20,8 +19,6 @@
 
   // ==========================================
   // DEFAULT FLAVOR TEXT
-  // Replaced entirely if crow-page-config.js
-  // defines window.CROW_PAGE_FLAVOR
   // ==========================================
   const DEFAULT_FLAVOR = [
     "Double click to rid of me.",
@@ -50,12 +47,13 @@
   let bubbleOpen    = false;
   let typingTimer   = null;
   let isDragging    = false;
+  let hasDragged    = false;   // NEW: tracks if a drag actually moved
   let dragOffX      = 0;
   let dragOffY      = 0;
   let isMinimized   = false;
   let isFastFinish  = false;
   let currentEmotion = "normal";
-  let hoverEmotion   = null;   // emotion set by data-crow hover
+  let hoverEmotion   = null;
   let isBlinking     = false;
 
   // ==========================================
@@ -134,7 +132,6 @@
       opacity: 1;
       pointer-events: auto;
     }
-    /* little tail on the bubble */
     .crow-bubble::after {
       content: '';
       position: absolute;
@@ -179,7 +176,7 @@
       transform: scale(1.2);
     }
 
-    /* Restore tab — tiny edge sliver */
+    /* Restore tab */
     .crow-restore-tab {
       position: fixed;
       bottom: 60px;
@@ -214,14 +211,12 @@
   const crowImg   = crow.querySelector(".crow-icon");
   const bubble    = crow.querySelector(".crow-bubble");
 
-  // Mask
   const mask = document.createElement("div");
   mask.className = "crow-mask";
   mask.innerHTML = `<img src="${MASK_NORMAL}" alt="crow mask">`;
   document.body.appendChild(mask);
   const maskImg = mask.querySelector("img");
 
-  // Restore tab (tiny left-edge sliver shown when minimized)
   const restoreTab = document.createElement("div");
   restoreTab.className = "crow-restore-tab";
   restoreTab.title = "Bring crow back";
@@ -231,8 +226,6 @@
   // FLAVOR TEXT INIT
   // ==========================================
   function initFlavor() {
-    // Page override via crow-page-config.js:
-    // window.CROW_PAGE_FLAVOR = ["line1","line2",...]
     if (window.CROW_PAGE_FLAVOR && Array.isArray(window.CROW_PAGE_FLAVOR) && window.CROW_PAGE_FLAVOR.length) {
       flavorPool = [...window.CROW_PAGE_FLAVOR];
     } else {
@@ -278,8 +271,6 @@
     if (s.x !== undefined && s.y !== undefined) {
       applyPosition(s.x, s.y);
     } else {
-      // default: bottom-left, compute from viewport
-      const rect = crow.getBoundingClientRect();
       applyPosition(Math.round(crow.offsetLeft), Math.round(window.innerHeight - 160));
     }
     if (s.minimized) {
@@ -303,7 +294,7 @@
     bubble.appendChild(cursor);
 
     let i = 0;
-    const speed = 38; // ms per char normal
+    const speed = 38;
     const fast  = 8;
 
     function tick() {
@@ -363,10 +354,9 @@
   // CLICK BEHAVIOR
   // ==========================================
   crowImg.addEventListener("click", (e) => {
-    if (isDragging) return;
+    if (isDragging || hasDragged) return;   // CHANGED: ignore clicks after dragging
 
     if (canScrollUp()) {
-      // scroll to top
       closeBubble();
       window.scrollTo({ top: 0, behavior: "smooth" });
       setSprite("happy");
@@ -374,9 +364,7 @@
       return;
     }
 
-    // flavor text mode
     if (bubbleOpen) {
-      // advance to next line
       closeBubble();
       flavorIndex++;
       if (flavorIndex >= flavorPool.length) flavorIndex = 0;
@@ -386,7 +374,6 @@
     }
   });
 
-  // Close bubble if clicking outside crow+bubble
   document.addEventListener("click", (e) => {
     if (!crow.contains(e.target) && bubbleOpen) {
       closeBubble();
@@ -410,9 +397,7 @@
     setMinimized(false);
   });
 
-  // Mask single click: scroll to top if able
   mask.addEventListener("click", (e) => {
-    // avoid triggering on dblclick's first click too aggressively
     if (canScrollUp()) {
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -440,6 +425,7 @@
   // ==========================================
   function startDrag(clientX, clientY) {
     isDragging = true;
+    hasDragged = false;   // CHANGED: reset at drag start
     const rect = crow.getBoundingClientRect();
     dragOffX = clientX - rect.left;
     dragOffY = clientY - rect.top;
@@ -450,6 +436,7 @@
 
   function moveDrag(clientX, clientY) {
     if (!isDragging) return;
+    hasDragged = true;   // CHANGED: mark that we actually moved
     const x = clientX - dragOffX;
     const y = clientY - dragOffY;
     crow.style.left = x + "px";
@@ -465,6 +452,7 @@
     const x = parseInt(crow.style.left);
     const y = parseInt(crow.style.top);
     saveState({ x, y });
+    setTimeout(() => { hasDragged = false; }, 0);   // CHANGED: reset after click event fires
   }
 
   crowImg.addEventListener("mousedown", (e) => {
@@ -505,7 +493,6 @@
     });
   }
 
-  // Re-run on DOM changes so dynamically added elements work
   const emotionObserver = new MutationObserver(attachEmotionListeners);
   emotionObserver.observe(document.body, { childList: true, subtree: true });
   attachEmotionListeners();
