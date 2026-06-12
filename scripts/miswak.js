@@ -3,11 +3,11 @@
   // SPRITES — replace TEMPLATE with your URLs
   // ==========================================
   const SPRITES = {
-    normal:    "https://files.catbox.moe/7un9dk.png",
+    normal:    "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/neutral-miswak.png",
     happy:     "https://files.catbox.moe/7c7s1m.png",
-    blink:     "https://files.catbox.moe/d9mqhg.png",
-    drag:      "https://files.catbox.moe/d9mqhg.png",
-    scroll_up: "https://files.catbox.moe/d9mqhg.png",
+    blink:     "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/blink-miswak.png",
+    drag:      "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/drag-miswak.png",
+    scroll_up: "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/up-miswak.png",
     sad:       "https://files.catbox.moe/d9mqhg.png",
     surprised: "https://files.catbox.moe/d9mqhg.png",
     shocked:   "https://files.catbox.moe/d9mqhg.png",
