@@ -12,9 +12,12 @@
     surprised: "https://files.catbox.moe/d9mqhg.png",
     shocked:   "https://files.catbox.moe/d9mqhg.png",
     angry:     "https://files.catbox.moe/d9mqhg.png",
+    // ↓ Set this to your talking sprite URL. While typing it alternates
+    //   between normal and this sprite to simulate a mouth-moving effect.
+    talking:      "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/talking-miswak.png",
     // ↓ Add a unique blink sprite for scroll-up state if you have one,
     //   otherwise it falls back to the regular blink sprite.
-    scroll_blink: "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/blink-miswak.png",
+    scroll_blink: "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/up-blink-miswak.png",
   };
 
   // NOTE: fill these in with your actual mask image URLs.
@@ -50,9 +53,13 @@
   let flavorPool     = [];
   let flavorIndex    = 0;
   let bubbleOpen     = false;
+  let isTyping       = false;   // true while typewriter is still running
   let typingTimer    = null;
   let isDragging     = false;
   let hasDragged     = false;
+  let dragStartX     = 0;       // mouse position at mousedown, for sensitivity check
+  let dragStartY     = 0;
+  let dragThreshold  = 9;       // px — movement needed before drag activates
   let dragOffX       = 0;
   let dragOffY       = 0;
   let isMinimized    = false;
@@ -130,7 +137,8 @@
       transition: opacity 0.2s ease, max-height 0.2s ease;
       overflow: hidden;
       white-space: normal;
-      word-break: break-word;
+      overflow-wrap: break-word;
+      word-break: normal;
     }
     .miswak-bubble.visible {
       opacity: 1;
@@ -248,11 +256,12 @@
   }
 
   // Priority order:
-  // dragging > scroll_up > data-miswak hover emotion > widget hover > normal
+  // dragging > scroll_up > talking > data-miswak hover emotion > widget hover > normal
   function resolveSprite() {
-    if (isDragging)  return "drag";
+    if (isDragging)    return "drag";
     if (canScrollUp()) return "scroll_up";
-    if (hoverEmotion) return hoverEmotion;
+    if (isTyping)      return "talking";
+    if (hoverEmotion)  return hoverEmotion;
     if (miswak.matches(":hover")) return "happy";
     return "normal";
   }
@@ -288,6 +297,33 @@
   // ==========================================
   // BUBBLE / TYPEWRITER
   // ==========================================
+
+  // Alternates between "normal" and "talking" sprite while typing,
+  // simulating a mouth-moving effect. Stops when typing ends.
+  let talkFlipTimer = null;
+  let talkPhase     = false; // false = normal, true = talking
+
+  function startTalkingAnimation() {
+    isTyping = true;
+    talkPhase = false;
+    function flip() {
+      if (!isTyping) return;
+      talkPhase = !talkPhase;
+      if (!isBlinking && !isDragging && !canScrollUp()) {
+        setSprite(talkPhase ? "talking" : "normal");
+      }
+      talkFlipTimer = setTimeout(flip, 180);
+    }
+    flip();
+  }
+
+  function stopTalkingAnimation() {
+    isTyping = false;
+    talkPhase = false;
+    if (talkFlipTimer) { clearTimeout(talkFlipTimer); talkFlipTimer = null; }
+    refreshSprite();
+  }
+
   function openBubble(text, onDone) {
     bubbleOpen = true;
     isFastFinish = false;
@@ -300,6 +336,8 @@
     bubble.appendChild(span);
     bubble.appendChild(cursor);
 
+    startTalkingAnimation();
+
     let i = 0;
     const speed = 38;
     const fast  = 8;
@@ -307,6 +345,7 @@
     function tick() {
       if (i >= text.length) {
         cursor.remove();
+        stopTalkingAnimation();
         if (onDone) onDone();
         return;
       }
@@ -318,6 +357,7 @@
 
   function closeBubble() {
     if (typingTimer) { clearTimeout(typingTimer); typingTimer = null; }
+    stopTalkingAnimation();
     bubble.classList.remove("visible");
     bubbleOpen    = false;
     isFastFinish  = false;
@@ -430,20 +470,40 @@
 
   // ==========================================
   // DRAG
+  // Drag only activates after the pointer moves more than dragThreshold px
+  // from the mousedown origin, so a plain click never triggers the drag sprite.
   // ==========================================
+  let dragArmed = false; // mousedown happened but threshold not yet crossed
+
   function startDrag(clientX, clientY) {
-    isDragging = true;
+    dragArmed  = true;
     hasDragged = false;
+    dragStartX = clientX;
+    dragStartY = clientY;
     const rect = miswak.getBoundingClientRect();
     dragOffX = clientX - rect.left;
     dragOffY = clientY - rect.top;
+    // Don't set isDragging or sprite yet — wait for threshold
+  }
+
+  function activateDrag() {
+    isDragging = true;
     miswak.style.bottom = "auto";
-    miswak.style.top    = rect.top + "px";
+    miswak.style.top    = miswak.getBoundingClientRect().top + "px";
     setSprite("drag");
   }
 
   function moveDrag(clientX, clientY) {
-    if (!isDragging) return;
+    if (!dragArmed) return;
+
+    if (!isDragging) {
+      // Check if movement crossed the threshold
+      const dx = clientX - dragStartX;
+      const dy = clientY - dragStartY;
+      if (Math.sqrt(dx * dx + dy * dy) < dragThreshold) return;
+      activateDrag();
+    }
+
     hasDragged = true;
     const x = clientX - dragOffX;
     const y = clientY - dragOffY;
@@ -454,7 +514,9 @@
   }
 
   function endDrag() {
-    if (!isDragging) return;
+    if (!dragArmed) return;
+    dragArmed = false;
+    if (!isDragging) return; // never crossed threshold — was just a click
     isDragging = false;
     refreshSprite();
     const x = parseInt(miswak.style.left);
