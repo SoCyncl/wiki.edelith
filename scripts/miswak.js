@@ -112,8 +112,8 @@
       animation: miswak-pulse 2s ease-in-out infinite;
     }
     @keyframes miswak-pulse {
-      0%,100% { filter: drop-shadow(0 0 6px rgba(255,220,80,0.45)) drop-shadow(0 0 12px rgba(255,180,0,0.2)); }
-      50%      { filter: drop-shadow(0 0 10px rgba(255,220,80,0.75)) drop-shadow(0 0 20px rgba(255,180,0,0.35)); }
+      0%,100% { filter: drop-shadow(0 0 6px rgba(255,220,80,0.45)) drop-shadow(0 0 12px rgba(255,180,0,0.0)); }
+      50%      { filter: drop-shadow(0 0 10px rgba(255,220,80,0.75)) drop-shadow(0 0 20px rgba(255,180,0,0.0)); }
     }
 
     /* Speech bubble */
@@ -215,7 +215,7 @@
   const miswak = document.createElement("div");
   miswak.className = "miswak-widget";
   miswak.innerHTML = `
-    <div class="miswak-bubble"></div>
+    <div class="miswak-bubble fade-block"></div>
     <img class="miswak-icon" src="${SPRITES.normal}" alt="miswak">
   `;
   document.body.appendChild(miswak);
