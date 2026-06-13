@@ -216,7 +216,7 @@
   miswak.className = "miswak-widget";
   miswak.innerHTML = `
     <div class="miswak-bubble fade-block"></div>
-    <img class="miswak-icon" src="${SPRITES.normal}" alt="miswak">
+    <img class="miswak-icon fade-block" src="${SPRITES.normal}" alt="miswak">
   `;
   document.body.appendChild(miswak);
 
