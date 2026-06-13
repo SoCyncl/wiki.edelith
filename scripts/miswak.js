@@ -14,7 +14,7 @@
     angry:     "https://files.catbox.moe/d9mqhg.png",
     // ↓ Set this to your talking sprite URL. While typing it alternates
     //   between normal and this sprite to simulate a mouth-moving effect.
-    talking:      "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/talking-miswak.png",
+    talking:      "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/neutral-miswak.png",
     // ↓ Add a unique blink sprite for scroll-up state if you have one,
     //   otherwise it falls back to the regular blink sprite.
     scroll_blink: "https://file.garden/aE4BmvQeoiKwc59V/miswak's%20mask%20shop/up-blink-miswak.png",
