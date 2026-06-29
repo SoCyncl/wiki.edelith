@@ -13,21 +13,22 @@
 <script src="https://code.jquery.com/jquery-1.7.2.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="scripts/miswak.js" type="text/javascript" defer></script>  
-     
+<script src="scripts/miswak.js" type="text/javascript" defer></script>
+
 <link rel="stylesheet" href="/style/wiki.css">
-<link rel="stylesheet" href="/style/categories.css">     
+<link rel="stylesheet" href="/style/categories.css">
 <script src="https://edelith.org/scripts/home-footer.js" type="text/javascript" defer></script>
 <script src="/scripts/navbar.js" type="text/javascript" defer></script>
-     <script>
-    window.addEventListener("load", () => {
-      document.querySelectorAll(".fade-block").forEach((el, i) => {
-        setTimeout(() => el.classList.add("visible"), i * 70);
-      });
+<script src="/scripts/category-render.js" type="text/javascript" defer></script>
+<script>
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".fade-block").forEach((el, i) => {
+      setTimeout(() => el.classList.add("visible"), i * 70);
     });
-    </script>   
+  });
+</script>
 </head>
-<body>
+<body data-category="locations">
 
 <div class="outer fade-block">
   <div class="all-content" style="padding: 0;">
@@ -40,24 +41,31 @@
       </div>
     </div>
 
+    <!-- ============================================================
+         Everything below this point that used to be hand-written
+         (letter sections, entry cards, pill labels, counts, alpha
+         bar state, recently-updated sidebar) is now built at runtime
+         by /scripts/category-render.js from /data/locations.json.
+         Edit the JSON to add/change entries — do not hand-edit the
+         generated nodes below, they get replaced on every load.
+         ============================================================ -->
+
     <div class="cat-header fade-block">
       <div class="cat-header-left">
-        <div class="cat-header-eyebrow">category · solstitheo</div>
-        <h1 class="cat-header-title">Locations</h1>
-        <p class="cat-header-desc">
-          All named places across Edelith — districts, ruins, taverns, landmarks, and even merchants. Every location the party has visited, heard of.
-        </p>
+        <div class="cat-header-eyebrow">category ·</div>
+        <h1 class="cat-header-title">&nbsp;</h1>
+        <p class="cat-header-desc">&nbsp;</p>
         <div class="cat-header-meta">
           <div class="cat-header-stat">
-            <span class="cat-header-stat-n">??</span>
+            <span class="cat-header-stat-n" data-stat="articles">??</span>
             <span class="cat-header-stat-l">articles</span>
           </div>
           <div class="cat-header-stat">
-            <span class="cat-header-stat-n">??</span>
+            <span class="cat-header-stat-n" data-stat="subcategories">??</span>
             <span class="cat-header-stat-l">subcategories</span>
           </div>
           <div class="cat-header-stat">
-            <span class="cat-header-stat-n">??</span>
+            <span class="cat-header-stat-n" data-stat="sessions">??</span>
             <span class="cat-header-stat-l">sessions referenced</span>
           </div>
         </div>
@@ -66,14 +74,7 @@
       <div class="cat-header-right fade-block">
         <div class="cat-header-right-label">filter by type</div>
         <div class="cat-subcat-pills">
-          <a href="#" class="cat-subcat-pill is-active">all</a>
-          <a href="#" class="cat-subcat-pill">districts</a>
-          <a href="#" class="cat-subcat-pill">ruins</a>
-          <a href="#" class="cat-subcat-pill">Merchants</a>
-          <a href="#" class="cat-subcat-pill">taverns & inns</a>
-          <a href="#" class="cat-subcat-pill">institutions</a>
-          <a href="#" class="cat-subcat-pill">landmarks</a>
-          <a href="#" class="cat-subcat-pill">beyond edelith</a>
+          <!-- pills injected by category-render.js -->
         </div>
       </div>
     </div>
@@ -113,268 +114,15 @@
     <div class="cat-body fade-block">
 
       <div class="cat-main fade-block">
-
-        <div class="cat-letter-section" id="cat-A">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">A</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with A have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-B">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">B</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with B have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-C">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">C</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with C have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-D">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">D</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with D have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-E">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">E</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with E have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-F">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">F</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with F have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-G">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">G</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with G have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-H">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">H</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with H have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-I">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">I</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with I have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-J">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">J</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with J have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-K">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">K</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with K have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-L">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">L</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with L have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-M">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">M</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with M have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-N">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">N</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with N have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-O">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">O</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with O have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-P">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">P</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with P have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-Q">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">Q</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with Q have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-R">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">R</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with R have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-S">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">S</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with S have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-T">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">T</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with T have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-U">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">U</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with U have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-V">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">V</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with V have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-W">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">W</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with W have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-X">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">X</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with X have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-Y">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">Y</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with Y have been documented yet.</div>
-        </div>
-
-        <div class="cat-letter-section" id="cat-Z">
-          <div class="cat-letter-head">
-            <div class="cat-letter-glyph" style="color: var(--stone3);">Z</div>
-            <div class="cat-letter-count" style="color: var(--stone3);">no entries</div>
-            <div class="cat-letter-rule"></div>
-          </div>
-          <div class="cat-entry-none">No locations beginning with Z have been documented yet.</div>
-        </div>
-
+        <!-- letter sections injected by category-render.js -->
       </div><!-- /cat-main -->
 
       <div class="cat-sidebar fade-block">
 
         <div class="cat-sidebar-box">
           <div class="cat-sidebar-head">recently updated</div>
-          <div class="cat-sidebar-body">
-            <a href="#" class="cat-sidebar-item">
-              <span class="cat-sidebar-item-name">location</span>
-              <span class="cat-sidebar-item-sub">session ??</span>
-            </a>
-            <a href="#" class="cat-sidebar-item">
-              <span class="cat-sidebar-item-name">location</span>
-              <span class="cat-sidebar-item-sub">session ??</span>
-            </a>
-            <a href="#" class="cat-sidebar-item">
-              <span class="cat-sidebar-item-name">location</span>
-              <span class="cat-sidebar-item-sub">session ??</span>
-            </a>
-            <a href="#" class="cat-sidebar-item">
-              <span class="cat-sidebar-item-name">location</span>
-              <span class="cat-sidebar-item-sub">session ??</span>
-            </a>
-            <a href="#" class="cat-sidebar-item">
-              <span class="cat-sidebar-item-name">location</span>
-              <span class="cat-sidebar-item-sub">session ??</span>
-            </a>
+          <div class="cat-sidebar-body" data-role="recent">
+            <!-- injected by category-render.js -->
           </div>
         </div>
 
@@ -393,7 +141,8 @@
           <div class="cat-sidebar-head">note</div>
           <div class="cat-sidebar-body">
             <p style="font: italic 400 calc(var(--fontSize) - 2px) / 1.65 var(--body); color: var(--stone3); margin: 0;">
-              location
+              Every entry on this page is generated from <code>/data/locations.json</code>.
+              Add a new place there and it will appear here automatically — no HTML editing required.
             </p>
           </div>
         </div>
@@ -411,7 +160,7 @@
 <style>
  .aug-nav {
     margin-top: 0px;
-}    
+}
 </style>
 
 </html>
