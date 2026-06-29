@@ -1,0 +1,21 @@
+{
+  "category": "bestiary",
+  "label": "Bestiary",
+  "eyebrow": "category · solstitheo",
+  "description": "Monsters and creatures the party has faced, fled from, or befriended across Edelith.",
+  "subcategories": [
+    { "id": "all",      "label": "all" },
+    { "id": "monsters", "label": "monsters" },
+    { "id": "wildlife", "label": "wildlife / mundane creatures" }
+  ],
+  "entries": [
+    {
+      "name": "Example Monster",
+      "subcategory": "monsters",
+      "tag": "monster",
+      "link": "/bestiary/example-monster.html",
+      "session": 5,
+      "dateUpdated": "2026-06-29"
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "category": "factions",
+  "label": "Factions",
+  "eyebrow": "category · solstitheo",
+  "description": "Guilds, houses, cults, and powers that pull the strings of Edelith.",
+  "subcategories": [
+    { "id": "all", "label": "all" }
+  ],
+  "entries": [
+    {
+      "name": "Example Faction",
+      "subcategory": "all",
+      "tag": "faction",
+      "link": "/factions/example-faction.html",
+      "session": 2,
+      "dateUpdated": "2026-06-29"
+    }
+  ]
+}

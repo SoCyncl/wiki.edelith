@@ -1,0 +1,22 @@
+{
+  "category": "items",
+  "label": "Items",
+  "eyebrow": "category · solstitheo",
+  "description": "Magic relics, plot-critical artifacts, and the mundane gear that keeps the party standing.",
+  "subcategories": [
+    { "id": "all",     "label": "all" },
+    { "id": "magic",   "label": "magic items" },
+    { "id": "key",     "label": "key items" },
+    { "id": "mundane", "label": "mundane gear" }
+  ],
+  "entries": [
+    {
+      "name": "Example Item",
+      "subcategory": "magic",
+      "tag": "magic item",
+      "link": "/items/example-item.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    }
+  ]
+}

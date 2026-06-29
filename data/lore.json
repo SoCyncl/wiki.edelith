@@ -1,0 +1,22 @@
+{
+  "category": "lore",
+  "label": "Lore",
+  "eyebrow": "category · solstitheo",
+  "description": "The history, faith, and cultures that shape Edelith and everyone in it.",
+  "subcategories": [
+    { "id": "all",     "label": "all" },
+    { "id": "history", "label": "history & timeline" },
+    { "id": "religion","label": "religion / pantheon" },
+    { "id": "culture", "label": "culture & organizations" }
+  ],
+  "entries": [
+    {
+      "name": "Example Lore Entry",
+      "subcategory": "history",
+      "tag": "history",
+      "link": "/lore/example-lore-entry.html",
+      "session": 1,
+      "dateUpdated": "2026-06-29"
+    }
+  ]
+}
