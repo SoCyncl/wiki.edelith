@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/x-icon" href="/assets/wiki/silver.ico">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Characters — Edelith Wiki</title>
+<meta name="description" content="A fan-built wiki documenting the lore, characters, and world of The Immortal City of Edelith — an original D&D campaign created by Horkah.">
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://solar-icons.gitlab.io/i/icons.css" rel="stylesheet" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitty/2.3.6/fitty.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="scripts/miswak.js" type="text/javascript" defer></script>
+
+<link rel="stylesheet" href="/style/wiki.css">
+<link rel="stylesheet" href="/style/categories.css">
+<script src="https://edelith.org/scripts/home-footer.js" type="text/javascript" defer></script>
+<script src="/scripts/navbar.js" type="text/javascript" defer></script>
+<script src="/scripts/category-render.js" type="text/javascript" defer></script>
+<script>
+  window.addEventListener("load", () => {
+    document.querySelectorAll(".fade-block").forEach((el, i) => {
+      setTimeout(() => el.classList.add("visible"), i * 70);
+    });
+  });
+</script>
+</head>
+<body data-category="characters">
+
+<div class="outer fade-block">
+  <div class="all-content" style="padding: 0;">
+
+    <div class="aug-nav">
+      <div class="aug-nav-left">
+        <div class="aug-nav-but"></div>
+        <a href="/index.html">edelith wiki</a>
+        characters Category
+      </div>
+    </div>
+
+    <!-- ============================================================
+         Everything below this point that used to be hand-written
+         (letter sections, entry cards, pill labels, counts, alpha
+         bar state, recently-updated sidebar) is now built at runtime
+         by /scripts/category-render.js from /data/characters.json.
+         Edit the JSON to add/change entries — do not hand-edit the
+         generated nodes below, they get replaced on every load.
+         ============================================================ -->
+
+    <div class="cat-header fade-block">
+      <div class="cat-header-left">
+        <div class="cat-header-eyebrow">category ·</div>
+        <h1 class="cat-header-title">&nbsp;</h1>
+        <p class="cat-header-desc">&nbsp;</p>
+        <div class="cat-header-meta">
+          <div class="cat-header-stat">
+            <span class="cat-header-stat-n" data-stat="articles">??</span>
+            <span class="cat-header-stat-l">articles</span>
+          </div>
+          <div class="cat-header-stat">
+            <span class="cat-header-stat-n" data-stat="subcategories">??</span>
+            <span class="cat-header-stat-l">subcategories</span>
+          </div>
+          <div class="cat-header-stat">
+            <span class="cat-header-stat-n" data-stat="sessions">??</span>
+            <span class="cat-header-stat-l">sessions referenced</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="cat-header-right fade-block">
+        <div class="cat-header-right-label">filter by type</div>
+        <div class="cat-subcat-pills">
+          <!-- pills injected by category-render.js -->
+        </div>
+      </div>
+    </div>
+
+    <div class="cat-alpha-bar fade-block">
+      <div class="cat-alpha-label">jump to</div>
+      <div class="cat-alpha-links">
+        <a href="#cat-A" class="is-empty">A</a>
+        <a href="#cat-B" class="is-empty">B</a>
+        <a href="#cat-C" class="is-empty">C</a>
+        <a href="#cat-D" class="is-empty">D</a>
+        <a href="#cat-E" class="is-empty">E</a>
+        <a href="#cat-F" class="is-empty">F</a>
+        <a href="#cat-G" class="is-empty">G</a>
+        <a href="#cat-H" class="is-empty">H</a>
+        <a href="#cat-I" class="is-empty">I</a>
+        <a href="#cat-J" class="is-empty">J</a>
+        <a href="#cat-K" class="is-empty">K</a>
+        <a href="#cat-L" class="is-empty">L</a>
+        <a href="#cat-M" class="is-empty">M</a>
+        <a href="#cat-N" class="is-empty">N</a>
+        <a href="#cat-O" class="is-empty">O</a>
+        <a href="#cat-P" class="is-empty">P</a>
+        <a href="#cat-Q" class="is-empty">Q</a>
+        <a href="#cat-R" class="is-empty">R</a>
+        <a href="#cat-S" class="is-empty">S</a>
+        <a href="#cat-T" class="is-empty">T</a>
+        <a href="#cat-U" class="is-empty">U</a>
+        <a href="#cat-V" class="is-empty">V</a>
+        <a href="#cat-W" class="is-empty">W</a>
+        <a href="#cat-X" class="is-empty">X</a>
+        <a href="#cat-Y" class="is-empty">Y</a>
+        <a href="#cat-Z" class="is-empty">Z</a>
+      </div>
+    </div>
+
+    <div class="cat-body fade-block">
+
+      <div class="cat-main fade-block">
+        <!-- letter sections injected by category-render.js -->
+      </div><!-- /cat-main -->
+
+      <div class="cat-sidebar fade-block">
+
+        <div class="cat-sidebar-box">
+          <div class="cat-sidebar-head">recently updated</div>
+          <div class="cat-sidebar-body" data-role="recent">
+            <!-- injected by category-render.js -->
+          </div>
+        </div>
+
+        <div class="cat-sidebar-box fade-block">
+          <div class="cat-sidebar-head">related categories</div>
+          <div class="cat-sidebar-body">
+            <a href="/people/" class="cat-sidebar-link">People</a>
+            <a href="/edelith/" class="cat-sidebar-link">Edelith City</a>
+            <a href="/factions/" class="cat-sidebar-link">Factions</a>
+            <a href="/chronology/" class="cat-sidebar-link">Chronology</a>
+            <a href="/references/" class="cat-sidebar-link">References</a>
+          </div>
+        </div>
+
+        <div class="cat-sidebar-box fade-block">
+          <div class="cat-sidebar-head">note</div>
+          <div class="cat-sidebar-body">
+            <p style="font: italic 400 calc(var(--fontSize) - 2px) / 1.65 var(--body); color: var(--stone3); margin: 0;">
+              Every entry on this page is generated from <code>/data/characters.json</code>.
+              Add a new place there and it will appear here automatically — no HTML editing required.
+            </p>
+          </div>
+        </div>
+
+      </div><!-- /cat-sidebar -->
+
+    </div><!-- /cat-body -->
+
+  </div>
+</div>
+
+<footer-block></footer-block>
+</body>
+
+<style>
+ .aug-nav {
+    margin-top: 0px;
+}
+</style>
+
+</html>
