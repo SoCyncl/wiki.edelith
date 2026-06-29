@@ -1,0 +1,24 @@
+{
+  "category": "characters",
+  "label": "Characters",
+  "eyebrow": "category · solstitheo",
+  "description": "Every person the party has crossed paths with in Edelith — heroes, allies, rivals, and the merchants.",
+  "subcategories": [
+    { "id": "all",               "label": "all" },
+    { "id": "pc",                "label": "player characters" },
+    { "id": "npc.allies",        "label": "NPC · allies" },
+    { "id": "npc.antagonists",   "label": "NPC · antagonists" },
+    { "id": "npc.neutral",       "label": "NPC · neutral / minor" },
+    { "id": "npc.merchants",     "label": "NPC · shops & merchants" }
+  ],
+  "entries": [
+    {
+      "name": "Example Player Character",
+      "subcategory": "pc",
+      "tag": "player character",
+      "link": "/characters/example-pc.html",
+      "session": 1,
+      "dateUpdated": "2026-06-29"
+    }
+  ]
+}
