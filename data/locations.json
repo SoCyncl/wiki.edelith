@@ -9,15 +9,151 @@
     { "id": "poi",  "label": "Points of interest" },
     { "id": "merchants",    "label": "Merchants" },
     { "id": "taverns",      "label": "taverns & inns" },
-    { "id": "institutions", "label": "institutions" },
+    { "id": "inst", "label": "institutions" },
     { "id": "beyond",       "label": "beyond edelith" }
   ],
   "entries": [
     {
-      "name": "Macrebell",
+      "name": "Humboldt's Weaponsmithing",
+      "subcategory": "merchants",
+      "tag": "Tazenless' shop",
+      "link": "/characters/merchant/humboldt.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Tazenlas' Clinic",
+      "subcategory": "merchants",
+      "tag": "Tazenless' shop",
+      "link": "/characters/merchant/tazenlas.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Nafarin's Barters",
+      "subcategory": "merchants",
+      "tag": "Nafarin's shop",
+      "link": "/characters/merchant/nafarin.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Fizzbombozz",
+      "subcategory": "merchants",
+      "tag": "Fizz's shop",
+      "link": "/characters/merchant/fizzbombozz.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Arvegum Fever Exchange",
+      "subcategory": "merchants",
+      "tag": "Arvegum Fever",
+      "link": "/characters/merchant/Laune.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Pon Man's Shop",
+      "subcategory": "merchants",
+      "tag": "pon man's shop",
+      "link": "/characters/merchant/ponman.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Cindy's Trinkets and Odd Wares",
+      "subcategory": "merchants",
+      "tag": "Cindy's shop",
+      "link": "/characters/merchant/cindy.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Tinka's Steelsmithing",
+      "subcategory": "merchants",
+      "tag": "Tinka's shop",
+      "link": "/characters/merchant/tinka.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Mart of Wal",
+      "subcategory": "merchants",
+      "tag": "Mart of wal's shop",
+      "link": "/characters/merchant/pastel.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Gimic's Gimmicks",
+      "subcategory": "merchants",
+      "tag": "Gimic's shop",
+      "link": "/characters/merchant/gimic.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Menzoberra's Scop Shop",
+      "subcategory": "merchants",
+      "tag": "Menzo's shop",
+      "link": "/characters/merchant/menzoberra.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+         {
+      "name": "Manor Seversova",
+      "subcategory": "poi",
+      "tag": "University",
+      "link": "/locations/poi/seversova.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+         {
+      "name": "Schollarium University",
+      "subcategory": "inst",
+      "tag": "University",
+      "link": "/locations/institutions/schollarium-university.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+     {
+      "name": "New Arvegum",
+      "subcategory": "town",
+      "tag": "Town",
+      "link": "/locations/town/new-arvegum.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Bjornguard",
+      "subcategory": "beyond",
+      "tag": "The North Country",
+      "link": "/locations/beyond/bjornguard.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+      {
+      "name": "Bjornguard",
+      "subcategory": "beyond",
+      "tag": "The North Country",
+      "link": "/locations/bjornguard.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+        {
+      "name": "Saoglas",
+      "subcategory": "beyond",
+      "tag": "Sub Rosa Home",
+      "link": "/locations/beyond/saoglas.html",
+      "session": 6,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Macabrell",
       "subcategory": "town",
       "tag": "town",
-      "link": "/locations/Macrebell.html",
+      "link": "/locations/town/macabrell.html",
       "session": 6,
       "dateUpdated": "2026-06-20"
     },
@@ -25,7 +161,7 @@
       "name": "Tarpaul Pit",
       "subcategory": "town",
       "tag": "town",
-      "link": "/locations/tarpaul-pit.html",
+      "link": "/locations/town/tarpaul-pit.html",
       "session": 1,
       "dateUpdated": "2026-06-27"
     },
@@ -33,7 +169,7 @@
       "name": "Fort Adamo",
       "subcategory": "poi",
       "tag": "Point of Interest",
-      "link": "/locations/fort-adamo.html",
+      "link": "/locations/poi/fort-adamo.html",
       "session": 6,
       "dateUpdated": "2026-06-29"
     },
@@ -41,7 +177,7 @@
       "name": "Obsidian Crystalis",
       "subcategory": "poi",
       "tag": "Point of Interest",
-      "link": "/locations/obsidian-crystalis.html",
+      "link": "/locations/poi/obsidian-crystalis.html",
       "session": 6,
       "dateUpdated": "2026-06-22"
     },
@@ -49,7 +185,7 @@
       "name": "Gratehaven",
       "subcategory": "town",
       "tag": "town",
-      "link": "/locations/gratehaven.html",
+      "link": "/locations/town/gratehaven.html",
       "session": 30,
       "dateUpdated": "2026-06-15"
     },
@@ -57,7 +193,7 @@
       "name": "Torthul",
       "subcategory": "town",
       "tag": "town",
-      "link": "/locations/torthul.html",
+      "link": "/locations/town/torthul.html",
       "session": 14,
       "dateUpdated": "2026-06-25"
     }
