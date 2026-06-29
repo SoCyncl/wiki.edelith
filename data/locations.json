@@ -5,9 +5,8 @@
   "description": "All named places across Edelith — districts, ruins, taverns, landmarks, and even merchants. Every location the party has visited, heard of.",
   "subcategories": [
     { "id": "all",          "label": "all" },
-    { "id": "regions",      "label": "regions & continents" },
-    { "id": "settlements",  "label": "settlements" },
-    { "id": "poi",          "label": "points of interest" },
+    { "id": "town",      "label": "Towns" },
+    { "id": "poi",  "label": "Points of interest" },
     { "id": "merchants",    "label": "Merchants" },
     { "id": "taverns",      "label": "taverns & inns" },
     { "id": "institutions", "label": "institutions" },
@@ -15,51 +14,51 @@
   ],
   "entries": [
     {
-      "name": "The Gilded Tankard",
-      "subcategory": "taverns",
-      "tag": "tavern · the Lowmarket",
-      "link": "/locations/the-gilded-tankard.html",
-      "session": 4,
+      "name": "Macrebell",
+      "subcategory": "town",
+      "tag": "town",
+      "link": "/locations/Macrebell.html",
+      "session": 6,
       "dateUpdated": "2026-06-20"
     },
     {
-      "name": "Hollow Bastion",
-      "subcategory": "poi",
-      "tag": "ruin · the Underreach",
-      "link": "/locations/hollow-bastion.html",
-      "session": 9,
+      "name": "Tarpaul Pit",
+      "subcategory": "town",
+      "tag": "town",
+      "link": "/locations/tarpaul-pit.html",
+      "session": 1,
       "dateUpdated": "2026-06-27"
     },
     {
-      "name": "Edelith",
-      "subcategory": "settlements",
-      "tag": "the Immortal City",
-      "link": "/locations/edelith.html",
-      "session": 1,
+      "name": "Fort Adamo",
+      "subcategory": "poi",
+      "tag": "Point of Interest",
+      "link": "/locations/fort-adamo.html",
+      "session": 6,
       "dateUpdated": "2026-06-29"
     },
     {
-      "name": "Marrow's Curiosities",
-      "subcategory": "merchants",
-      "tag": "merchant · oddities & relics",
-      "link": "/locations/marrows-curiosities.html",
+      "name": "Obsidian Crystalis",
+      "subcategory": "poi",
+      "tag": "Point of Interest",
+      "link": "/locations/obsidian-crystalis.html",
       "session": 6,
       "dateUpdated": "2026-06-22"
     },
     {
-      "name": "Solstitheo",
-      "subcategory": "regions",
-      "tag": "continent",
-      "link": "/locations/solstitheo.html",
-      "session": 1,
+      "name": "Gratehaven",
+      "subcategory": "town",
+      "tag": "town",
+      "link": "/locations/gratehaven.html",
+      "session": 30,
       "dateUpdated": "2026-06-15"
     },
     {
-      "name": "The Archivist's Vault",
-      "subcategory": "institutions",
-      "tag": "institution · the Old Quarter",
-      "link": "/locations/the-archivists-vault.html",
-      "session": 7,
+      "name": "Torthul",
+      "subcategory": "town",
+      "tag": "town",
+      "link": "/locations/torthul.html",
+      "session": 14,
       "dateUpdated": "2026-06-25"
     }
   ]
