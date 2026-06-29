@@ -1,0 +1,66 @@
+{
+  "category": "locations",
+  "label": "Locations",
+  "eyebrow": "category · solstitheo",
+  "description": "All named places across Edelith — districts, ruins, taverns, landmarks, and even merchants. Every location the party has visited, heard of.",
+  "subcategories": [
+    { "id": "all",          "label": "all" },
+    { "id": "regions",      "label": "regions & continents" },
+    { "id": "settlements",  "label": "settlements" },
+    { "id": "poi",          "label": "points of interest" },
+    { "id": "merchants",    "label": "Merchants" },
+    { "id": "taverns",      "label": "taverns & inns" },
+    { "id": "institutions", "label": "institutions" },
+    { "id": "beyond",       "label": "beyond edelith" }
+  ],
+  "entries": [
+    {
+      "name": "The Gilded Tankard",
+      "subcategory": "taverns",
+      "tag": "tavern · the Lowmarket",
+      "link": "/locations/the-gilded-tankard.html",
+      "session": 4,
+      "dateUpdated": "2026-06-20"
+    },
+    {
+      "name": "Hollow Bastion",
+      "subcategory": "poi",
+      "tag": "ruin · the Underreach",
+      "link": "/locations/hollow-bastion.html",
+      "session": 9,
+      "dateUpdated": "2026-06-27"
+    },
+    {
+      "name": "Edelith",
+      "subcategory": "settlements",
+      "tag": "the Immortal City",
+      "link": "/locations/edelith.html",
+      "session": 1,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Marrow's Curiosities",
+      "subcategory": "merchants",
+      "tag": "merchant · oddities & relics",
+      "link": "/locations/marrows-curiosities.html",
+      "session": 6,
+      "dateUpdated": "2026-06-22"
+    },
+    {
+      "name": "Solstitheo",
+      "subcategory": "regions",
+      "tag": "continent",
+      "link": "/locations/solstitheo.html",
+      "session": 1,
+      "dateUpdated": "2026-06-15"
+    },
+    {
+      "name": "The Archivist's Vault",
+      "subcategory": "institutions",
+      "tag": "institution · the Old Quarter",
+      "link": "/locations/the-archivists-vault.html",
+      "session": 7,
+      "dateUpdated": "2026-06-25"
+    }
+  ]
+}
