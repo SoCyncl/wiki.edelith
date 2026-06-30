@@ -2,19 +2,164 @@
   "category": "items",
   "label": "Items",
   "eyebrow": "category · solstitheo",
-  "description": "Magic relics, plot-critical artifacts, and the mundane gear that keeps the party standing.",
+  "description": "Magic relics, Magic items, basically everything regarding items.",
   "subcategories": [
     { "id": "all",     "label": "all" },
-    { "id": "magic",   "label": "magic items" },
-    { "id": "key",     "label": "key items" },
-    { "id": "mundane", "label": "mundane gear" }
+    { "id": "magic",   "label": "Magic items" },
+    { "id": "wep",   "label": "Magic weapons" },    
+    { "id": "boss",   "label": "Sundial rewards" },  
+    { "id": "key",     "label": "Key items" },
   ],
   "entries": [
     {
-      "name": "Example Item",
+      "name": "Charm of Hiebrief",
       "subcategory": "magic",
-      "tag": "magic item",
-      "link": "/items/example-item.html",
+      "tag": "A Charm from the goddess",
+      "link": "/items/utility/charm-of-hiebrief.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Racketeer's Armistice",
+      "subcategory": "wep",
+      "tag": "Gambling gun",
+      "link": "/items/weapons/racketeers-armistice.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Ringo's Spare Tambourine",
+      "subcategory": "magic",
+      "tag": "An old tambourine",
+      "link": "/items/utility/spare-tambourine.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Prismatic Skollware Glaive",
+      "subcategory": "wep",
+      "tag": "A technological glaive",
+      "link": "/items/weapons/skollware-glaive.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Staff of Skollarium Pride",
+      "subcategory": "magic",
+      "tag": "A banner that rallies allies",
+      "link": "/items/utility/skollarium-pride.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Ring of Fatherly Bonds",
+      "subcategory": "magic",
+      "tag": "A ring that splits damage",
+      "link": "/items/utility/fatherly-bonds.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "gimic's plush",
+      "subcategory": "magic",
+      "tag": "gimic's plush",
+      "link": "/items/weapons/gimic-plush.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Mimicloak",
+      "subcategory": "magic",
+      "tag": "gimic's cloak",
+      "link": "/items/utility/mimicloak.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Gauntlet Mimic",
+      "subcategory": "wep",
+      "tag": "gimic's gauntlet",
+      "link": "/items/weapons/gauntlet-mimic.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Ring of Mimicry",
+      "subcategory": "gimic's ring",
+      "tag": "gimic's ring",
+      "link": "/items/utility/ring-of-mimicry.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Feynip Pouch",
+      "subcategory": "magic",
+      "tag": "Mart of Wal Items",
+      "link": "/items/utility/feynip-pouch.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Deck of Illusions",
+      "subcategory": "magic",
+      "tag": "Mart of Wal items",
+      "link": "/items/utility/deck-of-illusions.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Various Bargain Bin Potions",
+      "subcategory": "magic",
+      "tag": "Mart of wal items",
+      "link": "/items/utility/bargain-bin.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Liorah's Tarnished Halo",
+      "subcategory": "boss",
+      "tag": "Magical Halo from Liorah",
+      "link": "/items/sundial/tarnished-halo.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Mangled Arrow",
+      "subcategory": "boss",
+      "tag": "Magic arrow used as a pike",
+      "link": "/items/sundial/mangled-arrow.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Antlers of the Famine Avatar",
+      "subcategory": "boss",
+      "tag": "Magic weapon that was ...sold?",
+      "link": "/items/sundial/antlers-of-famine.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Shortswords of Flame and Rot",
+      "subcategory": "boss",
+      "tag": "Magic weapons used to cripple and kill",
+      "link": "/items/sundial/flame-and-rot.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Golden Bough Whip",
+      "subcategory": "boss",
+      "tag": "Magic Weapon used to heal",
+      "link": "/items/sundial/golden-bough-whip.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },   
+    {
+      "name": "Vitric's Order",
+      "subcategory": "boss",
+      "tag": "Magic Item used to control",
+      "link": "/items/sundial/vitrics-order.html",
       "session": 3,
       "dateUpdated": "2026-06-29"
     }
