@@ -12,6 +12,14 @@
   ],
   "entries": [
     {
+      "name": "Saber of the Seraphim",
+      "subcategory": "wep",
+      "tag": "Gladiator item",
+      "link": "/items/gladiator/saber-of-the-seraphim.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
       "name": "Charm of Hiebrief",
       "subcategory": "magic",
       "tag": "A Charm from the goddess",
