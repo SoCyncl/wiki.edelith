@@ -12,6 +12,22 @@
   ],
   "entries": [
     {
+      "name": "Edelith Pod",
+      "subcategory": "key",
+      "tag": "An important key item",
+      "link": "/items/key/edelith-pod.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
+      "name": "Edelith Pod",
+      "subcategory": "key",
+      "tag": "An important key item",
+      "link": "/items/key/edelith-pod.html",
+      "session": 3,
+      "dateUpdated": "2026-06-29"
+    },
+    {
       "name": "Saber of the Seraphim",
       "subcategory": "wep",
       "tag": "Gladiator item",
