@@ -8,7 +8,7 @@
     { "id": "magic",   "label": "Magic items" },
     { "id": "wep",   "label": "Magic weapons" },    
     { "id": "boss",   "label": "Sundial rewards" },  
-    { "id": "key",     "label": "Key items" },
+    { "id": "key",     "label": "Key items" }
   ],
   "entries": [
     {
