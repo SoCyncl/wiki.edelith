@@ -190,8 +190,8 @@
   <div class="ed-ban-inner">
     <div class="ed-ban-bg"></div>
     <div class="ed-ban-content">
-      <div class="ed-ban-eyebrow">the immortal city of</div>
-      <h1 class="ed-ban-title" id="ed-ban-el">edelith</h1>
+      <div class="ed-ban-eyebrow">The</div>
+      <h1 class="ed-ban-title" id="ed-ban-el">Solstitheon</h1>
       <div class="ed-ban-sub"></div>
     </div>
   </div>
