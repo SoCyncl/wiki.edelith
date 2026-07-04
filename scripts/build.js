@@ -46,8 +46,11 @@ const path = require('path');
 const { marked } = require('marked');
 const matter = require('gray-matter');
 
-const CONTENT_DIR = path.resolve(process.argv[2] || 'content');
+const CONTENT_DIR = path.resolve(process.argv[2] || '.');
 const OUTPUT_DIR = path.resolve(process.argv[3] || 'dist');
+
+// folders to never walk into when scanning from the repo root
+const EXCLUDE_DIRS = new Set(['.git', '.github', 'node_modules', 'scripts', 'dist', '.vscode']);
 
 const MARKERS = {
   title: '<!--TITLE-->',
@@ -62,6 +65,7 @@ const MARKERS = {
 
 function walk(dir, out = []) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (EXCLUDE_DIRS.has(entry.name)) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) walk(full, out);
     else out.push(full);
@@ -219,7 +223,13 @@ function main() {
     const mdFile = path.join(dir, `${base}.md`);
 
     if (!fs.existsSync(mdFile)) {
-      console.warn(`[skip] no matching markdown for ${htmlFile}`);
+      // no matching markdown — this is a plain static html page (like a
+      // hand-written homepage). copy it through untouched.
+      const relDir = path.relative(CONTENT_DIR, dir);
+      const outDir = path.join(OUTPUT_DIR, relDir);
+      fs.mkdirSync(outDir, { recursive: true });
+      fs.copyFileSync(htmlFile, path.join(outDir, path.basename(htmlFile)));
+      console.log(`[copied] ${htmlFile} (no matching markdown, passed through as-is)`);
       continue;
     }
 
