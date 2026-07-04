@@ -1,51 +1,67 @@
-/*wikitable by @limegreen on neocities. a link is appreciated!*/
-/*extended with build.js-driven wiki features*/
+/*wikitable by @limegreen on neocities, reskinned in an Edelith-parody parchment/gold palette. a link is appreciated!*/
+/*extended with build.js-driven wiki features: sidebar TOC, Apocrypha category, source-block quoting*/
 
-@import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+
+@font-face {
+  font-family: "Allover";
+  src: url("https://files.jcink.net/uploads2/astoriarp/ALLOVER_MODERN_DEMO.otf");
+}
 
 :root {
-  --backgroundcolor: grey;
-  --textcolor: #2b2b2b;
-  --header: #969696;
-  --main: white;
-  --footer: #eaecf0;
-  --borders: #454545;
+  /* ---- base surfaces, ported from the parchment/stone palette ---- */
+  --backgroundcolor: #8a7d6d;
+  --textcolor: #1e1a14;
+  --header: #1e1a14;
+  --main: #f2ece0;
+  --footer: #e4daca;
+  --borders: #1e1a14;
 
-  --link: blue;
-  --linkhover: purple;
-  --redlink: #ba0000;
-  --redlinkhover: #dd3333;
+  --link: #8a6a28;
+  --linkhover: #b08a3a;
+  --redlink: #963a20;
+  --redlinkhover: #c2502f;
 
-  --breadcrumb: grey;
-  --h1: #2b2b2b;
-  --h2: #2b2b2b;
-  --h3: #2b2b2b;
-  --headerunderline: grey;
+  --breadcrumb: #8a7d6d;
+  --h1: #1e1a14;
+  --h2: #1e1a14;
+  --h3: #8a6a28;
+  --headerunderline: #1e1a14;
 
-  --quotebackground: grey;
-  --quotetext: #2b2b2b;
-  --boxbg: #bfbfbf;
-  --showcontentborder: grey;
+  --quotebackground: #e4daca;
+  --quotetext: #38302a;
+  --boxbg: #e4daca;
+  --showcontentborder: #1e1a14;
 
-  --seriesofbg: #bfbfbf;
-  --seriesoftext: #2b2b2b;
+  --seriesofbg: #e4daca;
+  --seriesoftext: #1e1a14;
 
-  --infoboxbg: #eaecf0;
-  --centertext: #bdbdbd;
-  --boldtext: #2b2b2b;
-  --infotext: #2b2b2b;
+  --infoboxbg: #1e1a14;
+  --centertext: #b08a3a;
+  --boldtext: #1e1a14;
+  --infotext: #d4c9b0;
 
-  /*new: categories / references / meta*/
-  --categorybg: #f8f9fa;
-  --categoryborder: #a2a9b1;
-  --referencetext: #444;
-  --metatext: #767676;
+  --categorybg: #f2ece0;
+  --categoryborder: #c9bfae;
+  --referencetext: #574e46;
+  --metatext: #8a7d6d;
+
+  /* ---- gold accent family, straight off the Edelith sheet ---- */
+  --gold: #b08a3a;
+  --golddim: #8a6a28;
+  --goldpale: #d4b86a;
+  --ink3: #38302a;
+
+  /* ---- type + texture ---- */
+  --display: "Allover", serif;
+  --body-font: "Crimson Pro", Georgia, serif;
+  --texture: url(https://i.ibb.co/cccRzhgg/subtle-grunge.png);
 }
 
 body {
   background-color: var(--backgroundcolor);
-  font-family: Atkinson Hyperlegible;
-  font-size: 15.5px;
+  font-family: var(--body-font);
+  font-size: 16px;
   margin: 0;
   color: var(--textcolor);
 }
@@ -58,8 +74,10 @@ body {
   margin-bottom: 15px;
 }
 main {
-  padding: 15px;
+  padding: 15px 25px 25px;
   background: var(--main);
+  background-image: var(--texture);
+  background-blend-mode: multiply;
   min-height: 100vh;
   clear: left;
 }
@@ -73,11 +91,17 @@ a.redlink {
 }
 a.redlink:hover { color: var(--redlinkhover); text-decoration: underline dotted; }
 
-.breadcrumb { color: var(--breadcrumb); }
+.breadcrumb {
+  color: var(--breadcrumb);
+  font-style: italic;
+  letter-spacing: 0.5px;
+}
 header {
   height: 100px;
   border-bottom: 2px solid var(--borders);
   background: var(--header);
+  background-image: var(--texture);
+  background-blend-mode: soft-light;
 }
 main img { max-width: 100%; }
 footer {
@@ -85,29 +109,110 @@ footer {
   padding: 35px;
   border-top: 2px solid var(--borders);
   text-align: center;
+  font-style: italic;
+  color: var(--metatext);
 }
 
-h1, h2, h3 { overflow: hidden; border-bottom: 2px solid var(--headerunderline); }
-h2 { font-size: 19pt; }
-h3 { font-size: 16pt; }
+h1, h2, h3 {
+  overflow: hidden;
+  border-bottom: 2px solid var(--headerunderline);
+  font-family: var(--display);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: normal;
+}
+h1 { font-size: 30pt; }
+h1::first-letter, .wiki-title-main::first-letter { color: var(--gold); }
+h2 { font-size: 19pt; color: var(--h2); }
+h3 { font-size: 15pt; color: var(--h3); border-bottom: none; padding-left: 12px; border-left: dotted 3px var(--gold); }
 
-/*table of contents*/
-.showcontent { padding: 3px; font-weight: bold; }
-.contents {
+/* ============================================================
+   TABLE OF CONTENTS — now a toggleable sidebar, not a static box
+   ============================================================ */
+.toc-toggle-input { display: none; }
+
+.toc-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
   background-color: var(--boxbg);
-  width: 14%;
-  padding: 7px;
   border: 2px solid var(--showcontentborder);
+  padding: 6px 14px;
+  font-weight: bold;
+  font-family: var(--display);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-size: 12px;
+  margin-bottom: 15px;
+  user-select: none;
+  transition: color 0.2s ease, background-color 0.2s ease;
 }
-.toc summary { list-style-type: '\2630 '; }
-.toc ul { list-style: none; margin-left: -30px; }
-.toc-level-3 { margin-left: 20px; }
+.toc-toggle-btn::before { content: "\2630"; color: var(--gold); }
+.toc-toggle-btn:hover { color: var(--linkhover); }
+
+.toc-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(30, 26, 20, 0.55);
+  z-index: 998;
+  cursor: pointer;
+}
+.toc-toggle-input:checked ~ .toc-overlay { display: block; }
+
+.toc-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 280px;
+  max-width: 80vw;
+  background: var(--main);
+  background-image: var(--texture);
+  background-blend-mode: multiply;
+  border-right: 2px solid var(--borders);
+  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.35);
+  transform: translateX(-105%);
+  transition: transform 0.35s ease;
+  z-index: 999;
+  padding: 22px;
+  overflow-y: auto;
+}
+.toc-toggle-input:checked ~ .toc-sidebar { transform: translateX(0); }
+
+.toc-sidebar-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  cursor: pointer;
+  font-size: 22px;
+  color: var(--golddim);
+  line-height: 1;
+}
+.toc-sidebar-close:hover { color: var(--gold); }
+
+.toc-sidebar-title {
+  font-family: var(--display);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 14px;
+  margin: 0 0 14px 0;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--headerunderline);
+}
+.toc-sidebar ul { list-style: none; margin: 0; padding-left: 0; }
+.toc-sidebar li { margin-bottom: 8px; }
+.toc-sidebar .toc-level-3 { margin-left: 18px; font-style: italic; font-size: 14px; }
+.toc-sidebar a { color: var(--textcolor); }
+.toc-sidebar a:hover { color: var(--gold); }
 
 .quotebox {
   width: 30%;
   font-style: italic;
+  font-family: var(--body-font);
   padding: 13px;
-  border-left: solid;
+  border-left: solid 4px var(--gold);
   background-color: var(--quotebackground);
   color: var(--quotetext);
 }
@@ -135,34 +240,102 @@ h3 { font-size: 16pt; }
   height: 20px;
   margin-left: 4px;
   content: "\26F6";
+  color: var(--gold);
 }
 
 .infotable {
   float: right;
   margin-left: 5px;
   background: var(--infoboxbg);
+  background-image: var(--texture);
+  background-blend-mode: soft-light;
   border: 2px solid var(--borders);
   width: 21%;
   font-size: 14px;
   color: var(--infotext);
 }
 .infotable img { max-width: 100%; margin: auto; }
-.infotable th { text-align: left; padding: 5px; color: black; }
+.infotable th {
+  text-align: left;
+  padding: 5px;
+  color: var(--goldpale);
+  font-family: var(--display);
+  font-weight: normal;
+  letter-spacing: 1px;
+}
 .infotable ul { list-style: none; padding: 0px; margin: 4px; }
-#centertext { text-align: center; background: var(--centertext); }
+#centertext {
+  text-align: center;
+  background: var(--gold);
+  color: var(--ink3) !important;
+}
 #clear::after { content: ""; clear: both; display: table; }
 
 /*references / footnotes*/
 sup.reference a { text-decoration: none; }
 ol.references {
   font-size: 13px;
+  font-family: var(--body-font);
   color: var(--referencetext);
   padding-left: 20px;
 }
 ol.references li { margin-bottom: 4px; }
 a.backlink { text-decoration: none; margin-left: 4px; }
 
-/*categories footer, MediaWiki style*/
+/* ============================================================
+   SOURCE BLOCK — for dropping in a story/book excerpt verbatim
+   ============================================================ */
+.source-block {
+  margin: 20px 0;
+  padding: 20px 26px 16px;
+  background-color: var(--footer);
+  background-image: var(--texture);
+  background-blend-mode: multiply;
+  border-left: 4px solid var(--gold);
+  border-top: 1px solid var(--categoryborder);
+  border-bottom: 1px solid var(--categoryborder);
+  font-family: var(--body-font);
+  font-style: italic;
+  color: var(--ink3);
+  position: relative;
+}
+.source-block::before {
+  content: "\201C";
+  font-family: Georgia, serif;
+  font-style: normal;
+  font-size: 52px;
+  color: var(--goldpale);
+  position: absolute;
+  top: -6px;
+  left: 10px;
+  line-height: 1;
+}
+.source-block-label {
+  font-family: var(--display);
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 11px;
+  color: var(--golddim);
+  margin: 0 0 10px 24px;
+}
+.source-block p { margin: 0 0 12px 0; padding-left: 24px; }
+.source-block p:last-of-type { margin-bottom: 0; }
+.source-attribution {
+  display: block;
+  text-align: right;
+  font-style: normal;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--metatext);
+  margin-top: 10px;
+  padding-left: 24px;
+}
+
+/* ============================================================
+   CATEGORIES footer, MediaWiki style — with the Apocrypha special-case
+   ============================================================ */
 .categories {
   margin-top: 25px;
   padding: 8px 10px;
@@ -172,10 +345,42 @@ a.backlink { text-decoration: none; margin-left: 4px; }
   clear: both;
 }
 
+/*Apocrypha: a special category for in-universe info of dubious reliability*/
+.category-apocrypha {
+  color: var(--golddim);
+  font-style: italic;
+  font-weight: bold;
+}
+.category-apocrypha:hover { color: var(--gold); }
+
+/*generic hover tooltip, used by Apocrypha and available for reuse*/
+.tooltip { position: relative; cursor: help; text-decoration: none !important; }
+.tooltip::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--infoboxbg);
+  color: var(--goldpale);
+  padding: 6px 10px;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: normal;
+  white-space: nowrap;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+  z-index: 10;
+}
+.tooltip:hover::after { opacity: 1; }
+
 /*last edited stamp*/
 .lastedited {
   color: var(--metatext);
   font-size: 12px;
+  font-style: italic;
   margin: 0 0 10px 0;
 }
 
@@ -188,7 +393,6 @@ a.backlink { text-decoration: none; margin-left: 4px; }
 }
 @media (max-width: 1250px) {
   .infotable { width: 35%; }
-  .contents { width: 40%; }
 }
 @media (orientation: portrait) {
   .quotebox { width: 90%; margin: auto; padding: 15px; margin-top: 10px; }
@@ -197,6 +401,6 @@ a.backlink { text-decoration: none; margin-left: 4px; }
   .wrapper { width: 95%; }
   .chapters { width: 50%; }
   .main { padding-top: 20px; }
-  .contents { width: 95%; }
   .reveal { width: 95%; }
+  .toc-sidebar { width: 85vw; }
 }
