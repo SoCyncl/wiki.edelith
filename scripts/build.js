@@ -14,9 +14,12 @@
  * Markers expected inside each html template:
  *   <!--TITLE-->        page title (h1 text)
  *   <!--INFOBOX-->      rows injected into the infobox <tbody>
- *   <!--TOC-->          auto table of contents, rendered as a toggleable
- *                       sidebar (only appears if the page has 4+ headings,
- *                       like MediaWiki does)
+ *   <!--TOC-->          auto table of contents. On desktop this renders as
+ *                       a sticky sidebar that sits alongside the article
+ *                       (like modern Wikipedia), not a popup. Below the
+ *                       mobile breakpoint it becomes a slide-out drawer.
+ *                       Only appears if the page has 4+ headings, like
+ *                       MediaWiki does.
  *   <!--CONTENT-->      the rendered markdown body
  *   <!--CATEGORIES-->   category footer links
  *   <!--LASTEDITED-->   "last edited" stamp, from the .md file's mtime
@@ -25,15 +28,37 @@
  * {{fieldname}}, e.g. {{image}} or {{imagecaption}} (case-insensitive).
  *
  * Markdown extras supported beyond plain CommonMark:
- *   [[Page Name]]            wiki-link -> resolves to a real page if one
- *   [[Page Name|Display]]    exists anywhere in the content tree, else
- *                            renders as a "redlink" (no href, just a class)
- *   [^1] ... [^1]: text      footnotes -> numbered references list with
- *                            back-links, MediaWiki <ref> style
- *   :::source[Attribution]   source block -> for quoting a story/book
- *   excerpt text here        excerpt verbatim into the page, indented
- *   :::                      and set off like a MediaWiki blockquote.
- *                            The [Attribution] part is optional.
+ *
+ *   [[Page Name]]              wiki-link -> resolves to a real page if one
+ *   [[Page Name|Display]]      exists anywhere in the content tree, else
+ *                              renders as a "redlink" (no href, just a class)
+ *
+ *   [[File:name.jpg]]          image with wraparound text, MediaWiki style.
+ *   [[File:name.jpg|left]]     Params after the filename can appear in any
+ *   [[File:name.jpg|thumb|     order, separated by "|":
+ *      right|A caption here]]    - left / right / center   float + alignment
+ *                                  (default: right)
+ *                                - thumb / thumbnail / frameless
+ *                                  (accepted for MediaWiki-authoring muscle
+ *                                  memory; currently cosmetic no-ops)
+ *                                - anything else is treated as the caption
+ *
+ *   [^1] ... [^1]: text        footnotes -> numbered references list with
+ *                              back-links, MediaWiki <ref> style
+ *
+ *   :::source[Attribution]     source block -> for quoting a story/book
+ *   excerpt text here          excerpt verbatim into the page, indented
+ *   :::                        and set off like a MediaWiki blockquote.
+ *                              The [Attribution] part is optional.
+ *
+ *   :::quote[Attribution]      pull-quote -> a short, emphasized excerpt
+ *   A pulled-out line.         that floats beside the body text, the way
+ *   :::                        magazine/wiki layouts highlight a key line.
+ *                              The [Attribution] part is optional.
+ *
+ *   :::hatnote                 hatnote -> the small italic disambiguation-
+ *   For other uses, see [[X]]. style note MediaWiki puts directly under
+ *   :::                        the page title (e.g. "For other uses...").
  *
  * Frontmatter (YAML at the top of the .md file) drives the infobox and
  * categories, e.g.:
@@ -71,6 +96,8 @@ const MARKERS = {
 };
 
 const APOCRYPHA_TOOLTIP = 'Info that may or may not be correct';
+const IMAGE_ALIGN_KEYWORDS = new Set(['left', 'right', 'center']);
+const IMAGE_STYLE_KEYWORDS = new Set(['thumb', 'thumbnail', 'frameless', 'frame']);
 
 // ---------------------------------------------------------------- helpers
 
@@ -92,6 +119,10 @@ function slugify(str) {
     .replace(/(^-|-$)/g, '');
 }
 
+function escapeAttr(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+}
+
 // Every html template becomes one output page. We index them by a "slug"
 // (folder name, since pages live in their own folder as template.html) so
 // [[wiki links]] can resolve to real files.
@@ -110,6 +141,39 @@ function buildPageIndex(htmlFiles) {
 }
 
 // -------------------------------------------------------- markdown extras
+
+// [[File:name.jpg|left|thumb|Caption]] -> a <figure> that floats and wraps
+// text around it, MediaWiki style. Params after the filename can appear in
+// any order; unrecognized params are joined together as the caption. Must
+// run BEFORE processWikilinks so "File:" targets never get mistaken for a
+// page link.
+function processImages(md) {
+  return md.replace(/\[\[File:([^\]|]+)((?:\|[^\]]*)*)\]\]/gi, (match, filename, paramStr) => {
+    const parts = paramStr ? paramStr.split('|').filter((p) => p.length) : [];
+    let align = 'right';
+    let caption = '';
+    for (const raw of parts) {
+      const part = raw.trim();
+      const lower = part.toLowerCase();
+      if (IMAGE_ALIGN_KEYWORDS.has(lower)) {
+        align = lower;
+      } else if (IMAGE_STYLE_KEYWORDS.has(lower)) {
+        // cosmetic only for now, accepted for MediaWiki muscle memory
+      } else if (part) {
+        caption = caption ? `${caption} ${part}` : part;
+      }
+    }
+    const src = filename.trim();
+    const alignClass = `align-${align}`;
+    const altText = escapeAttr(caption || src);
+    const captionHtml = caption ? `<figcaption>${caption}</figcaption>` : '';
+    return (
+      `<figure class="wiki-figure ${alignClass}">` +
+      `<img src="${escapeAttr(src)}" alt="${altText}" loading="lazy">` +
+      `${captionHtml}</figure>`
+    );
+  });
+}
 
 // [[Page]] / [[Page|Display]] -> real link if the page exists, else redlink
 function processWikilinks(md, pageIndex, outDir) {
@@ -166,10 +230,34 @@ function processSourceBlocks(md) {
   });
 }
 
+// :::quote[Attribution]\n line \n::: -> a floated pull-quote, the way a
+// magazine or modern wiki layout pulls a key line out beside the body text.
+function processPullquotes(md) {
+  return md.replace(/^:::quote(?:\[(.*?)\])?[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (match, attribution, inner) => {
+    const innerHtml = marked.parseInline(inner.trim());
+    const attrHtml = attribution
+      ? `<cite class="pullquote-attribution">&mdash; ${attribution.trim()}</cite>`
+      : '';
+    return `<aside class="pullquote">\n<p>${innerHtml}</p>\n${attrHtml}\n</aside>`;
+  });
+}
+
+// :::hatnote\n text \n::: -> the small italic disambiguation note MediaWiki
+// puts directly beneath the page title (e.g. "For other uses, see X").
+function processHatnotes(md) {
+  return md.replace(/^:::hatnote[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (match, inner) => {
+    const innerHtml = marked.parseInline(inner.trim());
+    return `<div class="hatnote">${innerHtml}</div>`;
+  });
+}
+
 // Render markdown, tagging headings with ids, and build an auto TOC.
 // MediaWiki only shows a TOC once a page has 4+ headings, so we match that.
-// The TOC itself is rendered as a toggleable sidebar (checkbox-driven, no
-// extra JS needed): a hidden checkbox + label button + overlay + <nav>.
+// Numbering follows the real Wikipedia convention: h2 headings are "1",
+// "2", "3"...; a h3 under the second h2 is "2.1"; a h4 under that is
+// "2.1.1", and so on. The markup returned here is a plain <nav>+<ul> that
+// the stylesheet turns into a sticky sidebar on desktop and a slide-out
+// drawer (via the accompanying checkbox/labels) below the mobile breakpoint.
 function renderWithToc(md) {
   const seen = {};
   const headings = [];
@@ -192,14 +280,31 @@ function renderWithToc(md) {
 
   let toc = '';
   if (headings.length >= 4) {
+    // counters[0] tracks h2, counters[1] tracks h3, etc. Deeper counters
+    // reset to zero whenever a shallower heading advances, matching how
+    // MediaWiki numbers nested sections (1, 1.1, 1.2, 2, 2.1...).
+    const counters = [0, 0, 0, 0, 0];
     const items = headings
-      .map((h) => `<li class="toc-level-${h.level}"><a href="#${h.id}">${h.text}</a></li>`)
+      .map((h) => {
+        const depth = h.level - 2;
+        counters[depth] += 1;
+        for (let i = depth + 1; i < counters.length; i++) counters[i] = 0;
+        const number = counters.slice(0, depth + 1).join('.');
+        return (
+          `<li class="toc-level-${h.level}">` +
+          `<a href="#${h.id}"><span class="toc-number">${number}</span>${h.text}</a></li>`
+        );
+      })
       .join('\n');
     toc = [
+      // checkbox + labels drive the mobile slide-out drawer only; on
+      // desktop the stylesheet keeps <nav class="toc-sidebar"> pinned in
+      // place as a sticky column beside the article, so nothing needs to
+      // be "opened" to see it.
       '<input type="checkbox" id="toc-toggle" class="toc-toggle-input">',
       '<label for="toc-toggle" class="toc-toggle-btn">Contents</label>',
       '<label for="toc-toggle" class="toc-overlay"></label>',
-      '<nav class="toc-sidebar">',
+      '<nav class="toc-sidebar" aria-label="Table of contents">',
       '<label for="toc-toggle" class="toc-sidebar-close">&times;</label>',
       '<p class="toc-sidebar-title">Contents</p>',
       '<ul>',
@@ -289,7 +394,10 @@ function main() {
 
     const { data: front, content: rawBody } = matter(fs.readFileSync(mdFile, 'utf8'));
 
-    let body = processWikilinks(rawBody, pageIndex, outDir);
+    let body = processImages(rawBody);
+    body = processWikilinks(body, pageIndex, outDir);
+    body = processHatnotes(body);
+    body = processPullquotes(body);
     const { md: bodyAfterNotes, referencesHtml } = processFootnotes(body);
     const bodyAfterSource = processSourceBlocks(bodyAfterNotes);
     const { html: contentHtml, toc } = renderWithToc(bodyAfterSource);
