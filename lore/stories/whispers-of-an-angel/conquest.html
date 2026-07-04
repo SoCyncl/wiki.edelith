@@ -3,51 +3,51 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{{PAGE_TITLE}}</title>
-<meta name="description" content="{{DESCRIPTION}}">
-<script src="/scripts/build.js" type="text/javascript" defer></script>
-<link href="{{ASSET_PATH}}/style/article.css" rel="stylesheet" type="text/css" media="all">
+<title>Wikitable Page</title>
+<link href="/style/article.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body>
 <!--wrapper-->
 <div class="wrapper">
- <!--header-->
- <header>
-  <nav class="sitenav">
-   <a href="{{ASSET_PATH}}index.html">Home</a>
-   <a href="{{ASSET_PATH}}directory.html">All Pages</a>
-  </nav>
- </header>
- <!--main-->
+<!--header-->
+<header></header>
+<!--main-->
 <main id="clear">
- <p class="breadcrumb">{{BREADCRUMB}}</p>
- <h1 id="flair">{{H1}}</h1>
+<p class="breadcrumb">...In <a href="">Templates</a>, <a href="">Code</a></p>
+<h1 id="flair"><!--TITLE--></h1>
 
- {{INFOBOX}}
+<!--infobox-->
+<table class="infotable">
+<tbody>
+<tr>
+<th colspan="2" id="centertext"><!--TITLE--></th>
+</tr>
+<tr>
+<th colspan="2" style="text-align: center;">
+<p><img src="{{IMAGE}}" alt="{{TITLE}} render"></p>
+</th>
+</tr>
+<tr>
+<td colspan="2" style="text-align: center"><i>{{IMAGECAPTION}}</i></td>
+</tr>
+<!--INFOBOX-->
+</tbody>
+</table>
+<!--end infobox-->
 
- <!--article / sources tabs-->
- <div class="pagetabs">
-  <input type="radio" name="pagetab-{{SLUG}}" id="tab-article-{{SLUG}}" class="tabinput" checked>
-  <input type="radio" name="pagetab-{{SLUG}}" id="tab-sources-{{SLUG}}" class="tabinput">
-  <div class="tabheads">
-   <label for="tab-article-{{SLUG}}" class="tabhead">Article</label>
-   <label for="tab-sources-{{SLUG}}" class="tabhead">Sources{{SOURCE_COUNT}}</label>
-  </div>
+<!--auto table of contents, only rendered if the page has 4+ headings-->
+<!--TOC-->
 
-  <div class="tabpanel tabpanel-article">
-{{CONTENT}}
-  </div>
+<!--rendered markdown body goes here-->
+<!--CONTENT-->
 
-  <div class="tabpanel tabpanel-sources">
-   <h3>Sources</h3>
-{{SOURCES_HTML}}
-  </div>
- </div>
+<!--category footer, MediaWiki style-->
+<!--CATEGORIES-->
 
 </main>
 <footer>
- <p>{{CATEGORY_LINE}}</p>
- <p>Generated from Markdown &middot; <a href="{{ASSET_PATH}}directory.html">Browse all pages</a></p>
+<!--LASTEDITED-->
+footer
 </footer>
 </div>
 </body>
