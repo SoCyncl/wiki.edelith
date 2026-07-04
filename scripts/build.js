@@ -1,317 +1,270 @@
 #!/usr/bin/env node
 /**
- * build.js — converts everything in /content/*.md into static HTML pages
- * using template.html and directory-template.html.
+ * build.js — Wikitable static site builder
+ * -----------------------------------------
+ * Walks a content folder for `*.html` templates, finds the markdown file
+ * that lives in the SAME folder with the SAME base name (template.html
+ * pairs with template.md, foo.html pairs with foo.md, etc.), renders the
+ * markdown, and injects it into the html at a few marker comments.
  *
- * Usage:
- *   npm install
- *   node build.js
+ * Requires:  npm install marked gray-matter
+ * Usage:     node scripts/build.js [contentDir] [outputDir]
+ *            defaults: contentDir = "content", outputDir = "dist"
  *
- * Output goes to /pages/*.html, plus /directory.html at the project root.
- * Every generated file is plain static HTML — safe for GitHub Pages,
- * crawlable by search engines, and viewable offline with no server.
+ * Markers expected inside each html template:
+ *   <!--TITLE-->        page title (h1 text)
+ *   <!--INFOBOX-->      rows injected into the infobox <tbody>
+ *   <!--TOC-->          auto table of contents (only appears if the
+ *                       page has 4+ headings, like MediaWiki does)
+ *   <!--CONTENT-->      the rendered markdown body
+ *   <!--CATEGORIES-->   category footer links
+ *   <!--LASTEDITED-->   "last edited" stamp, from the .md file's mtime
+ *
+ * Any other frontmatter field can be dropped in anywhere in the html as
+ * {{fieldname}}, e.g. {{image}} or {{imagecaption}} (case-insensitive).
+ *
+ * Markdown extras supported beyond plain CommonMark:
+ *   [[Page Name]]            wiki-link -> resolves to a real page if one
+ *   [[Page Name|Display]]    exists anywhere in the content tree, else
+ *                            renders as a "redlink" (no href, just a class)
+ *   [^1] ... [^1]: text      footnotes -> numbered references list with
+ *                            back-links, MediaWiki <ref> style
+ *
+ * Frontmatter (YAML at the top of the .md file) drives the infobox and
+ * categories, e.g.:
+ *   ---
+ *   title: Ixnael
+ *   infobox:
+ *     Sociology:
+ *       Population: "3,012,000,000"
+ *   categories: [Planets]
+ *   ---
  */
 
 const fs = require('fs');
 const path = require('path');
 const { marked } = require('marked');
+const matter = require('gray-matter');
 
-marked.setOptions({ headerIds: false, mangle: false });
+const CONTENT_DIR = path.resolve(process.argv[2] || 'content');
+const OUTPUT_DIR = path.resolve(process.argv[3] || 'dist');
 
-const ROOT = __dirname;
-const CONTENT_DIR = path.join(ROOT, 'content');
-const PAGES_DIR = path.join(ROOT, 'pages');
-const TEMPLATE_PATH = path.join(ROOT, 'template.html');
-const DIR_TEMPLATE_PATH = path.join(ROOT, 'directory-template.html');
+const MARKERS = {
+  title: '<!--TITLE-->',
+  infobox: '<!--INFOBOX-->',
+  toc: '<!--TOC-->',
+  content: '<!--CONTENT-->',
+  categories: '<!--CATEGORIES-->',
+  lastedited: '<!--LASTEDITED-->',
+};
 
-// ---------- helpers ----------
+// ---------------------------------------------------------------- helpers
 
-function escapeHtml(str) {
+function walk(dir, out = []) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, out);
+    else out.push(full);
+  }
+  return out;
+}
+
+function slugify(str) {
   return String(str)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
 }
 
-function escapeAttr(str) {
-  return escapeHtml(str).replace(/"/g, '&quot;');
+// Every html template becomes one output page. We index them by a "slug"
+// (folder name, since pages live in their own folder as template.html) so
+// [[wiki links]] can resolve to real files.
+function buildPageIndex(htmlFiles) {
+  const index = new Map();
+  for (const file of htmlFiles) {
+    const dir = path.dirname(file);
+    const base = path.basename(file, '.html');
+    const relDir = path.relative(CONTENT_DIR, dir);
+    const outName = base === 'template' ? 'index.html' : `${base}.html`;
+    const outRel = path.join(relDir, outName).split(path.sep).join('/');
+    const slugSource = base === 'template' ? path.basename(dir) : base;
+    index.set(slugify(slugSource), outRel);
+  }
+  return index;
 }
 
-function slugify(filename) {
-  return filename.replace(/\.md$/i, '');
+// -------------------------------------------------------- markdown extras
+
+// [[Page]] / [[Page|Display]] -> real link if the page exists, else redlink
+function processWikilinks(md, pageIndex, outDir) {
+  return md.replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g, (match, page, display) => {
+    const label = (display || page).trim();
+    const target = pageIndex.get(slugify(page.trim()));
+    if (target) {
+      const rel = path.relative(outDir, path.join(OUTPUT_DIR, target)).split(path.sep).join('/');
+      return `<a href="${rel}">${label}</a>`;
+    }
+    return `<a href="#" class="redlink" title="This page does not exist yet">${label}</a>`;
+  });
 }
 
-// pull out a [blockname]...[/blockname] section (case-insensitive), first match only.
-// returns { content, rest } or null if not found.
-function extractBlock(source, blockName) {
-  const re = new RegExp(`\\[${blockName}\\]([\\s\\S]*?)\\[\\/${blockName}\\]`, 'i');
-  const match = source.match(re);
-  if (!match) return null;
-  return {
-    content: match[1].trim(),
-    rest: source.slice(0, match.index) + source.slice(match.index + match[0].length),
+// [^1] refs + [^1]: definitions -> numbered <ol class="references"> with backlinks
+function processFootnotes(md) {
+  const defs = {};
+  md = md.replace(/^\[\^([^\]]+)\]:\s*(.+)$/gm, (m, id, text) => {
+    defs[id] = text.trim();
+    return '';
+  });
+
+  const order = [];
+  md = md.replace(/\[\^([^\]]+)\]/g, (m, id) => {
+    if (!defs[id]) return m;
+    let idx = order.indexOf(id);
+    if (idx === -1) { order.push(id); idx = order.length - 1; }
+    const num = idx + 1;
+    return `<sup class="reference" id="cite_ref-${id}"><a href="#cite_note-${id}">[${num}]</a></sup>`;
+  });
+
+  let referencesHtml = '';
+  if (order.length) {
+    const items = order
+      .map((id) => `<li id="cite_note-${id}">${defs[id]} <a href="#cite_ref-${id}" class="backlink">&#8593;</a></li>`)
+      .join('\n');
+    referencesHtml = `<h3>References</h3>\n<ol class="references">\n${items}\n</ol>`;
+  }
+  return { md, referencesHtml };
+}
+
+// Render markdown, tagging headings with ids, and build an auto TOC.
+// MediaWiki only shows a TOC once a page has 4+ headings, so we match that.
+function renderWithToc(md) {
+  const seen = {};
+  const headings = [];
+  const renderer = new marked.Renderer();
+
+  // marked v18 renderer methods receive a token object, not raw args
+  renderer.heading = function heading(token) {
+    const level = token.depth;
+    const text = this.parser.parseInline(token.tokens);
+    const plainText = token.text;
+    if (level === 1) return `<h1>${text}</h1>\n`;
+    let id = slugify(plainText);
+    seen[id] = (seen[id] || 0) + 1;
+    if (seen[id] > 1) id += `-${seen[id] - 1}`;
+    headings.push({ level, text: plainText, id });
+    return `<h${level} id="${id}">${text}</h${level}>\n`;
   };
+
+  const html = marked.parse(md, { renderer });
+
+  let toc = '';
+  if (headings.length >= 4) {
+    const items = headings
+      .map((h) => `<li class="toc-level-${h.level}"><a href="#${h.id}">${h.text}</a></li>`)
+      .join('\n');
+    toc = `<div class="toc"><details class="contents" open><summary class="showcontent">Contents</summary>\n<ul>\n${items}\n</ul>\n</details></div>`;
+  }
+  return { html, toc };
 }
 
-// pull out ALL [blockname]...[/blockname] sections, replacing each with a
-// unique HTML-comment placeholder so marked leaves that spot alone.
-function extractAllBlocks(source, blockName, placeholderPrefix) {
-  const re = new RegExp(`\\[${blockName}\\]([\\s\\S]*?)\\[\\/${blockName}\\]`, 'gi');
-  const blocks = [];
-  let i = 0;
-  const rest = source.replace(re, (m, inner) => {
-    const token = `<!--${placeholderPrefix}_${i}-->`;
-    blocks.push(inner.trim());
-    i++;
-    return token;
-  });
-  return { blocks, rest };
-}
-
-function parseKeyValueLines(raw) {
-  const obj = {};
-  raw.split('\n').forEach((line) => {
-    const idx = line.indexOf(':');
-    if (idx === -1) return;
-    const key = line.slice(0, idx).trim().toLowerCase();
-    const value = line.slice(idx + 1).trim();
-    if (key) obj[key] = value;
-  });
-  return obj;
-}
-
-// ---------- [meta] ----------
-
-function parseMeta(raw) {
-  return parseKeyValueLines(raw || '');
-}
-
-// ---------- [infobox] ----------
-
-function renderInfoboxValue(value) {
-  const spoilerMatch = value.match(/^\[spoiler\]([\s\S]*)\[\/spoiler\]$/i);
-  if (spoilerMatch) {
-    const items = spoilerMatch[1].split(',').map((s) => s.trim()).filter(Boolean);
-    const lis = items.map((i) => `<li>${marked.parseInline(i)}</li>`).join('');
-    return `<details>\n<summary>SPOILERS</summary>\n<ul>${lis}</ul>\n</details>`;
-  }
-  let v = value;
-  v = v.replace(/\^([^^]+)\^/g, '<sup>$1</sup>');
-  v = v.replace(/~([^~]+)~/g, '<sub>$1</sub>');
-  return marked.parseInline(v);
-}
-
-function parseInfobox(raw) {
-  const lines = raw.split('\n').map((l) => l.trim()).filter((l) => l.length);
-  let title = '';
-  let image = '';
-  let imagecaption = '';
-  const rows = [];
-
-  for (const line of lines) {
-    if (line.startsWith('## ')) {
-      rows.push({ type: 'section', text: line.slice(3).trim() });
-      continue;
-    }
-    const idx = line.indexOf(':');
-    if (idx === -1) continue;
-    const key = line.slice(0, idx).trim();
-    const value = line.slice(idx + 1).trim();
-    const keyLower = key.toLowerCase();
-    if (keyLower === 'title') { title = value; continue; }
-    if (keyLower === 'image') { image = value; continue; }
-    if (keyLower === 'imagecaption') { imagecaption = value; continue; }
-    rows.push({ type: 'row', key, value });
-  }
-
-  let html = '<table class="infotable">\n<tbody>\n';
-  if (title) {
-    html += `<tr><th colspan="2" id="centertext" style="text-align:center">${escapeHtml(title)}</th></tr>\n`;
-  }
-  if (image) {
-    html += `<tr><th colspan="2" style="text-align:center"><img src="${escapeAttr(image)}" alt="${escapeAttr(title || 'infobox image')}"></th></tr>\n`;
-  }
-  if (imagecaption) {
-    html += `<tr><td colspan="2" style="text-align:center"><i>${marked.parseInline(imagecaption)}</i></td></tr>\n`;
-  }
-  for (const r of rows) {
-    if (r.type === 'section') {
-      html += `<tr><th colspan="2" id="centertext">${escapeHtml(r.text)}</th></tr>\n`;
-    } else {
-      html += `<tr><th>${escapeHtml(r.key)}</th><td>${renderInfoboxValue(r.value)}</td></tr>\n`;
+function buildInfoboxRows(infobox, pageIndex, outDir) {
+  if (!infobox) return '';
+  let rows = '';
+  for (const [section, fields] of Object.entries(infobox)) {
+    rows += `<tr><th colspan="2" id="centertext">${section}</th></tr>\n`;
+    for (const [label, value] of Object.entries(fields)) {
+      const rendered = processWikilinks(String(value), pageIndex, outDir);
+      rows += `<tr><th>${label}</th><td>${rendered}</td></tr>\n`;
     }
   }
-  html += '</tbody>\n</table>';
-  return html;
+  return rows;
 }
 
-// ---------- [apocrypha] ----------
-
-function parseApocrypha(raw) {
-  const inner = marked.parse(raw);
-  return `<div class="apocrypha">\n<div class="apocrypha-title" data-tooltip="Text may or may not be lore accurate" tabindex="0">Apocrypha</div>\n${inner}\n</div>`;
+// replace every occurrence of a literal (non-regex) marker string
+function replaceAll(str, marker, value) {
+  return str.split(marker).join(value);
 }
 
-// ---------- [sources] ----------
-
-function parseSources(raw) {
-  if (!raw) return { html: '<p><i>No sources listed for this page.</i></p>', count: 0 };
-  const lines = raw.split('\n').map((l) => l.trim()).filter(Boolean);
-  const items = lines.map((l) => l.replace(/^\d+\.\s*/, ''));
-  let html = '<ol class="sourceslist">\n';
-  items.forEach((text, i) => {
-    const n = i + 1;
-    html += `<li id="source-${n}">${marked.parseInline(text)} <a href="#citeref-${n}" class="backref" title="Back to reference">\u21a9</a></li>\n`;
-  });
-  html += '</ol>';
-  return { html, count: items.length };
+function buildCategoriesHtml(categories) {
+  if (!categories || !categories.length) return '';
+  const links = categories.map((c) => `<a href="#">${c}</a>`).join(' | ');
+  return `<div class="categories"><b>Categories:</b> ${links}</div>`;
 }
 
-// ---------- tooltip links & citations (post-process on rendered HTML) ----------
-
-function applyTooltipLinks(html) {
-  // marked turns [text](url "tip") into <a href="url" title="tip">text</a>
-  // convert that into our styled hover tooltip instead of the native browser one,
-  // merging into an existing class attribute if the tag already has one.
-  return html.replace(/<a\s+([^>]*)>/g, (m, attrsStr) => {
-    const titleMatch = attrsStr.match(/title="([^"]*)"/);
-    if (!titleMatch) return m;
-    const tooltipText = titleMatch[1];
-    let attrs = attrsStr.replace(/\s*title="[^"]*"/, '');
-    if (/class="/.test(attrs)) {
-      attrs = attrs.replace(/class="([^"]*)"/, (cm, cls) => `class="${cls} tooltip-link"`);
-    } else {
-      attrs += ' class="tooltip-link"';
-    }
-    attrs += ` data-tooltip="${tooltipText}"`;
-    return `<a ${attrs.trim()}>`;
-  });
+function buildLastEdited(mdFilePath) {
+  const stat = fs.statSync(mdFilePath);
+  const date = stat.mtime.toISOString().slice(0, 10);
+  return `<p class="lastedited">This page was last edited on ${date}.</p>`;
 }
 
-function applyCitations(html) {
-  // [^1] -> superscript link to #source-1, with a matching id for the back-reference.
-  return html.replace(/\[\^(\d+)\]/g, (m, n) => {
-    return `<sup class="citation" id="citeref-${n}"><a href="#source-${n}">[${n}]</a></sup>`;
-  });
-}
-
-// ---------- page build ----------
-
-function buildPage(filename, template) {
-  const slug = slugify(filename);
-  const raw = fs.readFileSync(path.join(CONTENT_DIR, filename), 'utf8');
-
-  let source = raw;
-
-  // meta
-  const metaBlock = extractBlock(source, 'meta');
-  let meta = {};
-  if (metaBlock) {
-    meta = parseMeta(metaBlock.content);
-    source = metaBlock.rest;
-  }
-
-  // infobox (single)
-  const infoboxBlock = extractBlock(source, 'infobox');
-  let infoboxHtml = '';
-  if (infoboxBlock) {
-    infoboxHtml = parseInfobox(infoboxBlock.content);
-    source = infoboxBlock.rest;
-  }
-
-  // apocrypha (0 or more)
-  const apocrypha = extractAllBlocks(source, 'apocrypha', 'APOCRYPHA');
-  source = apocrypha.rest;
-
-  // sources (single)
-  const sourcesBlock = extractBlock(source, 'sources');
-  let sourcesResult = { html: '<p><i>No sources listed for this page.</i></p>', count: 0 };
-  if (sourcesBlock) {
-    sourcesResult = parseSources(sourcesBlock.content);
-    source = sourcesBlock.rest;
-  }
-
-  // render remaining markdown
-  let contentHtml = marked.parse(source);
-
-  // re-insert apocrypha boxes at their original placeholder locations
-  apocrypha.blocks.forEach((block, i) => {
-    const rendered = parseApocrypha(block);
-    contentHtml = contentHtml.replace(`<!--APOCRYPHA_${i}-->`, rendered);
-  });
-
-  // tooltip links + citations
-  contentHtml = applyTooltipLinks(contentHtml);
-  contentHtml = applyCitations(contentHtml);
-  sourcesResult.html = applyTooltipLinks(sourcesResult.html);
-
-  const title = meta.title || slug;
-  const category = meta.category || 'Uncategorized';
-  const description = meta.description || '';
-
-  const page = template
-    .replace(/{{PAGE_TITLE}}/g, escapeHtml(title))
-    .replace(/{{DESCRIPTION}}/g, escapeAttr(description))
-    .replace(/{{ASSET_PATH}}/g, '../')
-    .replace(/{{BREADCRUMB}}/g, `...In <a href="../directory.html">All Pages</a> &gt; ${escapeHtml(title)}`)
-    .replace(/{{H1}}/g, escapeHtml(title))
-    .replace(/{{INFOBOX}}/g, infoboxHtml)
-    .replace(/{{SLUG}}/g, slug)
-    .replace(/{{SOURCE_COUNT}}/g, sourcesResult.count ? ` (${sourcesResult.count})` : '')
-    .replace(/{{CONTENT}}/g, contentHtml)
-    .replace(/{{SOURCES_HTML}}/g, sourcesResult.html)
-    .replace(/{{CATEGORY_LINE}}/g, `Category: <a href="../directory.html?category=${encodeURIComponent(category)}">${escapeHtml(category)}</a>`);
-
-  fs.writeFileSync(path.join(PAGES_DIR, `${slug}.html`), page, 'utf8');
-
-  return { slug, title, category, description };
-}
-
-function buildDirectory(pagesMeta, dirTemplate) {
-  const categories = Array.from(new Set(pagesMeta.map((p) => p.category))).sort();
-  const categoryOptions = categories
-    .map((c) => `   <option value="${escapeAttr(c)}">${escapeHtml(c)}</option>`)
-    .join('\n');
-
-  const rows = pagesMeta
-    .sort((a, b) => a.title.localeCompare(b.title))
-    .map((p) => {
-      const searchBlob = `${p.title} ${p.category} ${p.description} ${p.slug}`.toLowerCase();
-      return `   <tr data-search="${escapeAttr(searchBlob)}" data-category="${escapeAttr(p.category)}" data-title="${escapeAttr(p.title)}" data-slug="${escapeAttr(p.slug)}" data-description="${escapeAttr(p.description)}">
-    <td><a href="pages/${p.slug}.html">${escapeHtml(p.title)}</a></td>
-    <td>${escapeHtml(p.category)}</td>
-    <td>${escapeHtml(p.description)}</td>
-    <td>${escapeHtml(p.slug)}</td>
-   </tr>`;
-    })
-    .join('\n');
-
-  const html = dirTemplate
-    .replace('{{CATEGORY_OPTIONS}}', categoryOptions)
-    .replace('{{PAGE_ROWS}}', rows)
-    .replace('{{PAGE_COUNT}}', String(pagesMeta.length));
-
-  fs.writeFileSync(path.join(ROOT, 'directory.html'), html, 'utf8');
-}
+// ------------------------------------------------------------------ main
 
 function main() {
-  if (!fs.existsSync(PAGES_DIR)) fs.mkdirSync(PAGES_DIR, { recursive: true });
-
-  const template = fs.readFileSync(TEMPLATE_PATH, 'utf8');
-  const dirTemplate = fs.readFileSync(DIR_TEMPLATE_PATH, 'utf8');
-
-  const files = fs.readdirSync(CONTENT_DIR).filter((f) => f.endsWith('.md'));
-  if (files.length === 0) {
-    console.log('No .md files found in /content. Nothing to build.');
-    return;
+  if (!fs.existsSync(CONTENT_DIR)) {
+    console.error(`Content directory not found: ${CONTENT_DIR}`);
+    process.exit(1);
   }
 
-  const pagesMeta = files.map((f) => buildPage(f, template));
-  buildDirectory(pagesMeta, dirTemplate);
+  const allFiles = walk(CONTENT_DIR);
+  const htmlFiles = allFiles.filter((f) => f.endsWith('.html'));
+  const assetFiles = allFiles.filter((f) => !f.endsWith('.html') && !f.endsWith('.md'));
+  const pageIndex = buildPageIndex(htmlFiles);
 
-  console.log(`Built ${pagesMeta.length} page(s):`);
-  pagesMeta.forEach((p) => console.log(`  pages/${p.slug}.html  (${p.category})`));
-  console.log('Built directory.html');
+  fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+
+  for (const htmlFile of htmlFiles) {
+    const dir = path.dirname(htmlFile);
+    const base = path.basename(htmlFile, '.html');
+    const mdFile = path.join(dir, `${base}.md`);
+
+    if (!fs.existsSync(mdFile)) {
+      console.warn(`[skip] no matching markdown for ${htmlFile}`);
+      continue;
+    }
+
+    const relDir = path.relative(CONTENT_DIR, dir);
+    const outDir = path.join(OUTPUT_DIR, relDir);
+    fs.mkdirSync(outDir, { recursive: true });
+    const outName = base === 'template' ? 'index.html' : `${base}.html`;
+    const outPath = path.join(outDir, outName);
+
+    const { data: front, content: rawBody } = matter(fs.readFileSync(mdFile, 'utf8'));
+
+    let body = processWikilinks(rawBody, pageIndex, outDir);
+    const { md: bodyAfterNotes, referencesHtml } = processFootnotes(body);
+    const { html: contentHtml, toc } = renderWithToc(bodyAfterNotes);
+
+    let page = fs.readFileSync(htmlFile, 'utf8');
+    page = replaceAll(page, MARKERS.title, front.title || '');
+    page = replaceAll(page, MARKERS.infobox, buildInfoboxRows(front.infobox, pageIndex, outDir));
+    page = replaceAll(page, MARKERS.toc, toc);
+    page = replaceAll(page, MARKERS.content, referencesHtml ? `${contentHtml}\n${referencesHtml}` : contentHtml);
+    page = replaceAll(page, MARKERS.categories, buildCategoriesHtml(front.categories));
+    page = replaceAll(page, MARKERS.lastedited, buildLastEdited(mdFile));
+
+    if (front.title) {
+      page = page.replace(/<title>.*?<\/title>/, `<title>${front.title}</title>`);
+    }
+
+    // generic {{field}} substitution for any other frontmatter value
+    // (e.g. {{IMAGE}}, {{IMAGECAPTION}}) — case-insensitive key match
+    page = page.replace(/\{\{(\w+)\}\}/g, (m, key) => {
+      const value = front[key.toLowerCase()];
+      return value !== undefined ? String(value) : '';
+    });
+
+    fs.writeFileSync(outPath, page);
+    console.log(`[built] ${outPath}`);
+  }
+
+  // copy everything else (css, images, etc.) keeping the same folder layout
+  for (const file of assetFiles) {
+    const relDir = path.relative(CONTENT_DIR, path.dirname(file));
+    const outDir = path.join(OUTPUT_DIR, relDir);
+    fs.mkdirSync(outDir, { recursive: true });
+    fs.copyFileSync(file, path.join(outDir, path.basename(file)));
+  }
 }
 
 main();
