@@ -1,5 +1,6 @@
 /*wikitable by @limegreen on neocities, reskinned in an Edelith-parody parchment/gold palette. a link is appreciated!*/
-/*extended with build.js-driven wiki features: sidebar TOC, Apocrypha category, source-block quoting*/
+/*extended with build.js-driven wiki features: sticky-sidebar TOC, wraparound images,
+  hatnotes, pull-quotes, Apocrypha category, source-block quoting*/
 
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
@@ -11,57 +12,65 @@
 :root {
   /* ---- base surfaces, ported from the parchment/stone palette ---- */
   --backgroundcolor: #8a7d6d;
-  --textcolor: #1e1a14;
-  --header: #1e1a14;
-  --main: #f2ece0;
+  --textcolor: #241f18;
+  --header: #241f18;
+  --main: #f5f0e5;
   --footer: #e4daca;
-  --borders: #1e1a14;
+  --borders: #2a241c;
 
-  --link: #8a6a28;
-  --linkhover: #b08a3a;
-  --redlink: #963a20;
-  --redlinkhover: #c2502f;
+  --link: #7a5c22;
+  --linkhover: #9c7830;
+  --redlink: #8a3a22;
+  --redlinkhover: #ad4c2e;
 
   --breadcrumb: #8a7d6d;
-  --h1: #1e1a14;
-  --h2: #1e1a14;
-  --h3: #8a6a28;
-  --headerunderline: #1e1a14;
+  --h1: #241f18;
+  --h2: #241f18;
+  --h3: #7a5c22;
+  --headerunderline: #3a3226;
 
   --quotebackground: #e4daca;
   --quotetext: #38302a;
-  --boxbg: #e4daca;
-  --showcontentborder: #1e1a14;
+  --boxbg: #e9e1d2;
+  --showcontentborder: #3a3226;
 
   --seriesofbg: #e4daca;
   --seriesoftext: #1e1a14;
 
-  --infoboxbg: #1e1a14;
-  --centertext: #b08a3a;
+  /* softened from a near-black infobox to a warm deep brown — the gold
+     text still reads clean against it, without the slab of pure black */
+  --infoboxbg: #2f271c;
+  --centertext: #9c7830;
   --boldtext: #1e1a14;
-  --infotext: #d4c9b0;
+  --infotext: #ece2cf;
 
-  --categorybg: #f2ece0;
-  --categoryborder: #c9bfae;
+  --categorybg: #f5f0e5;
+  --categoryborder: #cdc2ae;
   --referencetext: #574e46;
-  --metatext: #8a7d6d;
+  --metatext: #857a68;
 
-  /* ---- gold accent family, straight off the Edelith sheet ---- */
-  --gold: #b08a3a;
-  --golddim: #8a6a28;
-  --goldpale: #d4b86a;
+  /* ---- gold accent family, straight off the Edelith sheet, dialed down
+     a notch so it reads as an accent rather than fighting the text ---- */
+  --gold: #a3812f;
+  --golddim: #7a5c22;
+  --goldpale: #cdae63;
   --ink3: #38302a;
 
   /* ---- type + texture ---- */
   --display: "Allover", serif;
   --body-font: "Crimson Pro", Georgia, serif;
   --texture: url(https://i.ibb.co/cccRzhgg/subtle-grunge.png);
+
+  /* ---- layout ---- */
+  --toc-width: 230px;
+  --mobile-breakpoint: 900px;
 }
 
 body {
   background-color: var(--backgroundcolor);
   font-family: var(--body-font);
-  font-size: 16px;
+  font-size: 17px;
+  line-height: 1.65;
   margin: 0;
   color: var(--textcolor);
 }
@@ -81,7 +90,7 @@ main {
   min-height: 100vh;
   clear: left;
 }
-a { color: var(--link); }
+a { color: var(--link); text-underline-offset: 2px; }
 a:hover { text-shadow: 0 0 1px; color: var(--linkhover); text-decoration: underline; }
 
 /*redlinks: MediaWiki-style links to pages that don't exist yet*/
@@ -94,7 +103,7 @@ a.redlink:hover { color: var(--redlinkhover); text-decoration: underline dotted;
 .breadcrumb {
   color: var(--breadcrumb);
   font-style: italic;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
 }
 header {
   height: 100px;
@@ -118,94 +127,89 @@ h1, h2, h3 {
   border-bottom: 2px solid var(--headerunderline);
   font-family: var(--display);
   text-transform: uppercase;
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   font-weight: normal;
+  line-height: 1.3;
 }
-h1 { font-size: 30pt; }
+h1 { font-size: 28pt; }
 h1::first-letter, .wiki-title-main::first-letter { color: var(--gold); }
-h2 { font-size: 19pt; color: var(--h2); }
-h3 { font-size: 15pt; color: var(--h3); border-bottom: none; padding-left: 12px; border-left: dotted 3px var(--gold); }
+h2 { font-size: 18pt; color: var(--h2); margin-top: 1.6em; }
+h3 {
+  font-size: 14pt;
+  color: var(--h3);
+  border-bottom: none;
+  padding-left: 12px;
+  border-left: dotted 3px var(--gold);
+  margin-top: 1.4em;
+}
+p { margin: 0 0 1em 0; }
 
 /* ============================================================
-   TABLE OF CONTENTS — now a toggleable sidebar, not a static box
+   ARTICLE GRID — the TOC becomes a real sidebar column that sits
+   beside the article and scrolls with you, instead of a popup you
+   have to open. Only forms two columns when a TOC actually exists
+   (short pages with <4 headings render single-column, same as before).
+   ============================================================ */
+.article-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  align-items: start;
+  gap: 0;
+}
+.article-grid:has(.toc-sidebar) {
+  grid-template-columns: var(--toc-width) minmax(0, 1fr);
+  gap: 34px;
+}
+.article-body { min-width: 0; }
+/* clearfix so floated images/pull-quotes don't leak into the categories footer */
+.article-body::after { content: ""; display: table; clear: both; }
+
+/* ============================================================
+   TABLE OF CONTENTS
+   Desktop: a plain sticky column, always visible, no toggling needed —
+   the same way Wikipedia's Vector skin keeps its sidebar in place as
+   you scroll the article.
+   Mobile (<= --mobile-breakpoint): becomes a slide-out drawer, opened
+   with the "Contents" button and closed by the overlay, the × button,
+   or picking a link.
    ============================================================ */
 .toc-toggle-input { display: none; }
-
-.toc-toggle-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  cursor: pointer;
-  background-color: var(--boxbg);
-  border: 2px solid var(--showcontentborder);
-  padding: 6px 14px;
-  font-weight: bold;
-  font-family: var(--display);
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: 12px;
-  margin-bottom: 15px;
-  user-select: none;
-  transition: color 0.2s ease, background-color 0.2s ease;
-}
-.toc-toggle-btn::before { content: "\2630"; color: var(--gold); }
-.toc-toggle-btn:hover { color: var(--linkhover); }
-
-.toc-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(30, 26, 20, 0.55);
-  z-index: 998;
-  cursor: pointer;
-}
-.toc-toggle-input:checked ~ .toc-overlay { display: block; }
+.toc-toggle-btn { display: none; } /* shown only in the mobile media query below */
+.toc-overlay { display: none; }
+.toc-sidebar-close { display: none; }
 
 .toc-sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 280px;
-  max-width: 80vw;
-  background: var(--main);
-  background-image: var(--texture);
-  background-blend-mode: multiply;
-  border-right: 2px solid var(--borders);
-  box-shadow: 4px 0 14px rgba(0, 0, 0, 0.35);
-  transform: translateX(-105%);
-  transition: transform 0.35s ease;
-  z-index: 999;
-  padding: 22px;
+  position: sticky;
+  top: 20px;
+  align-self: start;
+  max-height: calc(100vh - 40px);
   overflow-y: auto;
+  padding: 16px 18px;
+  background: var(--boxbg);
+  border: 1px solid var(--categoryborder);
+  font-size: 14px;
 }
-.toc-toggle-input:checked ~ .toc-sidebar { transform: translateX(0); }
-
-.toc-sidebar-close {
-  position: absolute;
-  top: 12px;
-  right: 16px;
-  cursor: pointer;
-  font-size: 22px;
-  color: var(--golddim);
-  line-height: 1;
-}
-.toc-sidebar-close:hover { color: var(--gold); }
-
 .toc-sidebar-title {
   font-family: var(--display);
   text-transform: uppercase;
-  letter-spacing: 3px;
-  font-size: 14px;
-  margin: 0 0 14px 0;
+  letter-spacing: 2px;
+  font-size: 13px;
+  margin: 0 0 12px 0;
   padding-bottom: 8px;
   border-bottom: 2px solid var(--headerunderline);
 }
 .toc-sidebar ul { list-style: none; margin: 0; padding-left: 0; }
-.toc-sidebar li { margin-bottom: 8px; }
-.toc-sidebar .toc-level-3 { margin-left: 18px; font-style: italic; font-size: 14px; }
-.toc-sidebar a { color: var(--textcolor); }
-.toc-sidebar a:hover { color: var(--gold); }
+.toc-sidebar li { margin-bottom: 7px; line-height: 1.35; }
+.toc-sidebar .toc-level-3 { margin-left: 16px; }
+.toc-sidebar .toc-level-4 { margin-left: 32px; font-size: 13px; }
+.toc-sidebar a { color: var(--textcolor); text-decoration: none; }
+.toc-sidebar a:hover { color: var(--gold); text-decoration: underline; }
+.toc-number {
+  display: inline-block;
+  min-width: 2.4em;
+  color: var(--golddim);
+  font-variant-numeric: tabular-nums;
+}
 
 .quotebox {
   width: 30%;
@@ -252,6 +256,7 @@ h3 { font-size: 15pt; color: var(--h3); border-bottom: none; padding-left: 12px;
   border: 2px solid var(--borders);
   width: 21%;
   font-size: 14px;
+  line-height: 1.4;
   color: var(--infotext);
 }
 .infotable img { max-width: 100%; margin: auto; }
@@ -271,10 +276,81 @@ h3 { font-size: 15pt; color: var(--h3); border-bottom: none; padding-left: 12px;
 }
 #clear::after { content: ""; clear: both; display: table; }
 
+/* ============================================================
+   WRAPAROUND IMAGES — [[File:name.jpg|left|thumb|Caption]]
+   MediaWiki-style thumbnails: a bordered card with the caption
+   underneath, floated so body text wraps around it.
+   ============================================================ */
+.wiki-figure {
+  margin: 6px 0 14px 20px;
+  max-width: 280px;
+  background: var(--footer);
+  border: 1px solid var(--categoryborder);
+  padding: 7px 7px 9px;
+  text-align: center;
+  font-size: 13px;
+}
+.wiki-figure img {
+  width: 100%;
+  display: block;
+  border: 1px solid var(--borders);
+}
+.wiki-figure figcaption {
+  padding-top: 7px;
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--referencetext);
+}
+.wiki-figure.align-right { float: right; margin-left: 20px; margin-right: 0; clear: right; }
+.wiki-figure.align-left { float: left; margin-right: 20px; margin-left: 0; clear: left; }
+.wiki-figure.align-center { float: none; margin: 18px auto; }
+
+/* ============================================================
+   HATNOTE — the small italic disambiguation note MediaWiki tucks
+   right under the page title (e.g. "For other uses, see X.")
+   ============================================================ */
+.hatnote {
+  font-style: italic;
+  font-size: 14px;
+  color: var(--referencetext);
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px dotted var(--categoryborder);
+}
+
+/* ============================================================
+   PULL-QUOTE — a short excerpt pulled out beside the body text,
+   the way magazine layouts (and some wiki skins) highlight a line.
+   ============================================================ */
+.pullquote {
+  float: right;
+  width: 32%;
+  margin: 6px 0 16px 22px;
+  padding: 12px 18px 14px;
+  border-top: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  font-family: var(--display);
+  font-size: 16px;
+  letter-spacing: 0.3px;
+  line-height: 1.45;
+  color: var(--ink3);
+}
+.pullquote p { margin: 0; text-transform: none; }
+.pullquote-attribution {
+  display: block;
+  margin-top: 10px;
+  font-family: var(--body-font);
+  font-style: normal;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--metatext);
+}
+
 /*references / footnotes*/
 sup.reference a { text-decoration: none; }
 ol.references {
-  font-size: 13px;
+  font-size: 13.5px;
   font-family: var(--body-font);
   color: var(--referencetext);
   padding-left: 20px;
@@ -303,12 +379,13 @@ a.backlink { text-decoration: none; margin-left: 4px; }
   content: "\201C";
   font-family: Georgia, serif;
   font-style: normal;
-  font-size: 52px;
+  font-size: 48px;
   color: var(--goldpale);
   position: absolute;
-  top: -6px;
+  top: -4px;
   left: 10px;
   line-height: 1;
+  opacity: 0.85;
 }
 .source-block-label {
   font-family: var(--display);
@@ -385,15 +462,83 @@ a.backlink { text-decoration: none; margin-left: 4px; }
 }
 
 /*responsiveness*/
+@media (max-width: 1250px) {
+  .infotable { width: 35%; }
+  .pullquote { width: 40%; }
+}
+
 @media (max-width: 900px) {
   .infotable { width: 30%; }
   .wrapper { width: 100%; }
   .chapters { width: 50%; }
   .reveal { width: 60%; }
+
+  /* below the mobile breakpoint the TOC stops being a sticky column and
+     becomes an off-canvas drawer instead, so the article goes back to a
+     single column */
+  .article-grid,
+  .article-grid:has(.toc-sidebar) {
+    grid-template-columns: 1fr;
+  }
+
+  .toc-toggle-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    background-color: var(--boxbg);
+    border: 2px solid var(--showcontentborder);
+    padding: 6px 14px;
+    font-weight: bold;
+    font-family: var(--display);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 12px;
+    margin-bottom: 15px;
+    user-select: none;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+  .toc-toggle-btn::before { content: "\2630"; color: var(--gold); }
+  .toc-toggle-btn:hover { color: var(--linkhover); }
+
+  .toc-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(30, 26, 20, 0.55);
+    z-index: 998;
+    cursor: pointer;
+  }
+  .toc-toggle-input:checked ~ .toc-overlay { display: block; }
+
+  .toc-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    max-height: none;
+    width: 280px;
+    max-width: 80vw;
+    box-shadow: 4px 0 14px rgba(0, 0, 0, 0.35);
+    transform: translateX(-105%);
+    transition: transform 0.35s ease;
+    z-index: 999;
+  }
+  .toc-toggle-input:checked ~ .toc-sidebar { transform: translateX(0); }
+
+  .toc-sidebar-close {
+    display: block;
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    cursor: pointer;
+    font-size: 22px;
+    color: var(--golddim);
+    line-height: 1;
+  }
+  .toc-sidebar-close:hover { color: var(--gold); }
 }
-@media (max-width: 1250px) {
-  .infotable { width: 35%; }
-}
+
 @media (orientation: portrait) {
   .quotebox { width: 90%; margin: auto; padding: 15px; margin-top: 10px; }
   body { margin-top: 0px; }
@@ -403,4 +548,6 @@ a.backlink { text-decoration: none; margin-left: 4px; }
   .main { padding-top: 20px; }
   .reveal { width: 95%; }
   .toc-sidebar { width: 85vw; }
+  .wiki-figure { max-width: 60%; }
+  .pullquote { width: 100%; float: none; margin: 16px 0; }
 }
