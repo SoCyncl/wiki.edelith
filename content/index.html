@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/x-icon" href="/assets/wiki/gold.ico">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Landing — Edelith Wiki</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://solar-icons.gitlab.io/i/icons.css" rel="stylesheet" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitty/2.3.6/fitty.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
+<link rel="stylesheet" href="style/wiki.css">
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="scripts/miswak.js" type="text/javascript" defer></script>
+    
+<script src="https://edelith.org/scripts/home-footer.js" type="text/javascript" defer></script>
+<script src="scripts/navbar.js" type="text/javascript" defer></script>
+    <script>
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".fade-block").forEach((el, i) => {
+        setTimeout(() => el.classList.add("visible"), i * 70);
+      });
+    });
+    </script>
+
+</head>
+<body>
+
+<!-- edelith-header.js injects the fixed nav + banner here -->
+
+<div class="outer fade-block">
+  <div class="all-content" style="padding:0;">
+
+    <!-- ══ LEDE ══════════════════════════════════════════════ -->
+    <div class="land-lede fade-block">
+
+      <div class="land-lede-left">
+        <div class="land-lede-eyebrow">campaign wiki · solstitheo</div>
+        <h1 class="land-lede-title">Nation of Solstitheo</h1>
+        <p class="land-lede-body">
+          A collection of session recaps, articles and arcs and worldbuilding info for the Immortal City of Edelith Campaign. The main site is far more presentational for a nice time, however this site serves as a barebones, quick info and info only site. Enjoy your stay.
+        </p>
+        <div class="land-lede-meta">
+          <div class="land-lede-stat">
+            <span class="land-lede-stat-n">?</span>
+            <span class="land-lede-stat-l">sessions</span>
+          </div>
+          <div class="land-lede-stat">
+            <span class="land-lede-stat-n">None LMAO</span>
+            <span class="land-lede-stat-l">articles</span>
+          </div>
+          <div class="land-lede-stat">
+            <span class="land-lede-stat-n">?</span>
+            <span class="land-lede-stat-l">player characters</span>
+          </div>
+          <div class="land-lede-stat">
+            <span class="land-lede-stat-n">?</span>
+            <span class="land-lede-stat-l">completed arcs</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="land-lede-right fade-block">
+        <div class="land-arc">
+          <div class="land-arc-eye">current arc</div>
+          <div class="land-arc-name">Conquest</div>
+          <div class="land-arc-sess">session ?? · ongoing</div>
+          <div class="land-arc-body">
+            The main party, after being equipped with the Flaresnare by Yordernriser to traverse the once bustling Edelith Gothitas, They attempt to journey through the dangerious haze and find the scarce Thunderstrokes. With their backs tied to the wall they lost Rusty in the fight against the Fallen Angel Liorah. Finding themselves in the Gratehaven, theyre determined to find and kill the Horseman of Conquest and stop the haze, freeing the poor civilians living underneath the Haze ridden Gothitas.
+          </div>
+        </div>
+        <div>
+          <div class="land-dyk-label">Current objectives</div>
+          <div class="land-dyk-item">Find the Thunderstrokes.</div>
+          <div class="land-dyk-item">Free Gratehaven.</div>
+          <div class="land-dyk-item">Kill the Haze grub to do Shmarby a favor in turn for a way out of the Gratehaven.</div>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ══ BROWSE ════════════════════════════════════════════ -->
+    <div class="land-divider fade-block">
+      <div class="land-divider-glyph">◆</div>
+      <div class="land-divider-title">browse the wiki</div>
+      <div class="land-divider-rule"></div>
+    </div>
+
+    <div class="land-browse fade-block">
+
+      <a href="/characters/" class="land-browse-item">
+        <div class="land-browse-icon">
+          <i class="solar-icons" stroke="2" icon-name="buildings-3"></i>
+        </div>
+        <div class="land-browse-label">The People</div>
+        <div class="land-browse-desc">People, Npc's and notable people.</div>
+        <div class="land-browse-count">? articles</div>
+      </a>
+
+      <a href="/factions/" class="land-browse-item">
+        <div class="land-browse-icon">
+          <i class="solar-icons" stroke="2" icon-name="shield-star"></i>
+        </div>
+        <div class="land-browse-label">factions</div>
+        <div class="land-browse-desc">Noble houses, militias, and Organizations.</div>
+        <div class="land-browse-count">? articles</div>
+      </a>
+
+      <a href="/beastiary/" class="land-browse-item">
+        <div class="land-browse-icon">
+          <i class="solar-icons" stroke="2" icon-name="users-group-two-rounded"></i>
+        </div>
+        <div class="land-browse-label">Beastiary</div>
+        <div class="land-browse-desc">Monsters, creatures and beings of the sort.</div>
+        <div class="land-browse-count">? articles</div>
+      </a>
+
+      <a href="/locations/" class="land-browse-item">
+        <div class="land-browse-icon">
+          <i class="solar-icons" stroke="2" icon-name="global"></i>
+        </div>
+        <div class="land-browse-label">Locations</div>
+        <div class="land-browse-desc">Geography, nations, and merchants.</div>
+        <div class="land-browse-count">? articles</div>
+      </a>
+
+      <a href="/lore/" class="land-browse-item">
+        <div class="land-browse-icon">
+          <i class="solar-icons" stroke="2" icon-name="notebook-bookmark"></i>
+        </div>
+        <div class="land-browse-label">Lore</div>
+        <div class="land-browse-desc">Understanding the people, the timeline, and the lore.</div>
+        <div class="land-browse-count">? sessions</div>
+      </a>
+
+      <a href="/references/" class="land-browse-item">
+        <div class="land-browse-icon">
+          <i class="solar-icons" stroke="2" icon-name="book-2"></i>
+        </div>
+        <div class="land-browse-label">References</div>
+        <div class="land-browse-desc">Glossary and Terminology</div>
+        <div class="land-browse-count">? articles</div>
+      </a>
+
+    </div>
+
+
+    <!-- ══ FEATURED ARTICLE ══════════════════════════════════ -->
+    <div class="land-divider fade-block">
+      <div class="land-divider-glyph">◆</div>
+      <div class="land-divider-title">featured article</div>
+      <div class="land-divider-rule"></div>
+    </div>
+
+    <div class="land-feat fade-block">
+
+      <div class="land-feat-body">
+        <div class="land-feat-eyebrow">locations · Under construction</div>
+        <h2 class="land-feat-title">Under Construction</h2>
+        <div class="land-feat-sub">Uhoh no text for you</div>
+        <p class="land-feat-lead">
+          A whole lotta nothing, here are facts about oragami. Ahem, Origami plays an important part of Japanese wedding rituals. There is a presentation of 1000 paper crane during the wedding. There are two ways it can be done. The first is the practice of sembazuru where the couple folds the cranes themselves. The cranes are strung and used to decorate the wedding hall. The other tradition is the father of the bride gift the 1000 cranes to his daughter.
+          <br><br>
+          The first origami book was written in 1797. It was Sembazuru Orikata by Akisato Rito.
+        </p>
+        <a href="#" class="land-feat-link">
+          <i class="solar-icons" stroke="2" icon-name="arrow-right"></i>
+          read full article
+        </a>
+      </div>
+
+      <div class="land-feat-img-wrap">
+        <div class="land-feat-img-cap">Paper folding began in China in the 1st or 2nd century. It came to Japan in the 6th century.</div>
+      </div>
+
+    </div>
+
+
+    <!-- ══ RECENT + RUMOURS ══════════════════════════════════ -->
+    <div class="land-divider fade-block">
+      <div class="land-divider-glyph">◆</div>
+      <div class="land-divider-title">recent additions</div>
+      <div class="land-divider-rule"></div>
+    </div>
+
+    <div class="land-lower fade-block">
+
+      <div class="land-recent">
+
+        <div class="land-recent-row">
+          <span class="land-recent-cat">Characters</span>
+          <a href="#" class="land-recent-title">Avao Subrosa</a>
+          <span class="land-recent-date">session ??</span>
+        </div>
+        <div class="land-recent-row">
+          <span class="land-recent-cat">Locations</span>
+          <a href="#" class="land-recent-title">Gratehaven</a>
+          <span class="land-recent-date">session ??</span>
+        </div>
+        <div class="land-recent-row">
+          <span class="land-recent-cat">Factions</span>
+          <a href="#" class="land-recent-title">The Ministry</a>
+          <span class="land-recent-date">session ??</span>
+        </div>
+        <div class="land-recent-row">
+          <span class="land-recent-cat">Items</span>
+          <a href="#" class="land-recent-title">The Hand of Auralia</a>
+          <span class="land-recent-date">session ??</span>
+        </div>
+        <div class="land-recent-row">
+          <span class="land-recent-cat">Bestiary</span>
+          <a href="#" class="land-recent-title">Grubs</a>
+          <span class="land-recent-date">session ??</span>
+        </div>
+        <div class="land-recent-row">
+          <span class="land-recent-cat">Chronology</span>
+          <a href="#" class="land-recent-title">Session ??</a>
+          <span class="land-recent-date">session ??</span>
+        </div>
+        <div class="land-recent-row">
+          <span class="land-recent-cat">Factions</span>
+          <a href="#" class="land-recent-title">Manor Seversova</a>
+          <span class="land-recent-date">session ??</span>
+        </div>
+        <div class="land-recent-row">
+          <span class="land-recent-cat">world</span>
+          <a href="#" class="land-recent-title">The Movements of the High Priestess</a>
+          <span class="land-recent-date">session ??</span>
+        </div>
+
+      </div>
+
+      <div class="land-lower-side fade-block">
+        <div class="land-rumour-head">Trivia</div>
+        <div class="land-rumour-item">
+          The first origami models looked similar to things. They were often given to people for good luck.
+          <span class="land-rumour-source">Session ??</span>
+        </div>
+        <div class="land-rumour-item">
+          Origami toys were developed by the Chinese including the famous waterbomb.
+          <span class="land-rumour-source">Session ??</span>
+        </div>
+        <div class="land-rumour-item">
+          The word origami is derived from two words ori meaning folded and kami meaning paper. It was called Orikata previously which means folded shape.
+          <span class="land-rumour-source">Session ??</span>
+        </div>
+        <div class="land-rumour-item">
+           The first origami book was written in 1797. It was Sembazuru Orikata by Akisato Rito.
+          <span class="land-rumour-source">Session ??</span>
+        </div>
+      </div>
+
+    </div>
+
+
+    <!-- ══ TIMELINE ══════════════════════════════════════════ -->
+    <div class="land-divider fade-block">
+      <div class="land-divider-glyph">◆</div>
+      <div class="land-divider-title">key events</div>
+      <div class="land-divider-rule"></div>
+    </div>
+
+    <div class="land-timeline">
+
+      <div class="land-tl-item">
+        <div class="land-tl-era">Key event number 1</div>
+        <div class="land-tl-event">Carriage Kin</div>
+        <div class="land-tl-body">Fuck you peggle, you killed innocent people you rat bastard.</div>
+      </div>
+
+      <div class="land-tl-item">
+        <div class="land-tl-era">Key event number 2</div>
+        <div class="land-tl-event">Blobert death</div>
+        <div class="land-tl-body">Really emotional, sadness and such.</div>
+      </div>
+
+      <div class="land-tl-item">
+        <div class="land-tl-era">Key event number 3</div>
+        <div class="land-tl-event">Blobert ressurection</div>
+        <div class="land-tl-body">Really emotional, sadness and such.</div>
+      </div>
+
+      <div class="land-tl-item">
+        <div class="land-tl-era">Key event number 4</div>
+        <div class="land-tl-event">Gorta death</div>
+        <div class="land-tl-body">Really emotional, sadness and such, actualy no. Fuck you Philips (like the screw) you gave us a well built character and killed her off without a heartwarming conclusion we all wanted. Fuck you, and burn.</div>
+      </div>
+
+    </div>
+
+
+  </div>
+</div>
+<footer-block></footer-block>
+</body>
+<style>
+
+/* ============================================================
+   LANDING — home.css
+   Drop this alongside style.css for the wiki front page only.
+   ============================================================ */
+
+/* ---- INTRO LEDE ------------------------------------------- */
+/* ============================================================
+   LANDING — home.css
+   Drop this alongside style.css for the wiki front page only.
+   ============================================================ */
+
+/* ---- INTRO LEDE ------------------------------------------- */
+.land-lede {
+  border-bottom: solid 2px var(--ink);
+  display: grid;
+  grid-template-columns: 1fr 340px;
+}
+@media (max-width: 900px) {
+  .land-lede { grid-template-columns: 1fr; }
+  .land-lede-right { display: none; }
+}
+
+.land-lede-left {
+  padding: clamp(28px, 4vw, 72px);
+  border-right: solid 2px var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.land-lede-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.land-lede-eyebrow::before {
+  content: "";
+  display: block;
+  width: 30px;
+  border-top: solid 2px var(--accent);
+}
+
+.land-lede-title {
+    font: 600 clamp(26px, 4vw, 70px) / 0.85 var(--display);
+    text-transform: uppercase;
+    letter-spacing: 5px;
+    color: var(--ink);
+    margin: 6px;
+}
+.land-lede-title::first-letter { color: var(--accent); }
+
+.land-lede-body {
+  font: italic 400 var(--fontSize) / var(--lineHeight) var(--body);
+  color: var(--ink3);
+  max-width: 580px;
+  margin: 0;
+}
+
+.land-lede-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  border-top: dotted 2px var(--stone3);
+  padding-top: 18px;
+}
+.land-lede-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.land-lede-stat-n {
+  font: 300 calc(var(--fontSize) + 7px) / 1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--ink);
+}
+.land-lede-stat-l {
+  font: italic 400 calc(var(--fontSize) - 4px) / 1 var(--body);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--stoneMid);
+}
+
+.land-lede-right {
+  background-color: var(--ink);
+  background-image: var(--texture);
+  background-blend-mode: var(--darkBlend);
+  background-attachment: fixed;
+  padding: clamp(24px, 3vw, 52px) clamp(20px, 2vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* Arc status in lede */
+.land-arc {
+  border: solid 2px var(--ink4);
+  padding: 18px 20px;
+  position: relative;
+  overflow: hidden;
+}
+.land-arc::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-color: var(--accent);
+  opacity: 0.06;
+}
+.land-arc-eye {
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+  position: relative;
+}
+.land-arc-name {
+  font: 700 calc(var(--fontSize) + 5px) / 1.1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--stone1);
+  position: relative;
+  margin-bottom: 6px;
+}
+.land-arc-sess {
+  font: italic 400 calc(var(--fontSize) - 2px) / 1 var(--body);
+  color: var(--stoneMid);
+  position: relative;
+  margin-bottom: 14px;
+}
+.land-arc-body {
+  font: italic 400 calc(var(--fontSize) - 2px) / 1.6 var(--body);
+  color: var(--stone3);
+  position: relative;
+  border-top: dotted 1px var(--ink4);
+  padding-top: 12px;
+}
+
+/* "Did you know" in lede right */
+.land-dyk-label {
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--stoneMid);
+  margin-bottom: 10px;
+}
+.land-dyk-item {
+  font: italic 400 calc(var(--fontSize) - 2px) / 1.6 var(--body);
+  color: var(--stone3);
+  padding: 10px 0 10px 16px;
+  border-left: dotted 3px var(--goldDim);
+  margin-bottom: 8px;
+}
+.land-dyk-item:last-child { margin-bottom: 0; }
+
+
+/* ---- SECTION DIVIDER -------------------------------------- */
+.land-divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: clamp(14px, 2vw, 22px) clamp(20px, 3vw, 52px);
+  border-bottom: solid 2px var(--ink);
+  background-color: var(--stone2);
+  background-image: var(--texture);
+  background-blend-mode: var(--lightBlend);
+  background-attachment: fixed;
+}
+.land-divider-title {
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.land-divider-rule {
+  flex: 1;
+  border-top: dotted 2px var(--stone3);
+}
+.land-divider-glyph {
+  color: var(--accent);
+  font-size: calc(var(--fontSize) - 5px);
+  flex-shrink: 0;
+}
+
+
+/* ---- BROWSE GRID ------------------------------------------ */
+.land-browse {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    padding: 1px 29px 2px;
+    border-bottom: solid 2px var(--ink);
+}
+    
+@media (max-width: 700px) { .land-browse { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 420px) { .land-browse { grid-template-columns: 1fr; } }
+
+.land-browse-item {
+  border-right: solid 1px var(--stone3);
+  border-bottom: dotted 1px var(--stone3);
+  padding: clamp(18px, 2vw, 32px) clamp(16px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  cursor: pointer;
+  transition: background var(--t);
+  text-decoration: none;
+  color: inherit;
+}
+.land-browse-item:nth-child(3n) { border-right: none; }
+.land-browse-item:nth-last-child(-n+3) { border-bottom: none; }
+.land-browse-item:hover {
+  background-color: var(--stone2);
+  background-image: var(--texture);
+  background-blend-mode: var(--lightBlend);
+  background-attachment: fixed;
+}
+
+.land-browse-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: solid 1px var(--accent);
+  color: var(--accent);
+  font-size: calc(var(--fontSize));
+  margin-bottom: 4px;
+  flex-shrink: 0;
+  transition: background var(--t), color var(--t);
+}
+.land-browse-item:hover .land-browse-icon {
+  background-color: var(--accent);
+  color: var(--stone1);
+}
+.land-browse-label {
+  font: 700 calc(var(--fontSize) * 1.2) / 1.1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--ink);
+}
+.land-browse-desc {
+  font: italic 400 calc(var(--fontSize) - 3px) / 1.5 var(--body);
+  color: var(--stoneMid);
+}
+.land-browse-count {
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+
+/* ---- FEATURED ARTICLE ------------------------------------- */
+.land-feat {
+  display: grid;
+  grid-template-columns: 1fr 380px;
+  border-bottom: solid 2px var(--ink);
+}
+@media (max-width: 860px) {
+  .land-feat { grid-template-columns: 1fr; }
+  .land-feat-img-wrap { order: -1; height: 220px; border-right: none !important; border-bottom: solid 2px var(--ink); }
+}
+
+.land-feat-body {
+  padding: clamp(24px, 3vw, 56px);
+  border-right: solid 2px var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.land-feat-eyebrow {
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.land-feat-title {
+  font: 700 clamp(22px, 4vw, 44px) / 1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--ink);
+  margin: 0;
+}
+.land-feat-title::first-letter { color: var(--accent); }
+.land-feat-sub {
+  font: italic 400 calc(var(--fontSize) - 2px) / 1 var(--body);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--stoneMid);
+}
+.land-feat-lead {
+  font: 400 var(--fontSize) / var(--lineHeight) var(--body);
+  color: var(--ink3);
+  flex: 1;
+}
+.land-feat-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: solid 2px var(--ink);
+  padding: 10px 22px;
+  font: 600 calc(var(--fontSize) - 4px) / 1 var(--body);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink);
+  transition: var(--t);
+  align-self: flex-start;
+}
+.land-feat-link:hover {
+  background-color: var(--ink);
+  color: var(--stone1);
+}
+.land-feat-link i { color: var(--accent); transition: var(--t); }
+.land-feat-link:hover i { color: var(--goldPale); }
+
+.land-feat-img-wrap {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--ink3);
+}
+.land-feat-img-wrap::before {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-color: var(--accent);
+  opacity: 0.35;
+  z-index: 1;
+}
+.land-feat-img-wrap::after {
+  content: "";
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-image: var(--spill);
+  background-size: cover;
+  background-position: center;
+  filter: grayscale(25%);
+  opacity: 0.55;
+  z-index: 0;
+}
+.land-feat-img-cap {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  z-index: 2;
+  background-color: var(--ink2);
+  padding: 10px 16px;
+  font: italic 400 calc(var(--fontSize) - 3px) / 1.4 var(--body);
+  color: var(--stone3);
+  border-top: dotted 1px var(--ink4);
+}
+
+
+/* ---- TWO-COL LOWER ---------------------------------------- */
+.land-lower {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  border-bottom: solid 2px var(--ink);
+}
+@media (max-width: 860px) {
+  .land-lower { grid-template-columns: 1fr; }
+  .land-lower-side { border-top: solid 2px var(--ink); border-left: none !important; }
+}
+
+/* Recent updates column */
+.land-recent {
+  padding: clamp(22px, 3vw, 48px);
+  border-right: solid 2px var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.land-recent-row {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 12px;
+  align-items: baseline;
+  padding: 12px 0;
+  border-bottom: dotted 1px var(--stone3);
+  font: 400 var(--fontSize) / 1 var(--body);
+}
+.land-recent-row:last-child { border-bottom: none; }
+.land-recent-cat {
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--stoneMid);
+}
+.land-recent-title {
+  font: 600 var(--fontSize) / 1.3 var(--body);
+  color: var(--ink2);
+  transition: var(--t);
+  text-decoration: none;
+}
+.land-recent-title:hover { color: var(--accent); }
+.land-recent-date {
+  font: italic 400 calc(var(--fontSize) - 3px) / 1 var(--body);
+  color: var(--stone3);
+  white-space: nowrap;
+}
+
+/* Sidebar: rumour board */
+.land-lower-side {
+  border-left: solid 2px var(--ink);
+  background-color: var(--ink);
+  background-image: var(--texture);
+  background-blend-mode: var(--darkBlend);
+  background-attachment: fixed;
+  display: flex;
+  flex-direction: column;
+}
+.land-rumour-head {
+  border-bottom: solid 2px var(--ink4);
+  padding: 14px 22px;
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.land-rumour-head::after {
+  content: "";
+  flex: 1;
+  border-top: dotted 1px var(--ink4);
+}
+.land-rumour-item {
+  padding: 16px 22px;
+  border-bottom: dotted 1px var(--ink4);
+  font: italic 400 calc(var(--fontSize) - 2px) / 1.6 var(--body);
+  color: var(--stone3);
+  position: relative;
+  padding-left: 36px;
+}
+.land-rumour-item::before {
+  content: "◆";
+  position: absolute;
+  left: 22px;
+  top: 19px;
+  font-size: calc(var(--fontSize) - 8px);
+  color: var(--accent);
+  font-style: normal;
+  line-height: 1;
+}
+.land-rumour-item:last-child { border-bottom: none; }
+.land-rumour-source {
+  display: block;
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--goldDim);
+  font-style: normal;
+  margin-top: 6px;
+}
+
+
+/* ---- TIMELINE STRIP --------------------------------------- */
+.land-timeline {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-bottom: solid 2px var(--ink);
+}
+@media (max-width: 700px) { .land-timeline { grid-template-columns: 1fr 1fr; } }
+
+.land-tl-item {
+  border-right: solid 1px var(--stone3);
+  padding: clamp(20px, 2vw, 36px) clamp(16px, 2vw, 28px);
+  position: relative;
+  overflow: hidden;
+}
+.land-tl-item:last-child { border-right: none; }
+.land-tl-item::before {
+  content: "";
+  display: block;
+  height: 3px;
+  background-color: var(--accent);
+  margin-bottom: 14px;
+  opacity: 0.5;
+}
+.land-tl-era {
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.land-tl-event {
+  font: 700 calc(var(--fontSize) * 1.1) / 1.3 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.land-tl-body {
+  font: italic 400 calc(var(--fontSize) - 3px) / 1.55 var(--body);
+  color: var(--stoneMid);
+}
+
+
+/* ---- FOOTER ----------------------------------------------- */
+.land-footer {
+  padding: clamp(22px, 3vw, 44px) clamp(28px, 4vw, 72px);
+  border-top: solid 2px var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  background-color: var(--stone2);
+  background-image: var(--texture);
+  background-blend-mode: var(--lightBlend);
+  background-attachment: fixed;
+}
+.land-footer-wordmark {
+  font: 700 calc(var(--fontSize) + 3px) / 1 var(--display);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  color: var(--ink);
+}
+.land-footer-wordmark::first-letter { color: var(--accent); }
+.land-footer-links {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.land-footer-links a {
+  font: 600 calc(var(--fontSize) - 5px) / 1 var(--body);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--stoneMid);
+  transition: var(--t);
+}
+.land-footer-links a:hover { color: var(--accent); }
+.land-footer-copy {
+  font: italic 400 calc(var(--fontSize) - 3px) / 1 var(--body);
+  color: var(--stone3);
+  width: 100%;
+  text-align: right;
+}
+
+</style>
+</html>
