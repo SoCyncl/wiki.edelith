@@ -30,7 +30,7 @@ jobs:
         run: npm install
 
       - name: Build site
-        run: node scripts/build.js content dist
+        run: node scripts/build.js . dist
 
       - name: Upload built site
         uses: actions/upload-pages-artifact@v3
