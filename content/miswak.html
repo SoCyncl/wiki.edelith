@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Wikitable Page</title>
+<script src="/scripts/navbar.js" type="text/javascript" defer></script>
 <link href="/style/article.css" rel="stylesheet" type="text/css" media="all">
 </head>
 <body>
@@ -15,6 +16,19 @@
 <main id="clear">
 <p class="breadcrumb">...In <a href="">Templates</a>, <a href="">Code</a></p>
 <h1 id="flair"><!--TITLE--></h1>
+
+<!--
+  The article grid: the TOC (if the page has enough headings to earn one)
+  sits in the left column as a sticky sidebar that scrolls with you, the
+  way modern Wikipedia's sidebar does. Below the mobile breakpoint the
+  stylesheet turns it into an off-canvas drawer instead, opened by the
+  toggle button that the TOC marker below also emits.
+-->
+<div class="article-grid">
+
+<!--TOC-->
+
+<div class="article-body">
 
 <!--infobox-->
 <table class="infotable">
@@ -35,14 +49,18 @@
 </table>
 <!--end infobox-->
 
-<!--auto table of contents, only rendered if the page has 4+ headings-->
-<!--TOC-->
-
-<!--rendered markdown body goes here-->
+<!--rendered markdown body goes here, including any [[File:...]] wraparound
+     images, hatnotes, pull-quotes and source blocks it contains-->
 <!--CONTENT-->
 
 <!--category footer, MediaWiki style-->
 <!--CATEGORIES-->
+
+</div>
+<!--end article-body-->
+
+</div>
+<!--end article-grid-->
 
 </main>
 <footer>
