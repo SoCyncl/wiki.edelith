@@ -1,48 +1,67 @@
 ---
 title: Ixnael
-image: https://f2.toyhou.se/file/f2-toyhou-se/characters/15406341?1673375236
-imagecaption: A transparent image is best, but any works.
+image: ixnael-orbit.jpg
+imagecaption: Ixnael and its three moons, seen from orbit.
 infobox:
   Sociology:
     Population: "3,012,000,000"
-    Orbital Station: "[[Coatl]]"
-  Orbital Characteristics:
-    Day: 23 hrs.
-    Axis Tilt: 1/360th
-    Size: 4/5ths Terra
-    Year: 343 days
-    Atmosphere: Habitable
-    Gravity: 9.977 m/s²
-categories:
-  - Planets
-  - Habitable Worlds
+    Capital: "[[New Karthos]]"
+    Government: "Planetary Council"
+  Astronomy:
+    Moons: 3
+    Orbital Period: "412 days"
+categories: [Planets, Frontier Worlds, Apocrypha]
 ---
 
-## Overview
+Ixnael is a temperate world in the outer reaches of the [[Kessa Expanse]],
+first surveyed by the *Second Vanguard Expedition*. Long before contact, its
+surface was already home to the sprawling city-state of [[New Karthos]],
+whose ruins still anchor the modern capital[^survey].
 
-Ixnael is a habitable world orbited by the station [[Coatl]], best known
-locally for its temperate coastline cities and its long-running dispute
-with the neighboring colony of [[Terra]].[^pop]
+Unverified oral traditions claim the planet was seeded by an even older
+civilization, though no archaeological record supports this[^myth].
 
 ## History
 
-Settlement began shortly after the orbital station was completed, with the
-first waves of colonists arriving from [[Terra]] over the following
-decade.[^history]
+Settlement began in earnest after the Expanse Accord was signed, formally
+opening the region to outside trade[^accord]. Early colonists clashed
+repeatedly with the [[Karthos Remnant]], a faction that never fully
+recognized the treaty.
 
-## Geography and Climate
+:::source[Second Vanguard Expedition, Ship's Log]
+We made landfall at dawn. The city below had clearly stood for centuries,
+its towers dark but intact, as if merely waiting for someone to come home.
 
-The dominant climate is tropical near the equator and subtropical toward
-the mid-latitudes.
+No one came to greet us. No one came to stop us either.
+:::
 
-- Equatorial temperature: 88°F
-- Polar temperature: 75°F
+## Geography
 
-## Notable Residents
+The planet's single supercontinent, Kessa Prime, dominates the northern
+hemisphere, while the southern hemisphere is almost entirely ocean.
 
-A short list of residents worth noting will go here as the wiki grows.
+### Climate
 
-> "mountain dew game fuel"
+Ixnael's axial tilt is unusually shallow, producing mild seasons across
+most of the inhabited zone.
 
-[^pop]: Population figures sourced from the most recent Coatl station census.
-[^history]: Colonization records, Terran Emigration Bureau.
+## Culture
+
+Local festivals still commemorate the founding of New Karthos, and the
+so-called "Lantern Nights" draw visitors from across the [[Kessa Expanse]].
+
+:::source
+Some say the lanterns were once used to guide ships home through the fog.
+No one alive remembers if that's true.
+:::
+
+## Notable Figures
+
+- **Aurelia Ness** — first Planetary Councilor, see [[Aurelia Ness|Councilor Ness]]
+- **Ordo Vane** — historian, disputed authenticity of the founding myth[^myth]
+
+## References
+
+[^survey]: *Second Vanguard Expedition Survey Report*, Expanse Archives, Vol. II.
+[^accord]: Text of the Expanse Accord, ratified year 4 post-contact.
+[^myth]: Disputed. See Ordo Vane, *On the So-Called Elder Seeding*, ch. 3.
