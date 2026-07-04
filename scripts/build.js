@@ -14,8 +14,9 @@
  * Markers expected inside each html template:
  *   <!--TITLE-->        page title (h1 text)
  *   <!--INFOBOX-->      rows injected into the infobox <tbody>
- *   <!--TOC-->          auto table of contents (only appears if the
- *                       page has 4+ headings, like MediaWiki does)
+ *   <!--TOC-->          auto table of contents, rendered as a toggleable
+ *                       sidebar (only appears if the page has 4+ headings,
+ *                       like MediaWiki does)
  *   <!--CONTENT-->      the rendered markdown body
  *   <!--CATEGORIES-->   category footer links
  *   <!--LASTEDITED-->   "last edited" stamp, from the .md file's mtime
@@ -29,6 +30,10 @@
  *                            renders as a "redlink" (no href, just a class)
  *   [^1] ... [^1]: text      footnotes -> numbered references list with
  *                            back-links, MediaWiki <ref> style
+ *   :::source[Attribution]   source block -> for quoting a story/book
+ *   excerpt text here        excerpt verbatim into the page, indented
+ *   :::                      and set off like a MediaWiki blockquote.
+ *                            The [Attribution] part is optional.
  *
  * Frontmatter (YAML at the top of the .md file) drives the infobox and
  * categories, e.g.:
@@ -37,8 +42,12 @@
  *   infobox:
  *     Sociology:
  *       Population: "3,012,000,000"
- *   categories: [Planets]
+ *   categories: [Planets, Apocrypha]
  *   ---
+ *
+ * The "Apocrypha" category (case-insensitive) is treated specially: it
+ * renders with its own styling and a hover tooltip reading "Info that may
+ * or may not be correct", for in-universe content of dubious reliability.
  */
 
 const fs = require('fs');
@@ -60,6 +69,8 @@ const MARKERS = {
   categories: '<!--CATEGORIES-->',
   lastedited: '<!--LASTEDITED-->',
 };
+
+const APOCRYPHA_TOOLTIP = 'Info that may or may not be correct';
 
 // ---------------------------------------------------------------- helpers
 
@@ -140,8 +151,25 @@ function processFootnotes(md) {
   return { md, referencesHtml };
 }
 
+// :::source[Attribution]\n text \n::: -> a set-off "source-block" for
+// quoting a story/book excerpt verbatim into the page. Attribution is
+// optional. Inner content is rendered as its own little markdown doc so
+// multi-paragraph excerpts still get <p> tags, then dropped in as a raw
+// HTML block (marked passes block-level HTML through untouched).
+function processSourceBlocks(md) {
+  return md.replace(/^:::source(?:\[(.*?)\])?[ \t]*\n([\s\S]*?)\n:::[ \t]*$/gm, (match, attribution, inner) => {
+    const innerHtml = marked.parse(inner.trim());
+    const attrHtml = attribution
+      ? `<cite class="source-attribution">&mdash; ${attribution.trim()}</cite>`
+      : '';
+    return `<div class="source-block">\n<p class="source-block-label">Source</p>\n${innerHtml}\n${attrHtml}\n</div>`;
+  });
+}
+
 // Render markdown, tagging headings with ids, and build an auto TOC.
 // MediaWiki only shows a TOC once a page has 4+ headings, so we match that.
+// The TOC itself is rendered as a toggleable sidebar (checkbox-driven, no
+// extra JS needed): a hidden checkbox + label button + overlay + <nav>.
 function renderWithToc(md) {
   const seen = {};
   const headings = [];
@@ -167,7 +195,18 @@ function renderWithToc(md) {
     const items = headings
       .map((h) => `<li class="toc-level-${h.level}"><a href="#${h.id}">${h.text}</a></li>`)
       .join('\n');
-    toc = `<div class="toc"><details class="contents" open><summary class="showcontent">Contents</summary>\n<ul>\n${items}\n</ul>\n</details></div>`;
+    toc = [
+      '<input type="checkbox" id="toc-toggle" class="toc-toggle-input">',
+      '<label for="toc-toggle" class="toc-toggle-btn">Contents</label>',
+      '<label for="toc-toggle" class="toc-overlay"></label>',
+      '<nav class="toc-sidebar">',
+      '<label for="toc-toggle" class="toc-sidebar-close">&times;</label>',
+      '<p class="toc-sidebar-title">Contents</p>',
+      '<ul>',
+      items,
+      '</ul>',
+      '</nav>',
+    ].join('\n');
   }
   return { html, toc };
 }
@@ -190,9 +229,18 @@ function replaceAll(str, marker, value) {
   return str.split(marker).join(value);
 }
 
+// Category footer links. "Apocrypha" (any case) gets special styling and
+// a hover tooltip, since it marks in-universe info of dubious reliability.
 function buildCategoriesHtml(categories) {
   if (!categories || !categories.length) return '';
-  const links = categories.map((c) => `<a href="#">${c}</a>`).join(' | ');
+  const links = categories
+    .map((c) => {
+      if (String(c).trim().toLowerCase() === 'apocrypha') {
+        return `<a href="#" class="category-apocrypha tooltip" data-tooltip="${APOCRYPHA_TOOLTIP}">${c}</a>`;
+      }
+      return `<a href="#">${c}</a>`;
+    })
+    .join(' | ');
   return `<div class="categories"><b>Categories:</b> ${links}</div>`;
 }
 
@@ -243,7 +291,8 @@ function main() {
 
     let body = processWikilinks(rawBody, pageIndex, outDir);
     const { md: bodyAfterNotes, referencesHtml } = processFootnotes(body);
-    const { html: contentHtml, toc } = renderWithToc(bodyAfterNotes);
+    const bodyAfterSource = processSourceBlocks(bodyAfterNotes);
+    const { html: contentHtml, toc } = renderWithToc(bodyAfterSource);
 
     let page = fs.readFileSync(htmlFile, 'utf8');
     page = replaceAll(page, MARKERS.title, front.title || '');
