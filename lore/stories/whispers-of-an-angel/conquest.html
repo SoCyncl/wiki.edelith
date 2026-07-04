@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{{PAGE_TITLE}}</title>
+<meta name="description" content="{{DESCRIPTION}}">
+<link href="{{ASSET_PATH}}wikitable.css" rel="stylesheet" type="text/css" media="all">
+</head>
+<body>
+<!--wrapper-->
+<div class="wrapper">
+ <!--header-->
+ <header>
+  <nav class="sitenav">
+   <a href="{{ASSET_PATH}}index.html">Home</a>
+   <a href="{{ASSET_PATH}}directory.html">All Pages</a>
+  </nav>
+ </header>
+ <!--main-->
+<main id="clear">
+ <p class="breadcrumb">{{BREADCRUMB}}</p>
+ <h1 id="flair">{{H1}}</h1>
+
+ {{INFOBOX}}
+
+ <!--article / sources tabs-->
+ <div class="pagetabs">
+  <input type="radio" name="pagetab-{{SLUG}}" id="tab-article-{{SLUG}}" class="tabinput" checked>
+  <input type="radio" name="pagetab-{{SLUG}}" id="tab-sources-{{SLUG}}" class="tabinput">
+  <div class="tabheads">
+   <label for="tab-article-{{SLUG}}" class="tabhead">Article</label>
+   <label for="tab-sources-{{SLUG}}" class="tabhead">Sources{{SOURCE_COUNT}}</label>
+  </div>
+
+  <div class="tabpanel tabpanel-article">
+{{CONTENT}}
+  </div>
+
+  <div class="tabpanel tabpanel-sources">
+   <h3>Sources</h3>
+{{SOURCES_HTML}}
+  </div>
+ </div>
+
+</main>
+<footer>
+ <p>{{CATEGORY_LINE}}</p>
+ <p>Generated from Markdown &middot; <a href="{{ASSET_PATH}}directory.html">Browse all pages</a></p>
+</footer>
+</div>
+</body>
+</html>
