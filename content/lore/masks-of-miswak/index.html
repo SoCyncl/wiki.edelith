@@ -1,1 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<link rel="icon" type="image/x-icon" href="/assets/wiki/gold.ico">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masks of Miswak — Edelith Wiki</title>
 
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://solar-icons.gitlab.io/i/icons.css" rel="stylesheet" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitty/2.3.6/fitty.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
+<link rel="stylesheet" href="/style/wiki.css">
+  <link rel="stylesheet" href="/style/article.css">
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    
+<script src="https://edelith.org/scripts/home-footer.js" type="text/javascript" defer></script>
+<script src="/scripts/navbar.js" type="text/javascript" defer></script>
+    <script>
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".fade-block").forEach((el, i) => {
+        setTimeout(() => el.classList.add("visible"), i * 70);
+      });
+    });
+    </script>
+
+</head>
+<body>
+<body>
+<!--wrapper-->
+<div class="wrapper fade-block">
+<!--header-->
+<header></header>
+<!--main-->
+<main id="clear">
+<p class="breadcrumb fade-block">...In <a href="">Templates</a>, <a href="">Code</a></p>
+<h1 id="flair"><!--TITLE--></h1>
+
+<!--
+  The article grid: the TOC (if the page has enough headings to earn one)
+  sits in the left column as a sticky sidebar that scrolls with you, the
+  way modern Wikipedia's sidebar does. Below the mobile breakpoint the
+  stylesheet turns it into an off-canvas drawer instead, opened by the
+  toggle button that the TOC marker below also emits.
+-->
+<div class="article-grid fade-block">
+
+<!--TOC-->
+
+<div class="article-body fade-block">
+
+<!--infobox-->
+<table class="infotable fade-block">
+<tbody>
+<tr>
+<th colspan="2" id="centertext"><!--TITLE--></th>
+</tr>
+<tr>
+<th colspan="2" style="text-align: center;">
+<p><img src="{{IMAGE}}" alt="{{TITLE}} render"></p>
+</th>
+</tr>
+<tr>
+<td colspan="2" style="text-align: center"><i>{{IMAGECAPTION}}</i></td>
+</tr>
+<!--INFOBOX-->
+</tbody>
+</table>
+<!--end infobox-->
+
+<!--rendered markdown body goes here, including any [[File:...]] wraparound
+     images, hatnotes, pull-quotes and source blocks it contains-->
+<!--CONTENT-->
+
+<!--category footer, MediaWiki style-->
+<!--CATEGORIES-->
+
+</div>
+<!--end article-body-->
+
+</div>
+<!--end article-grid-->
+
+</main>
+
+</div>
+
+</body>
+    <footer-block></footer-block>
+
+  <style>
+  .ed-ban-title {
+  overflow: visible;
+  border-bottom: none;
+}
+    </style>
+</html>
