@@ -13,7 +13,6 @@ This page reproduces the complete surviving text of the **Masks of Miswak** as a
 
 ## Deities of Solstitheo
 
-:::source
 ### Solidaritus
 
 *(The Igniting Daybreak)*
