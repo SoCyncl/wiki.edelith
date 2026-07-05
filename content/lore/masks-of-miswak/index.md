@@ -1,6 +1,8 @@
 ---
 title: Masks of Miswak
 categories: [Apocrypha]
+image: /assets/gallery/miswak-dark.png
+imagecaption: Miswak, the Collector
 ---
 
 :::hatnote
