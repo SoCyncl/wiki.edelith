@@ -7,6 +7,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap');
 
 @font-face {
+  font-family: "Denzel";
+  src: url('https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Crimson+Pro:ital,wght@0,400;0,600;1,400;1,600&display=swap');
+}
+
+@font-face {
   font-family: "Allover";
   src: url("https://files.jcink.net/uploads2/astoriarp/ALLOVER_MODERN_DEMO.otf");
 }
@@ -59,6 +64,7 @@
   --ink3: #38302a;
 
   /* ---- type + texture ---- */
+    --display: "Denzel", serif;
   --display: "Cinzel Decorative", serif;
   --body-font: "Crimson Pro", Georgia, serif;
   --texture: url(https://i.ibb.co/cccRzhgg/subtle-grunge.png);
