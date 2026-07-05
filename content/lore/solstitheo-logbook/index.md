@@ -1,5 +1,5 @@
 ---
-title: Masks of Miswak
+title: The Solstitheo Logbook
 categories: [Apocrypha]
 image: /assets/gallery/miswak/miswak-dark.png
 imagecaption: Miswak, the Collector
@@ -9,7 +9,7 @@ imagecaption: Miswak, the Collector
 This page reproduces the complete surviving text of the **Masks of Miswak** as a primary source, without commentary. For analysis of individual topics, see their respective articles — this page is cited, not duplicated.
 :::
 
-"The Masks of Miswak" are a series of unauthorable stories of texts, often too small to be properly cited as a complete lore piece. These scattered pieces of lore are known to Miswak, the Collector as passerby tales, retold. This collection of masks/stories are centered around the essential parts of divinity, common knowledge throughout the land of Solstitheo and its Theology.
+"The Solstitheo Logbook" are a series of unauthorable stories of texts, often too small to be properly cited as a complete lore piece or have proper credits or authors, as its knowledge is widely accepted by the denizens of Edelith. These scattered pieces of lore are known to Miswak as passerby tales and are retold. This collection of stories is centered around the essential parts of divinity, common knowledge throughout the land of Solstitheo and its Theology.
 
 ## Deities of Solstitheo
 
