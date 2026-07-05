@@ -84,7 +84,7 @@ const CONTENT_DIR = path.resolve(process.argv[2] || '.');
 const OUTPUT_DIR = path.resolve(process.argv[3] || 'dist');
 
 // folders to never walk into when scanning from the repo root
-const EXCLUDE_DIRS = new Set(['.git', '.github', 'node_modules', 'scripts', 'dist', '.vscode']);
+const EXCLUDE_DIRS = new Set(['.git', '.github', 'node_modules', 'build', 'dist', '.vscode']);
 
 const MARKERS = {
   title: '<!--TITLE-->',
