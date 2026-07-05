@@ -64,8 +64,8 @@
   --ink3: #38302a;
 
   /* ---- type + texture ---- */
-    --display: "Denzel", serif;
-  --display: "Cinzel Decorative", serif;
+    --display2: "Denzel", serif;
+  --display2: "Cinzel Decorative", serif;
   --body-font: "Crimson Pro", Georgia, serif;
   --texture: url(https://i.ibb.co/cccRzhgg/subtle-grunge.png);
 
@@ -133,7 +133,7 @@ footer {
 h1, h2, h3 {
   overflow: hidden;
   border-bottom: 2px solid var(--headerunderline);
-  font-family: var(--display);
+  font-family: var(--display2);
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: normal;
@@ -272,7 +272,7 @@ p { margin: 0 0 1em 0; }
   text-align: left;
   padding: 5px;
   color: var(--goldpale);
-  font-family: var(--display);
+  font-family: var(--display2);
   font-weight: normal;
   letter-spacing: 1px;
 }
@@ -337,7 +337,7 @@ p { margin: 0 0 1em 0; }
   padding: 12px 18px 14px;
   border-top: 2px solid var(--gold);
   border-bottom: 2px solid var(--gold);
-  font-family: var(--display);
+  font-family: var(--display2);
   font-size: 16px;
   letter-spacing: 0.3px;
   line-height: 1.45;
@@ -396,7 +396,7 @@ a.backlink { text-decoration: none; margin-left: 4px; }
   opacity: 0.85;
 }
 .source-block-label {
-  font-family: var(--display);
+  font-family: var(--display2);
   font-style: normal;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -498,7 +498,7 @@ a.backlink { text-decoration: none; margin-left: 4px; }
     border: 2px solid var(--showcontentborder);
     padding: 6px 14px;
     font-weight: bold;
-    font-family: var(--display);
+    font-family: var(--display2);
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-size: 12px;
