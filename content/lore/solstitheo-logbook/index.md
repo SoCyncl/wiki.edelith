@@ -13,6 +13,7 @@ This page reproduces the complete surviving text of the **Masks of Miswak** as a
 
 ## Deities of Solstitheo
 
+:::source
 ### Solidaritus
 
 *(The Igniting Daybreak)*
@@ -42,6 +43,8 @@ Shrouded Goddess of Deceit; Shadow, Trickery, and Twilight.
 *(The Smoldering Nightfall)*
 
 Silenced Deity of Tranquility; Grave, Order, and Peace.
+:::
+
 
 ## Refraction and Corrosion
 
