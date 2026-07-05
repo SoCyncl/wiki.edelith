@@ -1,20 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<link rel="icon" type="image/x-icon" href="/assets/wiki/gold.ico">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Wikitable Page</title>
-<script src="/scripts/navbar.js" type="text/javascript" defer></script>
-<link href="/style/article.css" rel="stylesheet" type="text/css" media="all">
+<title>Landing — Edelith Wiki</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://solar-icons.gitlab.io/i/icons.css" rel="stylesheet" crossorigin>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/fitty/2.3.6/fitty.min.js"></script>
+<script src="https://code.jquery.com/jquery-1.7.2.js"></script>
+<link rel="stylesheet" href="style/wiki.css">
+  <link rel="stylesheet" href="style/article.css">
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="scripts/miswak.js" type="text/javascript" defer></script>
+    
+<script src="https://edelith.org/scripts/home-footer.js" type="text/javascript" defer></script>
+<script src="scripts/navbar.js" type="text/javascript" defer></script>
+    <script>
+    window.addEventListener("load", () => {
+      document.querySelectorAll(".fade-block").forEach((el, i) => {
+        setTimeout(() => el.classList.add("visible"), i * 70);
+      });
+    });
+    </script>
+
 </head>
 <body>
+<body>
 <!--wrapper-->
-<div class="wrapper">
+<div class="wrapper fade-block">
 <!--header-->
 <header></header>
 <!--main-->
 <main id="clear">
-<p class="breadcrumb">...In <a href="">Templates</a>, <a href="">Code</a></p>
+<p class="breadcrumb fade-block">...In <a href="">Templates</a>, <a href="">Code</a></p>
 <h1 id="flair"><!--TITLE--></h1>
 
 <!--
@@ -24,14 +45,14 @@
   stylesheet turns it into an off-canvas drawer instead, opened by the
   toggle button that the TOC marker below also emits.
 -->
-<div class="article-grid">
+<div class="article-grid fade-block">
 
 <!--TOC-->
 
-<div class="article-body">
+<div class="article-body fade-block">
 
 <!--infobox-->
-<table class="infotable">
+<table class="infotable fade-block">
 <tbody>
 <tr>
 <th colspan="2" id="centertext"><!--TITLE--></th>
@@ -63,10 +84,7 @@
 <!--end article-grid-->
 
 </main>
-<footer>
-<!--LASTEDITED-->
-footer
-</footer>
+<footer-block></footer-block>
 </div>
 </body>
 </html>
