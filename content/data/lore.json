@@ -11,26 +11,26 @@
   ],
   "entries": [
     {
-      "name": "The Inquisition of Manor Seversova",
+      "name": "Inquisition of Manor Seversova",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#inquisition-of-manor-seversova",
+      "link": "/lore/solstitheo-logbook/index.html#inquisition-of-manor-seversova",
       "session": 1,
       "dateUpdated": "2026-06-29"
     },
     {
-      "name": "The Saints of The Corrosion",
+      "name": "Saints of The Corrosion",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#the-saints-of-the-corrosion",
+      "link": "/lore/solstitheo-logbook/index.html#the-saints-of-the-corrosion",
       "session": 1,
       "dateUpdated": "2026-06-29"
     },
     {
-      "name": "The Old Lights and the New Lights",
+      "name": "Old Lights and the New Lights",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#the-old-lights-and-the-new-lights",
+      "link": "/lore/solstitheo-logbook/index.html#the-old-lights-and-the-new-lights",
       "session": 1,
       "dateUpdated": "2026-06-29"
     },
@@ -38,7 +38,7 @@
       "name": "The Great Solstithean Schism",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#the-great-solstithean-schism",
+      "link": "/lore/solstitheo-logbook/index.html#the-great-solstithean-schism",
       "session": 1,
       "dateUpdated": "2026-06-29"
     },
@@ -46,15 +46,15 @@
       "name": "The Winds of Edelith",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#the-winds-of-edelith",
+      "link": "/lore/solstitheo-logbook/index.html#the-winds-of-edelith",
       "session": 1,
       "dateUpdated": "2026-06-29"
     },
     {
-      "name": "The Tarpaul Pit",
+      "name": "Tarpaul Pit",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#the-tarpaul-pit",
+      "link": "/lore/solstitheo-logbook/index.html#the-tarpaul-pit",
       "session": 1,
       "dateUpdated": "2026-06-29"
     },
@@ -62,7 +62,7 @@
       "name": "Edelith Pods",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#edelith-pods",
+      "link": "/lore/solstitheo-logbook/index.html#edelith-pods",
       "session": 1,
       "dateUpdated": "2026-06-29"
     },
@@ -70,7 +70,7 @@
       "name": "Refraction and Corrosion",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#refraction-and-corrosion",
+      "link": "/lore/solstitheo-logbook/index.html#refraction-and-corrosion",
       "session": 1,
       "dateUpdated": "2026-06-29"
     },
@@ -78,7 +78,7 @@
       "name": "Deities of Solstitheo",
       "subcategory": "source",
       "tag": "A part of 'Masks of Miswak'",
-      "link": "/lore/masks-of-miswak/index.html#deities-of-solstitheo",
+      "link": "/lore/solstitheo-logbook/index.html#deities-of-solstitheo",
       "session": 1,
       "dateUpdated": "2026-06-29"
     }
