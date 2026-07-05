@@ -42,7 +42,6 @@ Shrouded Goddess of Deceit; Shadow, Trickery, and Twilight.
 *(The Smoldering Nightfall)*
 
 Silenced Deity of Tranquility; Grave, Order, and Peace.
-:::
 
 
 ## Refraction and Corrosion
